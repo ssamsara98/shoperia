@@ -11,8 +11,12 @@
     "start:dev": "cross-env NODE_ENV=development nodemon .",
     "start:debug": "cross-env DEBUG=shoperia:* npm run start:dev",
     "start:debug-express": "cross-env DEBUG=express:* npm run start:dev",
-    "prod": "cross-env NODE_ENV=production env-cmd npm run start:debug-express",
-    "prettier:file": "prettier -w \"{public,src}/**/*.{md,html,css,scss,json,js,jsx,ts,tsx,vue}\""
+    "client": "npm run start --prefix client",
+    "dev": "concurrently \"npm run start:debug\" \"npm run client\"",
+    "prod": "cross-env NODE_ENV=production DEBUG=express:* env-cmd npm start",
+    "prettier:file": "prettier -w \"{public,src,client/{public,src}}/**/*.{md,html,css,scss,json,js,jsx,ts,tsx,vue}\"",
+    "build": "yarn --cwd client build",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false yarn --cwd client install && yarn build"
   },
   "dependencies": {
     "debug": "^4.3.1",
