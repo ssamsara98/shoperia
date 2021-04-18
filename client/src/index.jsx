@@ -1,13 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { ChakraProvider, theme } from '@chakra-ui/react';
 
-import '~/index.css';
-import App from '~/App';
-import reportWebVitals from '~/reportWebVitals';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
 
 const app = (
   <React.StrictMode>
-    <App />
+    <ChakraProvider theme={theme}>
+      <App />
+    </ChakraProvider>
   </React.StrictMode>
 );
 

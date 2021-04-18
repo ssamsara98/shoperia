@@ -26,6 +26,7 @@
     "morgan": "^1.10.0"
   },
   "devDependencies": {
+    "concurrently": "^6.0.2",
     "cross-env": "^7.0.3",
     "dotenv": "^8.2.0",
     "env-cmd": "^10.1.0",
