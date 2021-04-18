@@ -1,0 +1,55 @@
+{
+  "name": "shoperia",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Happy Shoping",
+  "author": "Sulthon Abdul Malik <sulthon.abdmalik@gmail.com>",
+  "license": "MIT",
+  "main": "src/bin/www",
+  "scripts": {
+    "start": "node .",
+    "start:dev": "cross-env NODE_ENV=development nodemon .",
+    "start:debug": "cross-env DEBUG=shoperia:* npm run start:dev",
+    "start:debug-express": "cross-env DEBUG=express:* npm run start:dev",
+    "prod": "cross-env NODE_ENV=production env-cmd npm run start:debug-express",
+    "prettier:file": "prettier -w \"{public,src}/**/*.{md,html,css,scss,json,js,jsx,ts,tsx,vue}\""
+  },
+  "dependencies": {
+    "debug": "^4.3.1",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "http-errors": "^1.8.0",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "dotenv": "^8.2.0",
+    "env-cmd": "^10.1.0",
+    "husky": "4",
+    "lint-staged": "^10.5.4",
+    "nodemon": "^2.0.7",
+    "prettier": "^2.2.1"
+  },
+  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/samara98/shoperia.git"
+  },
+  "bugs": {
+    "url": "https://github.com/samara98/shoperia/issues"
+  },
+  "homepage": "https://github.com/samara98/shoperia#readme",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{md,html,css,scss,json,js,jsx,ts,tsx,vue}": "prettier -w"
+  },
+  "engines": {
+    "node": "^14.x",
+    "npm": "^6.x",
+    "yarn": "^1.x"
+  }
+}
