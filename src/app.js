@@ -1,7 +1,9 @@
-const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
+const createHttpError = require('http-errors');
+const compression = require('compression');
 const logger = require('morgan');
+const cookieParser = require('cookie-parser');
 
 const router = require('./router');
 
@@ -11,9 +13,11 @@ const app = express();
 app.set('views', path.join(__dirname, '..', 'views'));
 app.set('view engine', 'ejs');
 
+app.use(compression());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser(process.env.COOKIE_SECRET));
 if (app.get('env') !== 'production') app.use(express.static(path.join(__dirname, '..', 'public')));
 if (app.get('env') === 'production')
   app.use(express.static(path.join(__dirname, '..', 'client', 'build')));
@@ -27,7 +31,7 @@ if (app.get('env') === 'production')
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-  return next(createError(404));
+  return next(createHttpError(404));
 });
 
 // error handler
@@ -42,7 +46,7 @@ app.use(function (err, req, res, next) {
   return next();
 });
 app.use(async (req, res) => {
-  return res.render('error');
+  return res.json(res.locals);
 });
 
 module.exports = app;
