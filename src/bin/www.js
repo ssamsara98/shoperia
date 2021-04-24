@@ -35,7 +35,6 @@ const server = http.createServer(app);
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
-    console.log('MongoDB connected');
   } catch (err) {
     console.error(err);
   }
@@ -47,6 +46,12 @@ const server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+
+mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
+mongoose.connection.once('open', function () {
+  // we're connected!
+  console.log('MongoDB connected');
+});
 
 process.on('SIGTERM', () => {
   console.log('👋 SIGTERM RECEIVED. Shutting down gracefully');
