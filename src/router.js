@@ -1,5 +1,6 @@
 const express = require('express');
 
+const productsRouter = require('./routes/products-router');
 const usersRouter = require('./routes/users-router');
 
 const router = express.Router();
@@ -10,5 +11,8 @@ router.get('/', async (req, res, next) => {
 });
 
 router.use('/users', usersRouter);
+
+// API
+router.use('/api/v1/products', productsRouter);
 
 module.exports = router;
