@@ -15,6 +15,9 @@ api-v1 (/api/v1)
   - /get-product/:product_id
   - /update-product/:product_id
   - /delete-product/:product_id
+- /auth
+  - register
+  - login
 
 ## Web
 

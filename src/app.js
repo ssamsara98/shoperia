@@ -18,7 +18,8 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
-if (app.get('env') !== 'production') app.use(express.static(path.join(__dirname, '..', 'public')));
+if (app.get('env') !== 'production')
+  app.use(express.static(path.join(__dirname, '..', 'client', 'public')));
 if (app.get('env') === 'production')
   app.use(express.static(path.join(__dirname, '..', 'client', 'build')));
 
