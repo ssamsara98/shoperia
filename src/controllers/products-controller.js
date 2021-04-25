@@ -24,7 +24,7 @@ class ProductsController {
     }
   }
 
-  static async getProducts(req = express.request, res = express.response, next) {
+  static async getProductById(req = express.request, res = express.response, next) {
     try {
       const products = await Product.find();
 
