@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useForm } from 'react-hook-form';
+import { connect } from 'react-redux';
 import {
   Box,
   Button,
@@ -15,19 +16,13 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 
-import serverApi from '~/api/serverApi';
+import { authLogin } from '~/redux/actions/auth-action';
 
-const Login = () => {
+const Login = (props) => {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = async (data) => {
-    console.log(data);
-    try {
-      const resp = await serverApi.post('/auth/login', data);
-      console.log(resp);
-    } catch (err) {
-      console.error(err.response);
-    }
+    props.raAuthLogin(data);
   };
 
   return (
@@ -89,4 +84,12 @@ const Login = () => {
   );
 };
 
-export default Login;
+const mapStateToProps = (state) => ({
+  rsIsAuthenticated: state.auth.isAuthenticated,
+});
+
+const mapDispatchToProps = {
+  raAuthLogin: authLogin,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

@@ -1,9 +1,10 @@
 import { Box, Button, Container, Flex, HStack, Icon, Link, Text } from '@chakra-ui/react';
 import { faReact } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { connect } from 'react-redux';
 import { Link as RLink } from 'react-router-dom';
 
-const Navbar = () => {
+const Navbar = (props) => {
   return (
     <Box as="header" bg="linkedin.500">
       <Container as="nav" colorScheme="linkedin" maxW="1200px" p="10px 0">
@@ -17,33 +18,41 @@ const Navbar = () => {
           </Link>
 
           {/* User */}
-          <HStack spacing={6}>
-            <Button
-              as={RLink}
-              to="/login"
-              variant="outline"
-              fontSize="sm"
-              color="white"
-              _hover={{ bg: 'gray.100', color: 'linkedin.500' }}
-              _active={{ bg: 'gray.300', color: 'linkedin.500' }}
-            >
-              Login
-            </Button>
-            <Button
-              as={RLink}
-              to="/register"
-              fontSize="sm"
-              color="linkedin.400"
-              _hover={{ bg: 'transparent', outline: 'white solid 1px', color: 'gray.100' }}
-              _active={{ bg: 'transparent', outline: 'white solid 1px', color: 'gray.300' }}
-            >
-              Register
-            </Button>
-          </HStack>
+          {!props.rsAuthenticated && (
+            <HStack spacing={6}>
+              <Button
+                as={RLink}
+                to="/login"
+                variant="outline"
+                fontSize="sm"
+                color="white"
+                _hover={{ bg: 'gray.100', color: 'linkedin.500' }}
+                _active={{ bg: 'gray.300', color: 'linkedin.500' }}
+              >
+                Login
+              </Button>
+              <Button
+                as={RLink}
+                to="/register"
+                fontSize="sm"
+                color="linkedin.400"
+                _hover={{ bg: 'transparent', outline: 'white solid 1px', color: 'gray.100' }}
+                _active={{ bg: 'transparent', outline: 'white solid 1px', color: 'gray.300' }}
+              >
+                Register
+              </Button>
+            </HStack>
+          )}
         </Flex>
       </Container>
     </Box>
   );
 };
 
-export default Navbar;
+const mapStateToProps = (state) => ({
+  rsAuthenticated: state.auth.isAuthenticated,
+});
+
+const mapDispatchToProps = {};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
