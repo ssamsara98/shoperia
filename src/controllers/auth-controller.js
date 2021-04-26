@@ -17,6 +17,7 @@ const createSendToken = (user, statusCode, req = express.request, res = express.
     maxAge: 1000 * 60 * 60 * 24 * 30,
     httpOnly: true,
     signed: true,
+    sameSite: 'lax',
     secure: req.secure || req.headers['x-forwarded-proto'] === 'https',
   });
 

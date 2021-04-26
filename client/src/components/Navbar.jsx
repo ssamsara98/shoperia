@@ -20,7 +20,7 @@ const Navbar = () => {
           <HStack spacing={6}>
             <Button
               as={RLink}
-              to={{ hash: '#' }}
+              to="/login"
               variant="outline"
               fontSize="sm"
               color="white"
@@ -31,7 +31,7 @@ const Navbar = () => {
             </Button>
             <Button
               as={RLink}
-              to={{ hash: '#' }}
+              to="/register"
               fontSize="sm"
               color="linkedin.400"
               _hover={{ bg: 'transparent', outline: 'white solid 1px', color: 'gray.100' }}
