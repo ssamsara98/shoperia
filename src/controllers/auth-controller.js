@@ -9,6 +9,8 @@ const createSendToken = (user, statusCode, req = express.request, res = express.
   const token = signPayload({
     sub: user._id,
     email: user.email,
+    iss: 'shoperia',
+    aud: 'shoperia-user',
   });
 
   res.cookie('_SID_', token, {
