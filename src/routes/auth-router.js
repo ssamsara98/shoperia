@@ -19,5 +19,6 @@ authRouter.post(
   body('password').notEmpty(),
   AuthController.login,
 );
+authRouter.post('/logout', AuthController.logout);
 
 module.exports = authRouter;

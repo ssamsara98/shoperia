@@ -76,6 +76,16 @@ class AuthController {
       return next(err);
     }
   }
+
+  static async logout(req = express.request, res = express.response, next) {
+    try {
+      res.clearCookie('_SID_');
+      res.status(204);
+      return res.json({});
+    } catch (err) {
+      return next(err);
+    }
+  }
 }
 
 module.exports = AuthController;

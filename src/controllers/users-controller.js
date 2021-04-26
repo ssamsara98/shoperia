@@ -3,7 +3,15 @@ const express = require('express');
 class UsersController {
   static async getProfile(req = express.request, res = express.response, next) {
     try {
-      return res.json(req.user);
+      const result = {
+        data: {
+          user: req.user,
+        },
+        metadata: {
+          status: res.statusCode,
+        },
+      };
+      return res.json(result);
     } catch (err) {
       return next(err);
     }
