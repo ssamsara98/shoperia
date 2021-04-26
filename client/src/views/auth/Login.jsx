@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useForm } from 'react-hook-form';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router';
 import {
   Box,
   Button,
@@ -17,22 +18,27 @@ import {
 } from '@chakra-ui/react';
 
 import { authLogin } from '~/redux/actions/auth-action';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 const Login = (props) => {
+  const { rsAuth } = props;
   const { register, handleSubmit } = useForm();
+
+  const bg1 = useColorModeValue('gray.50', 'gray.800');
+  const bg2 = useColorModeValue('white', 'gray.700');
 
   const onSubmit = async (data) => {
     props.raAuthLogin(data);
   };
 
+  if (rsAuth.isAuthenticated) {
+    return <Redirect to="/" />;
+  }
+
   return (
     <>
-      <Flex
-        minH="calc(100vh - 68px)"
-        align={'center'}
-        justify={'center'}
-        bg={useColorModeValue('gray.50', 'gray.800')}
-      >
+      <Flex minH="calc(100vh - 68px)" align={'center'} justify={'center'} bg={bg1}>
         <Stack spacing={8} mx="auto" maxW="lg" py={12} px={6}>
           <Stack align="center">
             <Heading fontSize="4xl">Sign in to your account</Heading>
@@ -40,7 +46,7 @@ const Login = (props) => {
               to enjoy all of our cool <Link color="blue.400">features</Link> ✌️
             </Text>
           </Stack>
-          <Box rounded="lg" bg={useColorModeValue('white', 'gray.700')} boxShadow="lg" p={8}>
+          <Box rounded="lg" bg={bg2} boxShadow="lg" p={8}>
             <Stack as="form" spacing={4} onSubmit={handleSubmit(onSubmit)}>
               <FormControl id="shoperia-user">
                 <FormLabel>Email or Username</FormLabel>
@@ -72,8 +78,9 @@ const Login = (props) => {
                     bg: 'blue.500',
                   }}
                   type="submit"
+                  disabled={rsAuth.loading}
                 >
-                  Login
+                  {rsAuth.loading ? <FontAwesomeIcon icon={faSpinner} pulse /> : <>Login</>}
                 </Button>
               </Stack>
             </Stack>
@@ -85,7 +92,7 @@ const Login = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  rsIsAuthenticated: state.auth.isAuthenticated,
+  rsAuth: state.auth,
 });
 
 const mapDispatchToProps = {
