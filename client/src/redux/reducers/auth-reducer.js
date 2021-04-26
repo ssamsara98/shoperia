@@ -1,4 +1,4 @@
-const { AUTH_START, AUTH_FAIL, AUTH_SUCCESS } = require('../actions/auth-types');
+import { AUTH_DESTROY, AUTH_FAIL, AUTH_START, AUTH_SUCCESS } from '../actions/auth-types';
 
 const initialState = {
   user: null,
@@ -10,11 +10,13 @@ const initialState = {
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case AUTH_START:
-      return authStart(state, action);
+      return authStart(state);
     case AUTH_FAIL:
       return authFail(state, action);
     case AUTH_SUCCESS:
       return authSuccess(state, action);
+    case AUTH_DESTROY:
+      return authDestroy();
     default:
       return state;
   }
@@ -22,7 +24,7 @@ const authReducer = (state = initialState, action) => {
 
 // actions
 
-function authStart(state, action) {
+function authStart(state) {
   return { ...state, error: null, loading: true };
 }
 
@@ -38,6 +40,10 @@ function authSuccess(state, action) {
     user: action.payload.user,
     isAuthenticated: true,
   };
+}
+
+function authDestroy() {
+  return initialState;
 }
 
 export default authReducer;
