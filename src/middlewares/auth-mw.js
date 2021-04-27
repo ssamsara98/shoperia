@@ -7,7 +7,7 @@ const authMw = (req, res, next) => {
       return next(err);
     }
     if (!user) {
-      return next(createHttpError(401, 'Email or Password is incorrect'));
+      return next(createHttpError(401));
     }
     req.user = user;
     return next();
