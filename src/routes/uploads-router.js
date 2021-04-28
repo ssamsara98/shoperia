@@ -9,7 +9,7 @@ const { nanoid } = require('nanoid');
 const ProductImage = require('../models/product_image');
 
 const uploadsRouter = express.Router();
-const imageBucket = `${process.env.AWS_S3_BUCKET}/image`;
+const imageBucket = `${process.env.AWS_S3_BUCKET}/img`;
 
 const s3 = new AWS.S3({
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -59,7 +59,7 @@ const uploadSingleImage = async (req, res, next) => {
 
 uploadsRouter.post('/image/product', uploadSingleImage, async (req, res, next) => {
   try {
-    const bucketUrl = 'https://detteksie-mybucket.s3.amazonaws.com/image';
+    const bucketUrl = 'https://detteksie-mybucket.s3.amazonaws.com/img';
     const { key } = req.file;
     const splitedKey = key.split('/');
     const filename = splitedKey[splitedKey.length - 1];
