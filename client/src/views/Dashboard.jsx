@@ -1,15 +1,14 @@
 import * as React from 'react';
-import { Helmet } from 'react-helmet';
+// import { Helmet } from 'react-helmet';
 
 const Dashboard = () => {
   return (
     <>
-      <Helmet>
+      {/* <Helmet>
         <title>Shoperia - Dashboard</title>
-      </Helmet>
-      <main>
-        <h1>Dashboard</h1>
-      </main>
+      </Helmet> */}
+      <h1>Dashboard</h1>
+      <h1>Dashboard</h1>
     </>
   );
 };
