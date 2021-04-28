@@ -40,6 +40,8 @@ const userSchema = new Schema(
       createdAt: 'created_at',
       updatedAt: 'updated_at',
     },
+    toJSON: { virtuals: true },
+    toObject: { virtual: true },
   },
 );
 

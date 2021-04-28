@@ -50,7 +50,6 @@ class AuthController {
 
       return createSendToken(newUser, 201, req, res);
     } catch (err) {
-      console.log(err);
       return next(err);
     }
   }
