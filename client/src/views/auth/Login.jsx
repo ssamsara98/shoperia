@@ -38,7 +38,7 @@ const Login = (props) => {
 
   return (
     <>
-      <Flex minH="calc(100vh - 68px)" align={'center'} justify={'center'} bg={bg1}>
+      <Flex minH="calc(100vh - 60px)" align="center" justify="center" bg={bg1}>
         <Stack spacing={8} mx="auto" maxW="lg" py={12} px={6}>
           <Stack align="center">
             <Heading fontSize="4xl">Sign in to your account</Heading>
@@ -65,8 +65,8 @@ const Login = (props) => {
               <Stack spacing={10}>
                 <Stack
                   direction={{ base: 'column', sm: 'row' }}
-                  align={'start'}
-                  justify={'space-between'}
+                  align="start"
+                  justify="space-between"
                 >
                   {/* <Checkbox>Remember me</Checkbox> */}
                   {/* <Link color="blue.400">Forgot password?</Link> */}
