@@ -13,7 +13,7 @@ class ShopsController {
       }
       const { shop_name, shop_domain } = req.body;
 
-      const newShop = new Shop({ owner_id: req.user._id, name: shop_name, domain: shop_domain });
+      const newShop = new Shop({ owner: req.user._id, name: shop_name, domain: shop_domain });
       await newShop.save();
 
       res.status(201);
@@ -33,7 +33,10 @@ class ShopsController {
 
   static async showShop(req = express.request, res = express.response, next) {
     try {
-      const shop = await Shop.findOne({ owner_id: req.user._id });
+      const shop = await Shop.findOne({ owner: req.user._id }).populate({
+        path: 'owner',
+        select: 'name username',
+      });
 
       const result = {
         data: {

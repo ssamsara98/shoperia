@@ -17,6 +17,14 @@ userSchema.methods.correctPassword = async function (password) {
   return await comparePassword(password, this.password);
 };
 
+// virtual populate
+userSchema.virtual('shop', {
+  ref: 'shop',
+  foreignField: 'owner',
+  localField: '_id',
+  justOne: true,
+});
+
 const User = mongoose.model('user', userSchema);
 
 module.exports = User;

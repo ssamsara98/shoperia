@@ -2,7 +2,7 @@ const { Schema } = require('mongoose');
 
 const shopSchema = new Schema(
   {
-    owner_id: {
+    owner: {
       type: Schema.Types.ObjectId,
       required: true,
       unique: true,
@@ -27,6 +27,8 @@ const shopSchema = new Schema(
       createdAt: 'created_at',
       updatedAt: 'updated_at',
     },
+    toJSON: { virtuals: true },
+    toObject: { virtual: true },
   },
 );
 
