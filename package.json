@@ -19,6 +19,7 @@
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false yarn --cwd client install && yarn build"
   },
   "dependencies": {
+    "aws-sdk": "^2.894.0",
     "bcrypt": "^5.0.1",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.5",
@@ -30,8 +31,12 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.5",
     "morgan": "^1.10.0",
+    "multer": "^1.4.2",
+    "multer-s3": "^2.9.0",
+    "nanoid": "^3.1.22",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
+    "uuid": "^8.3.2",
     "validator": "^13.6.0"
   },
   "devDependencies": {
