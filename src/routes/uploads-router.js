@@ -6,6 +6,8 @@ const createHttpError = require('http-errors');
 const { v4: uuidv4 } = require('uuid');
 const { nanoid } = require('nanoid');
 
+const ProductImage = require('../models/product_image');
+
 const uploadsRouter = express.Router();
 const imageBucket = `${process.env.AWS_S3_BUCKET}/image`;
 
@@ -17,6 +19,7 @@ const bucketStorage = s3Storage({
   s3,
   bucket: imageBucket,
   acl: 'public-read',
+  serverSideEncryption: 'AES256',
   contentType: s3Storage.AUTO_CONTENT_TYPE,
   metadata(req, file, cb) {
     cb(null, { fieldName: file.fieldname });
@@ -42,7 +45,7 @@ const uploadSingleImage = async (req, res, next) => {
     if (err instanceof multer.MulterError) {
       // A Multer error occurred when uploading.
       if (err.code === 'LIMIT_FILE_SIZE') {
-        return next(createHttpError(400, err));
+        return next(createHttpError(400, 'Maximum file size is 2mb', err));
       }
     }
     if (err) {
@@ -56,10 +59,25 @@ const uploadSingleImage = async (req, res, next) => {
 
 uploadsRouter.post('/image/product', uploadSingleImage, async (req, res, next) => {
   try {
+    const bucketUrl = 'https://detteksie-mybucket.s3.amazonaws.com/image';
+    const { key } = req.file;
+    const splitedKey = key.split('/');
+    const filename = splitedKey[splitedKey.length - 1];
+    const filepath = splitedKey.slice(0, -1).join('/');
+    const uuidv4 = splitedKey[1];
+
+    const newProductImage = new ProductImage({
+      filename,
+      filepath,
+      uuidv4,
+    });
+    await newProductImage.save();
+
     res.status(201);
     const result = {
       data: {
-        file: req.file,
+        upload_id: newProductImage.id,
+        image_url: `${bucketUrl}/${newProductImage.filepath}/${newProductImage.filename}`,
       },
       metadata: {
         status: res.statusCode,
