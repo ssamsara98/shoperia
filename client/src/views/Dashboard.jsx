@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Heading } from '@chakra-ui/react';
 // import { Helmet } from 'react-helmet';
 
 const Dashboard = () => {
@@ -7,8 +8,9 @@ const Dashboard = () => {
       {/* <Helmet>
         <title>Shoperia - Dashboard</title>
       </Helmet> */}
-      <h1>Dashboard</h1>
-      <h1>Dashboard</h1>
+      <Heading>
+        <h1>Dashboard</h1>
+      </Heading>
     </>
   );
 };

@@ -3,21 +3,17 @@ import { connect } from 'react-redux';
 import { Link as RLink } from 'react-router-dom';
 import {
   Avatar,
+  Box,
   Button,
-  Container,
   Flex,
   HStack,
-  Icon,
-  Link,
   Menu,
   MenuButton,
   MenuDivider,
   MenuItem,
   MenuList,
-  Text,
 } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faReact } from '@fortawesome/free-brands-svg-icons';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
 import { authDestroy } from '~/redux/actions/auth-action';
@@ -81,24 +77,16 @@ const NavbarUser = (props) => {
   );
 };
 
-const Navbar = (props) => {
+const NavbarDashboard = (props) => {
   return (
-    <Flex as="header" bg="linkedin.500" height="60px">
-      <Container as="nav" colorScheme="linkedin" maxW="1200px" m="auto">
-        <Flex justifyContent="space-between">
-          {/* Logo */}
-          <Link as={RLink} to="/" display="flex" alignItems="center" _hover={false} _focus={false}>
-            <Icon as={FontAwesomeIcon} icon={faReact} color="white" fontSize={32} mr="2" />
-            <Text color="white" fontSize={32}>
-              Shopedia
-            </Text>
-          </Link>
-
-          {/* User */}
+    <Flex as="nav" bg="linkedin.500" height="60px">
+      <Flex justifyContent="space-between" flex="1" m="auto" p="0 12px">
+        {/* User */}
+        <Box marginLeft="auto">
           {props.rsAuthenticated && <NavbarUser {...props} />}
           {!props.rsAuthenticated && <NavbarGuest />}
-        </Flex>
-      </Container>
+        </Box>
+      </Flex>
     </Flex>
   );
 };
@@ -111,4 +99,4 @@ const mapDispatchToProps = {
   raAuthDestroy: authDestroy,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
+export default connect(mapStateToProps, mapDispatchToProps)(NavbarDashboard);
