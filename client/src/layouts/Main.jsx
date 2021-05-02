@@ -13,7 +13,7 @@ const MainLayout = () => {
     <>
       <Navbar />
       <React.Suspense fallback={<div>Loading...</div>}>
-        <Container as="main" w="96%" maxW="1200px" p={0}>
+        <Container as="main" w="96%" maxW="1200px" p="16px 0 48px 0">
           <Switch>
             <Route path="/login" exact render={(props) => <Login {...props} />} />
             <Route path="/" exact render={(props) => <Home {...props} />} />

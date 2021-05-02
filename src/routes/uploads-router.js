@@ -5,16 +5,20 @@ const s3Storage = require('multer-s3');
 const createHttpError = require('http-errors');
 const { v4: uuidv4 } = require('uuid');
 const { nanoid } = require('nanoid');
+const sharp = require('sharp');
 
 const ProductImage = require('../models/product_image');
+const authMw = require('../middlewares/auth-mw');
 
 const uploadsRouter = express.Router();
-const imageBucket = `${process.env.AWS_S3_BUCKET}/img`;
+const imageBucket = `${process.env.AWS_BUCKET}/img`;
 
 const s3 = new AWS.S3({
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  signatureVersion: 'v4',
 });
+
 const bucketStorage = s3Storage({
   s3,
   bucket: imageBucket,
@@ -30,7 +34,8 @@ const bucketStorage = s3Storage({
     cb(null, `products/${uuidv4()}/${nanoid(32)}.${extension}`);
   },
 });
-const upload = multer({
+
+const uploadProduct = multer({
   storage: bucketStorage,
   limits: { fileSize: 1024 * 1024 * 2 },
   fileFilter(req, file, cb) {
@@ -39,13 +44,37 @@ const upload = multer({
     return cb(null, true);
   },
 });
+const uploadAvatar = multer({
+  limits: { fileSize: 1024 * 1024 * 2 },
+  fileFilter(req, file, cb) {
+    if (!new RegExp('image/(jpg|jpeg|png)').test(file.mimetype))
+      return cb(createHttpError(400, 'Image must be jpg|jpeg|png'));
+    return cb(null, true);
+  },
+});
 
-const uploadSingleImage = async (req, res, next) => {
-  return upload.single('image')(req, res, (err) => {
+const uploadProductImage = async (req, res, next) => {
+  return uploadProduct.single('image')(req, res, (err) => {
     if (err instanceof multer.MulterError) {
       // A Multer error occurred when uploading.
       if (err.code === 'LIMIT_FILE_SIZE') {
-        return next(createHttpError(400, 'Maximum file size is 2mb', err));
+        return next(createHttpError(400, 'Maximum file size is 2MB', err));
+      }
+    }
+    if (err) {
+      // An unknown error occurred when uploading.
+      return next(err);
+    }
+    // Everything went fine.
+    return next();
+  });
+};
+const uploadAvatarImage = async (req, res, next) => {
+  return uploadAvatar.single('image')(req, res, (err) => {
+    if (err instanceof multer.MulterError) {
+      // A Multer error occurred when uploading.
+      if (err.code === 'LIMIT_FILE_SIZE') {
+        return next(createHttpError(400, 'Maximum file size is 2MB', err));
       }
     }
     if (err) {
@@ -57,7 +86,7 @@ const uploadSingleImage = async (req, res, next) => {
   });
 };
 
-uploadsRouter.post('/image/product', uploadSingleImage, async (req, res, next) => {
+uploadsRouter.post('/image/product', uploadProductImage, async (req, res, next) => {
   try {
     const bucketUrl = 'https://detteksie-mybucket.s3.amazonaws.com/img';
     const { key } = req.file;
@@ -78,6 +107,42 @@ uploadsRouter.post('/image/product', uploadSingleImage, async (req, res, next) =
       data: {
         upload_id: newProductImage.id,
         image_url: `${bucketUrl}/${newProductImage.filepath}/${newProductImage.filename}`,
+      },
+      metadata: {
+        status: res.statusCode,
+      },
+    };
+    return res.json(result);
+  } catch (err) {
+    return next(err);
+  }
+});
+
+uploadsRouter.post('/image/avatar', authMw, uploadAvatarImage, async (req, res, next) => {
+  try {
+    const avt = await sharp(req.file.buffer).resize(300, 300).webp().toBuffer();
+
+    const Key = `img/avatars/${nanoid(32)}.webp`;
+    await s3
+      .putObject({
+        Body: avt,
+        Bucket: process.env.AWS_BUCKET,
+        Key,
+        ContentType: 'image/webp',
+        ACL: 'public-read',
+      })
+      .promise();
+
+    await req.user.update({
+      $set: {
+        avatar: Key,
+      },
+    });
+
+    res.status(201);
+    const result = {
+      data: {
+        avatar: `https://detteksie-mybucket.s3.amazonaws.com/${Key}`,
       },
       metadata: {
         status: res.statusCode,

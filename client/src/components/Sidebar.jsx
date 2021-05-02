@@ -28,7 +28,7 @@ const Sidebar = () => {
     <Flex top="0" left="0" w="xs" h="100vh" flexDir="column">
       <Flex justifyContent="center" alignItems="center" color="linkedin.400" fontSize={32}>
         <Icon as={FontAwesomeIcon} icon={faReact} mr={2} />
-        <Text>Shopedia</Text>
+        <Text>Shoperia</Text>
       </Flex>
       <Divider m="16px 0" />
       {/* List */}

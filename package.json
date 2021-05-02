@@ -36,6 +36,7 @@
     "nanoid": "^3.1.22",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
+    "sharp": "^0.28.1",
     "uuid": "^8.3.2",
     "validator": "^13.6.0"
   },

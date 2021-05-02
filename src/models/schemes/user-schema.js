@@ -34,6 +34,10 @@ const userSchema = new Schema(
       enum: ['Male', 'Female', 'Unknown'],
       default: 'Unknown',
     },
+    avatar: {
+      type: String,
+      default: 'img/avatars/default.webp',
+    },
   },
   {
     timestamps: {

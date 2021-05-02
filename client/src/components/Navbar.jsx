@@ -51,6 +51,9 @@ const NavbarGuest = () => {
 };
 
 const NavbarUser = (props) => {
+  const {
+    rsAuth: { user },
+  } = props;
   return (
     <HStack spacing={6}>
       <Menu>
@@ -64,7 +67,7 @@ const NavbarUser = (props) => {
           <Avatar
             size="sm"
             // src="https://images.unsplash.com/photo-1493666438817-866a91353ca9?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9"
-            src="/logo192.png"
+            src={user ? `${process.env.REACT_APP_AWS_BUCKET}/${user.avatar}` : '/logo192.png'}
             alt="Avatar"
           />
         </MenuButton>
@@ -90,13 +93,13 @@ const Navbar = (props) => {
           <Link as={RLink} to="/" display="flex" alignItems="center" _hover={false} _focus={false}>
             <Icon as={FontAwesomeIcon} icon={faReact} color="white" fontSize={32} mr="2" />
             <Text color="white" fontSize={32}>
-              Shopedia
+              Shoperia
             </Text>
           </Link>
 
           {/* User */}
-          {props.rsAuthenticated && <NavbarUser {...props} />}
-          {!props.rsAuthenticated && <NavbarGuest />}
+          {props.rsAuth.isAuthenticated && <NavbarUser {...props} />}
+          {!props.rsAuth.isAuthenticated && <NavbarGuest />}
         </Flex>
       </Container>
     </Flex>
@@ -104,7 +107,7 @@ const Navbar = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  rsAuthenticated: state.auth.isAuthenticated,
+  rsAuth: state.auth,
 });
 
 const mapDispatchToProps = {
