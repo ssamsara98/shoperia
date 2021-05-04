@@ -1,10 +1,10 @@
 const express = require('express');
 
 const authRouter = require('./routes/auth-router');
-const productsRouter = require('./routes/products-router');
-const shopsRouter = require('./routes/shops-router');
-const uploadsRouter = require('./routes/uploads-router');
-const usersRouter = require('./routes/users-router');
+const productRouter = require('./routes/product-router');
+const shopRouter = require('./routes/shop-router');
+const uploadRouter = require('./routes/upload-router');
+const userRouter = require('./routes/user-router');
 
 const router = express.Router();
 
@@ -15,9 +15,9 @@ router.get('/', async (req, res, next) => {
 
 // API
 router.use('/api/v1/auth', authRouter);
-router.use('/api/v1/users', usersRouter);
-router.use('/api/v1/shops', shopsRouter);
-router.use('/api/v1/uploads', uploadsRouter);
-router.use('/api/v1/products', productsRouter);
+router.use('/api/v1/user', userRouter);
+router.use('/api/v1/shop', shopRouter);
+router.use('/api/v1/upload', uploadRouter);
+router.use('/api/v1/product', productRouter);
 
 module.exports = router;

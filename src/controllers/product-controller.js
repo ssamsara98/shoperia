@@ -4,7 +4,7 @@ const createHttpError = require('http-errors');
 
 const Product = require('../models/product');
 
-class ProductsController {
+class ProductController {
   static async addProduct(req = express.request, res = express.response, next) {
     try {
       const errors = validationResult(req);
@@ -84,14 +84,13 @@ class ProductsController {
   static async updateProduct(req = express.request, res = express.response, next) {
     try {
       const { product_id } = req.params;
-      const { name, price, stock, description, condition } = req.body;
-      const product = await Product.findByIdAndUpdate(product_id, {
-        name,
-        price,
-        stock,
-        description,
-        condition,
-      });
+      const product = await Product.findByIdAndUpdate(
+        product_id,
+        {
+          ...req.body,
+        },
+        { new: true },
+      );
 
       const result = {
         data: {
@@ -127,4 +126,4 @@ class ProductsController {
   }
 }
 
-module.exports = ProductsController;
+module.exports = ProductController;

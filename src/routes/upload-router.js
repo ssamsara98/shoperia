@@ -10,7 +10,7 @@ const sharp = require('sharp');
 const ProductImage = require('../models/product_image');
 const authMw = require('../middlewares/auth-mw');
 
-const uploadsRouter = express.Router();
+const uploadRouter = express.Router();
 const imageBucket = `${process.env.AWS_BUCKET}/img`;
 
 const s3 = new AWS.S3({
@@ -31,7 +31,7 @@ const bucketStorage = s3Storage({
   key(req, file, cb) {
     const extArray = file.mimetype.split('/');
     const extension = extArray[extArray.length - 1];
-    cb(null, `products/${uuidv4()}/${nanoid(32)}.${extension}`);
+    cb(null, `product/${uuidv4()}/${nanoid(32)}.${extension}`);
   },
 });
 
@@ -86,7 +86,7 @@ const uploadAvatarImage = async (req, res, next) => {
   });
 };
 
-uploadsRouter.post('/image/product', uploadProductImage, async (req, res, next) => {
+uploadRouter.post('/image/product', uploadProductImage, async (req, res, next) => {
   try {
     const bucketUrl = 'https://detteksie-mybucket.s3.amazonaws.com/img';
     const { key } = req.file;
@@ -118,11 +118,11 @@ uploadsRouter.post('/image/product', uploadProductImage, async (req, res, next) 
   }
 });
 
-uploadsRouter.post('/image/avatar', authMw, uploadAvatarImage, async (req, res, next) => {
+uploadRouter.post('/image/avatar', authMw, uploadAvatarImage, async (req, res, next) => {
   try {
     const avt = await sharp(req.file.buffer).resize(300, 300).webp().toBuffer();
 
-    const Key = `img/avatars/${nanoid(32)}.webp`;
+    const Key = `img/avatar/${nanoid(32)}.webp`;
     await s3
       .putObject({
         Body: avt,
@@ -154,4 +154,4 @@ uploadsRouter.post('/image/avatar', authMw, uploadAvatarImage, async (req, res, 
   }
 });
 
-module.exports = uploadsRouter;
+module.exports = uploadRouter;

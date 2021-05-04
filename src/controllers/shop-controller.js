@@ -4,7 +4,7 @@ const createHttpError = require('http-errors');
 
 const Shop = require('../models/shop');
 
-class ShopsController {
+class ShopController {
   static async createShop(req = express.request, res = express.response, next) {
     try {
       const errors = validationResult(req);
@@ -31,7 +31,7 @@ class ShopsController {
     }
   }
 
-  static async showShop(req = express.request, res = express.response, next) {
+  static async getShop(req = express.request, res = express.response, next) {
     try {
       const shop = await Shop.findOne({ owner: req.user._id }).populate({
         path: 'owner',
@@ -52,7 +52,7 @@ class ShopsController {
     }
   }
 
-  static async showShopDomain(req = express.request, res = express.response, next) {
+  static async getShopDomain(req = express.request, res = express.response, next) {
     try {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
@@ -77,4 +77,4 @@ class ShopsController {
   }
 }
 
-module.exports = ShopsController;
+module.exports = ShopController;

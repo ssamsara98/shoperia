@@ -1,6 +1,6 @@
 const express = require('express');
 
-class UsersController {
+class UserController {
   static async getProfile(req = express.request, res = express.response, next) {
     try {
       const result = {
@@ -18,4 +18,4 @@ class UsersController {
   }
 }
 
-module.exports = UsersController;
+module.exports = UserController;
