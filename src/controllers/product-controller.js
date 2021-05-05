@@ -28,7 +28,7 @@ class ProductController {
         data: {
           product: newProduct,
         },
-        metadata: {
+        meta: {
           status: res.statusCode,
         },
       };
@@ -49,7 +49,7 @@ class ProductController {
         data: {
           products,
         },
-        metadata: {
+        meta: {
           status: res.statusCode,
         },
       };
@@ -71,7 +71,7 @@ class ProductController {
         data: {
           product,
         },
-        metadata: {
+        meta: {
           status: res.statusCode,
         },
       };
@@ -96,7 +96,7 @@ class ProductController {
         data: {
           product,
         },
-        metadata: {
+        meta: {
           status: res.statusCode,
         },
       };
@@ -115,7 +115,7 @@ class ProductController {
         data: {
           product,
         },
-        metadata: {
+        meta: {
           status: res.statusCode,
         },
       };

@@ -21,7 +21,7 @@ class ShopController {
         data: {
           shop: newShop,
         },
-        metadata: {
+        meta: {
           status: res.statusCode,
         },
       };
@@ -42,7 +42,7 @@ class ShopController {
         data: {
           shop,
         },
-        metadata: {
+        meta: {
           status: res.statusCode,
         },
       };
@@ -66,7 +66,7 @@ class ShopController {
         data: {
           shop,
         },
-        metadata: {
+        meta: {
           status: res.statusCode,
         },
       };

@@ -16,7 +16,7 @@ productRouter.post(
   body('image_ids').isArray({ min: 0, max: 8 }),
   ProductController.addProduct,
 );
-productRouter.get('/get-product', ProductController.getProduct);
+productRouter.get('/get-product-list', ProductController.getProduct);
 productRouter.get(
   '/get-product/:product_id',
 

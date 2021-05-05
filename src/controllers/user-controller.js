@@ -7,7 +7,7 @@ class UserController {
         data: {
           user: req.user,
         },
-        metadata: {
+        meta: {
           status: res.statusCode,
         },
       };

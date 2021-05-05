@@ -32,7 +32,7 @@ class CartController {
         data: {
           item,
         },
-        metadata: {
+        meta: {
           status: res.statusCode,
         },
       };
@@ -55,7 +55,7 @@ class CartController {
         data: {
           cart,
         },
-        metadat: {
+        meta: {
           status: res.statusCode,
         },
       };
@@ -79,7 +79,7 @@ class CartController {
         data: {
           item,
         },
-        metadata: {
+        meta: {
           status: res.statusCode,
         },
       };

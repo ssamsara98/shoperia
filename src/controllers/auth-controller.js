@@ -30,7 +30,7 @@ const createSendToken = (user, statusCode, req = express.request, res = express.
       token,
       user,
     },
-    metadata: {
+    meta: {
       status: res.statusCode,
     },
   });
