@@ -8,6 +8,7 @@ const cartRouter = express.Router();
 
 cartRouter.use(authMw);
 cartRouter.post('/add-to-cart', body('product_id').isMongoId(), CartController.addToCart);
-cartRouter.get('/get-cart', CartController.getCart);
+cartRouter.get('/get-cart', body('product_id').isMongoId(), CartController.getCart);
+cartRouter.delete('/delete-item', body('product_id').isMongoId(), CartController.deleteItem);
 
 module.exports = cartRouter;

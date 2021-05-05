@@ -44,6 +44,11 @@ class CartController {
 
   static async getCart(req = express.request, res = express.response, next) {
     try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        throw createHttpError(422, { errors: errors.array() });
+      }
+
       const cart = await Cart.find({ user: req.user.id });
 
       const result = {
@@ -51,6 +56,30 @@ class CartController {
           cart,
         },
         metadat: {
+          status: res.statusCode,
+        },
+      };
+      return res.json(result);
+    } catch (err) {
+      return next(err);
+    }
+  }
+
+  static async deleteItem(req = express.request, res = express.response, next) {
+    try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        throw createHttpError(422, { errors: errors.array() });
+      }
+      const { product_id } = req.body;
+
+      const item = await Cart.findOneAndDelete({ user: req.user.id, product: product_id });
+
+      const result = {
+        data: {
+          item,
+        },
+        metadata: {
           status: res.statusCode,
         },
       };
