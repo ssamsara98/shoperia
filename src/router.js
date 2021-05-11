@@ -1,4 +1,5 @@
 const express = require('express');
+const addressRouter = require('./routes/address-router');
 
 const authRouter = require('./routes/auth-router');
 const cartRouter = require('./routes/cart-router');
@@ -18,6 +19,7 @@ router.get('/', async (req, res, next) => {
 router.use('/api/v1/auth', authRouter);
 router.use('/api/v1/user', userRouter);
 router.use('/api/v1/shop', shopRouter);
+router.use('/api/v1/address', addressRouter);
 router.use('/api/v1/upload', uploadRouter);
 router.use('/api/v1/product', productRouter);
 router.use('/api/v1/cart', cartRouter);

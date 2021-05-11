@@ -51,10 +51,7 @@
     "prettier": "^2.2.1"
   },
   "keywords": [],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/samara98/shoperia.git"
-  },
+  "repository": "https://github.com/samara98/shoperia.git",
   "bugs": {
     "url": "https://github.com/samara98/shoperia/issues"
   },

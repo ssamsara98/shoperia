@@ -5,10 +5,12 @@ const cartSchema = new mongoose.Schema(
     user: {
       type: mongoose.Schema.Types.ObjectId,
       required: [true, 'User is required'],
+      ref: 'user',
     },
     product: {
       type: mongoose.Schema.Types.ObjectId,
       required: [true, 'Product is required'],
+      ref: 'product',
     },
     quantity: {
       type: Number,
