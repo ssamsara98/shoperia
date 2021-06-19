@@ -1,5 +1,5 @@
 const express = require('express');
-const { body } = require('express-validator');
+const { body, param } = require('express-validator');
 
 const ProductController = require('../controllers/product-controller');
 
@@ -7,22 +7,49 @@ const productRouter = express.Router();
 
 productRouter.post(
   '/add-product',
-  body('name').notEmpty(),
-  body('price').notEmpty().isCurrency({ allow_negatives: false }),
-  body('stock').optional().isInt({ gt: 0 }),
-  body('condition')
-    .optional()
-    .matches(/(New|Used)/),
-  body('image_ids').isArray({ min: 0, max: 8 }),
+  [
+    body('name').isString(),
+    body('price').isInt({ gt: 0 }),
+    body('stock').optional().isInt({ gt: 0 }),
+    body('condition')
+      .optional()
+      .matches(/(New|Used)/),
+    body('description').optional().isString(),
+    body('image_ids').isArray({ min: 0, max: 8 }),
+    body('image_ids.*').isMongoId(),
+  ],
   ProductController.addProduct,
 );
+
 productRouter.get('/get-product-list', ProductController.getProduct);
+
 productRouter.get(
   '/get-product/:product_id',
-
+  param('product_id').isMongoId(),
   ProductController.getProductById,
 );
-productRouter.patch('/update-product/:product_id', ProductController.updateProduct);
-productRouter.delete('/delete-product/:product_id', ProductController.deleteProduct);
+
+productRouter.patch(
+  '/update-product/:product_id',
+  param('product_id').isMongoId(),
+  [
+    body('name').isString(),
+    body('price').isInt({ gt: 0 }),
+    body('stock').optional().isInt({ gt: 0 }),
+    body('condition')
+      .optional()
+      .matches(/(New|Used)/),
+    body('description').optional().isString(),
+    body('image_ids').isArray({ min: 0, max: 8 }),
+    body('image_ids.*').isMongoId(),
+  ],
+  ProductController.updateProduct,
+);
+
+productRouter.delete(
+  '/delete-product/:product_id',
+  param('product_id').isMongoId(),
+  ProductController.deleteProduct,
+);
 
 module.exports = productRouter;
