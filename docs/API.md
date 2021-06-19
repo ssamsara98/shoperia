@@ -8,6 +8,7 @@
 
 - [Shoperia Authentication API](v1/authentication.md)
 - [Shoperia User API](v1/user.md)
+- [Shoperia Address API](v1/address.md)
 
 ---
 

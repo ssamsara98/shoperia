@@ -4,7 +4,7 @@
 
 # User
 
-- _`POST`_ [Me](#me)
+- _`GET`_ [Me](#me)
 
 ---
 
