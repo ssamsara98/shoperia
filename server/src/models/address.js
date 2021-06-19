@@ -27,6 +27,7 @@ const addressSchema = new mongoose.Schema(
       country: {
         type: String,
         required: true,
+        default: 'Indonesia',
       },
       province: {
         type: String,
@@ -45,7 +46,7 @@ const addressSchema = new mongoose.Schema(
         required: true,
       },
       postal_code: {
-        type: String,
+        type: Number,
       },
     },
   },
