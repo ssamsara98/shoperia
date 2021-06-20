@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import LoadingScreen from './component/Loading/LoadingScreen';
 import { authAction } from './store/actions';
+import NotFound from './views/404';
 
 const Index = React.lazy(() => import('./views/Index'));
 const Login = React.lazy(() => import('./views/Login'));
@@ -31,8 +32,9 @@ const App = (props) => {
     <Router>
       <Suspense fallback={<LoadingScreen />}>
         <Switch>
-          <Route path="/login" component={Login} />
-          <Route path="/" component={Index} />
+          <Route path="/login" exact component={Login} />
+          <Route path="/" exact component={Index} />
+          <Route path="*" component={NotFound} />
         </Switch>
       </Suspense>
     </Router>
