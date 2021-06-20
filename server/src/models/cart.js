@@ -20,7 +20,7 @@ const cartSchema = new mongoose.Schema(
         validator: (val) => {
           return val > 0;
         },
-        message: (props) => `${props.value} is not a valid phone number!`,
+        message: (props) => `${props.value} is not a valid`,
       },
     },
   },
@@ -34,6 +34,6 @@ const cartSchema = new mongoose.Schema(
   },
 );
 
-const Cart = mongoose.model('cart', cartSchema);
+const Cart = mongoose.model('cart', cartSchema, 'cart');
 
 module.exports = Cart;

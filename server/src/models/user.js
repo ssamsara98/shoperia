@@ -28,7 +28,7 @@ const userSchema = new mongoose.Schema(
       minlength: 8,
       select: false,
     },
-    is_admin: {
+    admin: {
       type: Boolean,
       default: false,
     },
@@ -70,6 +70,6 @@ userSchema.methods.correctPassword = async function (password) {
   return await comparePassword(password, this.password);
 };
 
-const User = mongoose.model('user', userSchema);
+const User = mongoose.model('user', userSchema, 'user');
 
 module.exports = User;

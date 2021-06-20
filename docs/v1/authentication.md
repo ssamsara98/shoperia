@@ -35,7 +35,7 @@
         "name": "string",
         "email": "string",
         "username": "string",
-        "is_admin": "boolean",
+        "admin": "boolean",
         "avatar": "string",
         "birthdate": "date",
         "sex_type": "string",

@@ -1,7 +1,8 @@
+const expressAsyncHandler = require('express-async-handler');
 const createHttpError = require('http-errors');
 const passport = require('passport');
 
-const authMw = (req, res, next) => {
+const authMw = expressAsyncHandler(async (req, res, next) => {
   passport.authenticate('jwt', { session: false }, (err, user) => {
     if (err) {
       return next(err);
@@ -12,6 +13,6 @@ const authMw = (req, res, next) => {
     req.user = user;
     return next();
   })(req, res, next);
-};
+});
 
 module.exports = authMw;
