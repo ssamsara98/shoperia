@@ -21,14 +21,16 @@ const createSendToken = (user, statusCode, req, res) => {
     secure: req.secure || req.headers['x-forwarded-proto'] === 'https',
   });
 
+  const userJSON = user.toJSON();
+
   // Remove password from output
-  delete user.password;
+  delete userJSON.password;
 
   res.status(statusCode);
   return res.json({
     data: {
       token,
-      user,
+      user: userJSON,
     },
     meta: {
       status: res.statusCode,
@@ -64,7 +66,7 @@ class AuthController {
     }).select('+password');
 
     if (!user || !(await user.correctPassword(password, user.password))) {
-      return next(createHttpError(401, 'Incorrect email or password'));
+      throw createHttpError(401, 'Incorrect email or password');
     }
 
     return createSendToken(user, 200, req, res);
