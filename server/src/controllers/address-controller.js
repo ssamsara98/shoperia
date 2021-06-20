@@ -45,7 +45,9 @@ class AddressController {
           postal_code: newAddress.detail.postal_code,
         },
       },
-      meta: { status: res.statusCode },
+      meta: {
+        status: res.statusCode,
+      },
     };
     return res.json(result);
   });
@@ -63,7 +65,13 @@ class AddressController {
       return result;
     });
 
-    const result = { data: addressList, meta: { status: res.statusCode } };
+    const result = {
+      data: addressList,
+      meta: {
+        status: res.statusCode,
+        total: addressList.length,
+      },
+    };
     return res.json(result);
   });
 
@@ -87,7 +95,9 @@ class AddressController {
         primary: address.primary,
         detail: address.detail,
       },
-      meta: { status: res.statusCode },
+      meta: {
+        status: res.statusCode,
+      },
     };
     return res.json(result);
   });
@@ -134,7 +144,9 @@ class AddressController {
           postal_code: updatedAddress.detail.postal_code,
         },
       },
-      meta: { status: res.statusCode },
+      meta: {
+        status: res.statusCode,
+      },
     };
     return res.json(result);
   });
@@ -168,7 +180,9 @@ class AddressController {
           postal_code: updatedAddress.detail.postal_code,
         },
       },
-      meta: { status: res.statusCode },
+      meta: {
+        status: res.statusCode,
+      },
     };
     return res.json(result);
   });
@@ -193,7 +207,9 @@ class AddressController {
     const result = {
       message: 'Address has been deleted',
       data: {},
-      meta: { status: res.statusCode },
+      meta: {
+        status: res.statusCode,
+      },
     };
     return res.json(result);
   });

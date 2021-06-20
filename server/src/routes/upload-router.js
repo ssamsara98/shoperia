@@ -9,6 +9,7 @@ const sharp = require('sharp');
 
 const ProductImage = require('../models/product_image');
 const authMw = require('../middlewares/auth-mw');
+const adminMw = require('../middlewares/admin-mw');
 
 const uploadRouter = express.Router();
 const imageBucket = `${process.env.AWS_BUCKET}/img`;
@@ -18,6 +19,8 @@ const s3 = new AWS.S3({
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
   signatureVersion: 'v4',
 });
+
+uploadRouter.use(authMw, adminMw);
 
 const productStorage = s3Storage({
   s3,

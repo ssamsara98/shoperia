@@ -10,6 +10,7 @@
 
 ## Me
 
+- **Auth** `Yes`
 - **Method** `GET`
 - **URL** `/api/v1/user/me`
 - **Query Params** `None`
@@ -28,8 +29,7 @@
       "birthdate": "date",
       "sex_type": "date",
       "created_at": "string",
-      "updated_at": "string",
-      "__v": 0
+      "updated_at": "string"
     },
     "meta": {
       "status": 200

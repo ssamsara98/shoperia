@@ -2,8 +2,20 @@ const express = require('express');
 const { body, param } = require('express-validator');
 
 const ProductController = require('../controllers/product-controller');
+const adminMw = require('../middlewares/admin-mw');
+const authMw = require('../middlewares/auth-mw');
 
 const productRouter = express.Router();
+
+productRouter.get('/get-product-list', ProductController.getProduct);
+
+productRouter.get(
+  '/get-product/:product_id',
+  param('product_id').isMongoId(),
+  ProductController.getProductById,
+);
+
+productRouter.use(authMw, adminMw);
 
 productRouter.post(
   '/add-product',
@@ -19,14 +31,6 @@ productRouter.post(
     body('image_ids.*').isMongoId(),
   ],
   ProductController.addProduct,
-);
-
-productRouter.get('/get-product-list', ProductController.getProduct);
-
-productRouter.get(
-  '/get-product/:product_id',
-  param('product_id').isMongoId(),
-  ProductController.getProductById,
 );
 
 productRouter.patch(

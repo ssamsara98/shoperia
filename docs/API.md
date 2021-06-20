@@ -9,6 +9,9 @@
 - [Shoperia Authentication API](v1/authentication.md)
 - [Shoperia User API](v1/user.md)
 - [Shoperia Address API](v1/address.md)
+- [Shoperia Upload API](v1/upload.md)
+- [Shoperia Product API](v1/product.md)
+- [Shoperia Cart API](v1/cart.md)
 
 ---
 

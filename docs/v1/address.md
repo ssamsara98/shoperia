@@ -15,6 +15,7 @@
 
 ## Create Address
 
+- **Auth** `Yes`
 - **Method** `POST`
 - **URL** `/api/v1/address/create-address`
 - **Query Params** `None`
@@ -61,6 +62,7 @@
 
 ## Get Address List
 
+- **Auth** `Yes`
 - **Method** `GET`
 - **URL** `/api/v1/address/get-address-list`
 - **Query Params** `None`
@@ -95,6 +97,7 @@
 
 ## Get Address
 
+- **Auth** `Yes`
 - **Method** `GET`
 - **URL** `/api/v1/address/get-address/:address_id`
 - **Query Params** `None`
@@ -127,6 +130,7 @@
 
 ## Update Address
 
+- **Auth** `Yes`
 - **Method** `PATCH`
 - **URL** `/api/v1/address/update-address/:address_id`
 - **Query Params** `None`
@@ -173,6 +177,7 @@
 
 ## Update Address Primary
 
+- **Auth** `Yes`
 - **Method** `PATCH`
 - **URL** `/api/v1/address/update-address/:address_id/primary`
 - **Query Params** `None`
@@ -205,6 +210,7 @@
 
 ## Delete Address
 
+- **Auth** `Yes`
 - **Method** `DELETE`
 - **URL** `/api/v1/address/delete-address/:address_id`
 - **Query Params** `None`

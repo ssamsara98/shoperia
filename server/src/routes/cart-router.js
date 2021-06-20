@@ -7,8 +7,23 @@ const authMw = require('../middlewares/auth-mw');
 const cartRouter = express.Router();
 
 cartRouter.use(authMw);
-cartRouter.post('/add-to-cart', body('product_id').isMongoId(), CartController.addToCart);
-cartRouter.get('/get-cart', body('product_id').isMongoId(), CartController.getCart);
-cartRouter.delete('/delete-item', body('product_id').isMongoId(), CartController.deleteItem);
+
+cartRouter.post(
+  '/add-cart-item',
+  [
+    body('product_id').isMongoId(),
+    body('quantity').optional().isInt(),
+    body('modified').optional().isBoolean({ strict: true }),
+  ],
+  CartController.addCartItem,
+);
+
+cartRouter.get('/get-cart', CartController.getCart);
+
+cartRouter.delete(
+  '/delete-cart-item',
+  body('product_id').isMongoId(),
+  CartController.deleteCartItem,
+);
 
 module.exports = cartRouter;

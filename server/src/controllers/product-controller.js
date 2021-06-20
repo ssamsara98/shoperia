@@ -37,7 +37,7 @@ class ProductController {
   static getProduct = expressAsyncHandler(async (req, res) => {
     const productList = await Product.find().populate({
       path: 'images',
-      select: 'filename filepath',
+      select: 'filename filepath type',
     });
 
     const result = {
@@ -53,7 +53,7 @@ class ProductController {
     const { product_id } = req.params;
     const product = await Product.findById(product_id).populate({
       path: 'images',
-      select: 'filename filepath',
+      select: 'filename filepath type',
     });
     if (!product) throw createHttpError(404);
 
