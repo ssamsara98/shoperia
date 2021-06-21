@@ -13,6 +13,7 @@
     "dev:dbg": "concurrently -n server,client \"yarn server:dbg\" \"yarn client\"",
     "prod": "yarn --cwd ./server prod",
     "prodemon": "yarn --cwd ./server prodemon",
+    "seed": "yarn --cwd ./server seed",
     "install": "yarn --cwd ./server install",
     "build": "yarn --cwd ./client build",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false yarn --cwd ./client install && yarn build",

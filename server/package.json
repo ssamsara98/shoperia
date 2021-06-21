@@ -12,6 +12,7 @@
     "start:debug-express": "cross-env DEBUG=express:*,shoperia:* npm run start:dev",
     "prod": "cross-env NODE_ENV=production DEBUG=shoperia:* env-cmd npm start",
     "prodemon": "cross-env NODE_ENV=production DEBUG=express:*,shoperia:* env-cmd nodemon .",
+    "seed": "node seeder",
     "prettier:file": "npm run prettier:file:server --prefix .."
   },
   "dependencies": {

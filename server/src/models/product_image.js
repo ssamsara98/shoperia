@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const productImageSchema = new mongoose.Schema(
   {
-    filename: {
+    uuidv4: {
       type: String,
       required: true,
     },
@@ -10,7 +10,7 @@ const productImageSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    uuidv4: {
+    filename: {
       type: String,
       required: true,
     },
