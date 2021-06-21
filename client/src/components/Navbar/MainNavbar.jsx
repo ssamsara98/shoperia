@@ -2,14 +2,14 @@ import React, { Fragment } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 
 import { authAction } from '~/store/actions';
 
-const navigation = [
-  { name: 'Home', href: '/', current: true },
-  { name: 'Product', href: '/product', current: false },
+const navigations = [
+  { name: 'Home', href: '/' },
+  { name: 'Products', href: '/products' },
 ];
 
 function classNames(...classes) {
@@ -58,20 +58,16 @@ const Navbar = () => {
                 </div>
                 <div className="hidden sm:block sm:ml-6">
                   <div className="flex space-x-4">
-                    {navigation.map((item) => (
-                      <Link
+                    {navigations.map((item) => (
+                      <NavLink
                         key={item.name}
                         to={item.href}
-                        className={classNames(
-                          item.current
-                            ? 'bg-gray-900 text-white'
-                            : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                          'px-3 py-2 rounded-md text-sm font-medium',
-                        )}
-                        aria-current={item.current ? 'page' : undefined}
+                        exact
+                        className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                        activeClassName="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
                       >
                         {item.name}
-                      </Link>
+                      </NavLink>
                     ))}
                   </div>
                 </div>
@@ -111,7 +107,7 @@ const Navbar = () => {
                                 <Link
                                   to="#"
                                   className={classNames(
-                                    active ? 'bg-gray-100' : '',
+                                    active ? 'bg-gray-200' : '',
                                     'block px-4 py-2 text-sm text-gray-700',
                                   )}
                                 >
@@ -124,7 +120,7 @@ const Navbar = () => {
                                 <Link
                                   to="#"
                                   className={classNames(
-                                    active ? 'bg-gray-100' : '',
+                                    active ? 'bg-gray-200' : '',
                                     'block px-4 py-2 text-sm text-gray-700',
                                   )}
                                 >
@@ -137,7 +133,7 @@ const Navbar = () => {
                                 <Link
                                   to="#"
                                   className={classNames(
-                                    active ? 'bg-gray-100' : '',
+                                    active ? 'bg-gray-200' : '',
                                     'block px-4 py-2 text-sm text-gray-700',
                                   )}
                                   onClick={logoutHandler}
@@ -173,20 +169,16 @@ const Navbar = () => {
 
           <Disclosure.Panel className="sm:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1">
-              {navigation.map((item) => (
-                <Link
+              {navigations.map((item) => (
+                <NavLink
                   key={item.name}
                   to={item.href}
-                  className={classNames(
-                    item.current
-                      ? 'bg-gray-900 text-white'
-                      : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                    'block px-3 py-2 rounded-md text-base font-medium',
-                  )}
-                  aria-current={item.current ? 'page' : undefined}
+                  exact
+                  className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                  activeClassName="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
                 >
                   {item.name}
-                </Link>
+                </NavLink>
               ))}
             </div>
           </Disclosure.Panel>

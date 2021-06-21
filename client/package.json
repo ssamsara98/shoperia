@@ -28,11 +28,13 @@
     "redux": "^4.1.0",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.3.0",
+    "slugify": "^1.5.3",
     "web-vitals": "^1.0.1"
   },
   "devDependencies": {
     "@craco/craco": "^6.1.2",
     "@tailwindcss/forms": "^0.3.3",
+    "@tailwindcss/line-clamp": "^0.2.1",
     "@tailwindcss/typography": "^0.4.1",
     "autoprefixer": "^9",
     "craco-alias": "^3.0.1",

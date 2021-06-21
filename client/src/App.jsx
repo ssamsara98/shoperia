@@ -2,12 +2,14 @@ import React, { Suspense, useLayoutEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import LoadingScreen from './component/Loading/LoadingScreen';
+import LoadingScreen from './components/Loading/LoadingScreen';
 import { authAction } from './store/actions';
 import NotFound from './views/404';
+import Index from './views/Index';
 
-const Index = React.lazy(() => import('./views/Index'));
 const Login = React.lazy(() => import('./views/Login'));
+const Products = React.lazy(() => import('./views/Products'));
+const ProductDetail = React.lazy(() => import('./views/Products/ProductDetail'));
 
 const App = (props) => {
   const [loading, setLoading] = useState(true);
@@ -32,7 +34,9 @@ const App = (props) => {
     <Router>
       <Suspense fallback={<LoadingScreen />}>
         <Switch>
-          <Route path="/login" exact component={Login} />
+          <Route path="/products/:product" component={ProductDetail} />
+          <Route path="/products" component={Products} />
+          <Route path="/login" component={Login} />
           <Route path="/" exact component={Index} />
           <Route path="*" component={NotFound} />
         </Switch>
