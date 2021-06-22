@@ -5,7 +5,7 @@ import Navbar from '~/components/Navbar/MainNavbar';
 const Layout = (props) => {
   return (
     <>
-      <header className="bg-white shadow">
+      <header className="bg-white shadow mt-16">
         <Navbar />
       </header>
       <main>
