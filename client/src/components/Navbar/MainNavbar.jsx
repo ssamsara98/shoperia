@@ -28,7 +28,7 @@ const Navbar = () => {
   };
 
   return (
-    <Disclosure as="nav" className="bg-gray-800 fixed top-0 left-0 w-full z-50">
+    <Disclosure as="nav" className="bg-sky-600 fixed top-0 left-0 w-full z-50">
       {({ open }) => (
         <>
           <div className="max-w-screen-xl mx-auto px-2 sm:px-6 lg:px-8">
@@ -56,8 +56,8 @@ const Navbar = () => {
                         key={item.name}
                         to={item.href}
                         exact
-                        className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                        activeClassName="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
+                        className="text-white hover:bg-sky-700 hover:text-gray-200 px-3 py-2 rounded-md text-sm font-medium"
+                        activeClassName="bg-sky-800 text-white px-3 py-2 rounded-md text-sm font-medium"
                       >
                         {item.name}
                       </NavLink>
@@ -72,7 +72,7 @@ const Navbar = () => {
                     {({ open }) => (
                       <>
                         <div>
-                          <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                          <Menu.Button className="bg-sky-600 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                             <span className="sr-only">Open user menu</span>
                             <img
                               className="h-8 w-8 rounded-full"
@@ -141,20 +141,20 @@ const Navbar = () => {
                     )}
                   </Menu>
                 ) : (
-                  <>
+                  <div className="flex space-x-4">
                     <Link
                       to="/login"
-                      className="ml-3 px-4 py-2 rounded bg-blue-500 focus:bg-blue-600 hover:bg-blue-700 text-white font-bold focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                      className="px-4 py-2 rounded bg-white focus:bg-gray-200 hover:bg-white-300 text-sky-600 font-bold focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
                     >
                       Login
                     </Link>
                     <Link
                       to="/register"
-                      className="ml-3 px-4 py-2 rounded border-2 border-blue-500 focus:border-blue-600 hover:border-blue-700 text-white font-bold focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                      className="px-4 py-2 rounded border-2 border-white focus:border-gray-200 hover:border-gray-300 text-white font-bold focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
                     >
                       Register
                     </Link>
-                  </>
+                  </div>
                 )}
               </div>
             </div>
@@ -167,8 +167,8 @@ const Navbar = () => {
                   key={item.name}
                   to={item.href}
                   exact
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                  activeClassName="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
+                  className="text-white hover:bg-sky-700 hover:text-gray-200 block px-3 py-2 rounded-md text-base font-medium"
+                  activeClassName="bg-sky-800 text-white block px-3 py-2 rounded-md text-base font-medium"
                 >
                   {item.name}
                 </NavLink>

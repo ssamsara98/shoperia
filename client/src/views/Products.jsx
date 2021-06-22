@@ -9,8 +9,10 @@ const Products = () => {
   const [products, setProducts] = useState([]);
   useLayoutEffect(() => {
     async function fetchProducts() {
-      const prodsResp = await serverApi.get('/api/v1/product/get-product-list');
-      setProducts(() => [...prodsResp.data.data, ...prodsResp.data.data, ...prodsResp.data.data]);
+      try {
+        const prodsResp = await serverApi.get('/api/v1/product/get-product-list');
+        setProducts(() => [...prodsResp.data.data]);
+      } catch (err) {}
     }
     fetchProducts();
     return () => {};
@@ -18,7 +20,7 @@ const Products = () => {
 
   return (
     <Layout>
-      <div className="container flex flex-wrap px-4 py-6 sm:px-0">
+      <div className="flex flex-wrap sm:px-0">
         {products.length === 0
           ? [...new Array(20).keys()].map((key) => <ProductCardSkeleton key={key} />)
           : products.map((product, idx) => (
