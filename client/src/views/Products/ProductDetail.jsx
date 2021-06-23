@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { faHeart as fasHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,6 +10,7 @@ import serverApi from '~/api/server-api';
 import Layout from '~/layouts/Layout';
 import imgHelper from '~/utils/img-helper';
 import priceHelper from '~/utils/price-helper';
+import { productAction } from '~/store/actions';
 import NotFound from '../404';
 
 // const product = {
@@ -30,29 +33,41 @@ import NotFound from '../404';
 // };
 
 const Products = (props) => {
+  const dispatch = useDispatch();
+  const { productSetItem } = bindActionCreators(productAction, dispatch);
+  const rsProduct = useSelector((state) => state.product);
   const [product, setProduct] = useState(null);
   const [notFound, setNotFound] = useState(false);
   const [prdImg, setPrdImg] = useState(null);
   const [isFavorite, setIsFavorite] = useState(false);
   const [quantity, setQuantity] = useState(1);
 
-  useEffect(() => {
+  const getProductId = useCallback(() => {
+    console.log('useCallback');
+    const productName = props.match.params.product.split('-i.');
+    return productName[productName.length - 1];
+  }, [props]);
+
+  useLayoutEffect(() => {
     async function fetchProduct(productId) {
       try {
         const prodResp = await serverApi.get(`/api/v1/product/get-product/${productId}`);
-        setProduct(() => prodResp.data.data);
-        setPrdImg(() => prodResp.data.data.images[0]);
+        setTimeout(() => {
+          productSetItem(prodResp.data.data);
+        }, 1000);
       } catch (err) {
         setNotFound(() => true);
       }
     }
 
     const isMongoId = /^[0-9a-fA-F]{24}$/;
-    const productName = props.match.params.product.split('-i.');
-    const productId = productName[productName.length - 1];
+    const productId = getProductId();
 
-    if (isMongoId.test(productId)) fetchProduct(productId);
-    else {
+    if (isMongoId.test(productId)) {
+      setProduct(() => rsProduct.item[productId] || null);
+      setPrdImg(() => (rsProduct.item[productId] && rsProduct.item[productId].images[0]) || '');
+      fetchProduct(productId);
+    } else {
       setNotFound(() => true);
     }
     return () => {
@@ -60,19 +75,30 @@ const Products = (props) => {
     };
   }, []);
 
-  function imageChanger(e, idx) {
+  useEffect(() => {
+    const productId = getProductId();
+    console.log(productId);
+    console.log(rsProduct);
+    setProduct(() => rsProduct.item[productId] || product);
+    setPrdImg(() => (rsProduct.item[productId] && rsProduct.item[productId].images[0]) || prdImg);
+    return () => {};
+  }, [rsProduct]);
+
+  // functions
+
+  const imageChanger = (e, idx) => {
     e.preventDefault();
     setPrdImg(() => product.images[idx]);
-  }
+  };
 
-  function checkQuantity(val) {
+  const checkQuantity = (val) => {
     if (val > 0 && val <= product.stock) return val;
     if (val > product.stock) return product.stock;
     if (val < 1) return 1;
     return quantity;
-  }
+  };
 
-  function changeQuantity(type) {
+  const changeQuantity = (type) => {
     switch (type) {
       case 'inc':
         setQuantity((val) => checkQuantity(val + 1));
@@ -83,29 +109,29 @@ const Products = (props) => {
       default:
         break;
     }
-  }
+  };
 
-  function changeQuantityText(e) {
+  const changeQuantityText = (e) => {
     if (e.target.value === '') setQuantity(() => 1);
     const val = parseInt(e.target.value);
     if (!isNaN(val)) {
       setQuantity(() => checkQuantity(val));
     }
-  }
+  };
 
-  function changeQuantityKeypress(e) {
+  const changeQuantityKeypress = (e) => {
     if (e.key === 'ArrowUp') {
       changeQuantity('inc');
     }
     if (e.key === 'ArrowDown') {
       changeQuantity('dec');
     }
-  }
+  };
 
-  function favoriteHandler(e) {
+  const favoriteHandler = (e) => {
     e.preventDefault();
     setIsFavorite((val) => !val);
-  }
+  };
 
   if (notFound) return <NotFound />;
 
@@ -167,7 +193,7 @@ const Products = (props) => {
                 </div>
               </div>
               <div
-                className={`w-1/2 mt-4 flex flex-col space-y-2${
+                className={`w-1/2 flex flex-col space-y-2 mt-4${
                   product ? '' : ' pb-10 bg-gray-200 animate-pulse'
                 }`}
               >
