@@ -1,8 +1,8 @@
 const { validationResult } = require('express-validator');
+const expressAsyncHandler = require('express-async-handler');
 const createHttpError = require('http-errors');
 
 const User = require('../models/user');
-const expressAsyncHandler = require('express-async-handler');
 const { signPayload } = require('../utils/jwt-helper');
 
 const createSendToken = (user, statusCode, req, res) => {
@@ -73,7 +73,9 @@ class AuthController {
   });
 
   static logout = expressAsyncHandler(async (req, res) => {
-    res.clearCookie('_SID_');
+    res.clearCookie('_SID_', {
+      sameSite: 'lax',
+    });
     res.status(204);
     return res.json({});
   });
