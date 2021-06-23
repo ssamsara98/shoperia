@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
 import { LockClosedIcon } from '@heroicons/react/outline';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { Redirect } from 'react-router-dom';
-
+import { bindActionCreators } from 'redux';
 import { authAction } from '~/store/actions';
 
 const Login = () => {
@@ -29,7 +28,7 @@ const Login = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-200 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div>
           <img
@@ -100,7 +99,7 @@ const Login = () => {
             <button
               type="submit"
               className={`group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white ${
-                rsAuth.loading ? 'bg-gray-600' : 'bg-indigo-600 hover:bg-indigo-700'
+                rsAuth.loading ? 'bg-cool-gray-600' : 'bg-indigo-600 hover:bg-indigo-700'
               } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
               disabled={rsAuth.loading}
             >

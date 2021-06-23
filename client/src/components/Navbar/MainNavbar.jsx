@@ -1,11 +1,10 @@
-import React, { Fragment } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
+import React from 'react';
+import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
-
-import ShoperiaLogo from '~/assets/shoperia.png';
 import { authAction } from '~/store/actions';
 
 const navigations = [
@@ -35,7 +34,7 @@ const Navbar = () => {
             <div className="relative flex items-center justify-between h-16">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 {/* Mobile menu button*/}
-                <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-white hover:bg-cool-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                   <span className="sr-only">Open main menu</span>
                   {open ? (
                     <XIcon className="block h-6 w-6" aria-hidden="true" />
@@ -46,8 +45,16 @@ const Navbar = () => {
               </div>
               <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex-shrink-0 flex items-center">
-                  <img className="block lg:hidden h-8 w-auto" src={ShoperiaLogo} alt="Workflow" />
-                  <img className="hidden lg:block h-8 w-auto" src={ShoperiaLogo} alt="Workflow" />
+                  <img
+                    className="block lg:hidden h-8 w-auto"
+                    src={require('~/assets/shoperia.png').default}
+                    alt="Workflow"
+                  />
+                  <img
+                    className="hidden lg:block h-8 w-auto"
+                    src={require('~/assets/shoperia.png').default}
+                    alt="Workflow"
+                  />
                 </div>
                 <div className="hidden sm:block sm:ml-6">
                   <div className="flex space-x-4">
@@ -56,7 +63,7 @@ const Navbar = () => {
                         key={item.name}
                         to={item.href}
                         exact
-                        className="text-white hover:bg-sky-700 hover:text-gray-200 px-3 py-2 rounded-md text-sm font-medium"
+                        className="text-white hover:bg-sky-700 px-3 py-2 rounded-md text-sm font-medium"
                         activeClassName="bg-sky-800 text-white px-3 py-2 rounded-md text-sm font-medium"
                       >
                         {item.name}
@@ -100,7 +107,7 @@ const Navbar = () => {
                                 <Link
                                   to="#"
                                   className={classNames(
-                                    active ? 'bg-gray-200' : '',
+                                    active ? 'bg-cool-gray-200' : '',
                                     'block px-4 py-2 text-sm text-gray-700',
                                   )}
                                 >
@@ -113,7 +120,7 @@ const Navbar = () => {
                                 <Link
                                   to="#"
                                   className={classNames(
-                                    active ? 'bg-gray-200' : '',
+                                    active ? 'bg-cool-gray-200' : '',
                                     'block px-4 py-2 text-sm text-gray-700',
                                   )}
                                 >
@@ -126,7 +133,7 @@ const Navbar = () => {
                                 <Link
                                   to="#"
                                   className={classNames(
-                                    active ? 'bg-gray-200' : '',
+                                    active ? 'bg-cool-gray-200' : '',
                                     'block px-4 py-2 text-sm text-gray-700',
                                   )}
                                   onClick={logoutHandler}
@@ -144,13 +151,13 @@ const Navbar = () => {
                   <div className="flex space-x-4">
                     <Link
                       to="/login"
-                      className="px-4 py-2 rounded bg-white focus:bg-gray-200 hover:bg-white-300 text-sky-600 font-bold focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                      className="px-4 py-2 rounded bg-white hover:bg-cool-gray-200 active:bg-cool-gray-300 text-sky-600 font-bold focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
                     >
                       Login
                     </Link>
                     <Link
                       to="/register"
-                      className="px-4 py-2 rounded border-2 border-white focus:border-gray-200 hover:border-gray-300 text-white font-bold focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                      className="px-4 py-2 rounded border border-white hover:bg-sky-700 active:bg-sky-800 text-white font-bold focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
                     >
                       Register
                     </Link>
@@ -167,7 +174,7 @@ const Navbar = () => {
                   key={item.name}
                   to={item.href}
                   exact
-                  className="text-white hover:bg-sky-700 hover:text-gray-200 block px-3 py-2 rounded-md text-base font-medium"
+                  className="text-white hover:bg-sky-700 block px-3 py-2 rounded-md text-base font-medium"
                   activeClassName="bg-sky-800 text-white block px-3 py-2 rounded-md text-base font-medium"
                 >
                   {item.name}

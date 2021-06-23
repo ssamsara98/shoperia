@@ -1,17 +1,15 @@
+import { faOpencart } from '@fortawesome/free-brands-svg-icons';
+import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons';
+import { faHeart as fasHeart } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
-import { faHeart as fasHeart } from '@fortawesome/free-solid-svg-icons';
-import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faOpencart } from '@fortawesome/free-brands-svg-icons';
-
 import serverApi from '~/api/server-api';
-import Layout from '~/layouts/Layout';
+import { productAction } from '~/store/actions';
 import imgHelper from '~/utils/img-helper';
 import priceHelper from '~/utils/price-helper';
-import { productAction } from '~/store/actions';
-import NotFound from '../404';
 
 // const product = {
 //   id: '60ce2b96e605bc26dc86792a',
@@ -32,7 +30,7 @@ import NotFound from '../404';
 //   updated_at: '2021-06-20T09:09:50.027Z',
 // };
 
-const Products = (props) => {
+const ProductDetail = (props) => {
   const dispatch = useDispatch();
   const { productSetItem } = bindActionCreators(productAction, dispatch);
   const rsProduct = useSelector((state) => state.product);
@@ -133,118 +131,127 @@ const Products = (props) => {
     setIsFavorite((val) => !val);
   };
 
-  if (notFound) return <NotFound />;
+  if (notFound) return <Redirect to="/404" from={props.match.url} />;
 
   return (
-    <Layout>
-      <div className="flex rounded overflow-hidden shadow">
-        <div className="w-1/3 p-4">
-          <div className="w-full relative bg-gray-300 mb-3" style={{ paddingBottom: '100%' }}>
-            <img
-              src={prdImg ? imgHelper(prdImg, '500-square') : ''}
-              alt={prdImg && prdImg.id}
-              className="absolute top-0 left-0 w-full"
-            />
-          </div>
-          <div className="flex flex-wrap -mx-1">
-            {product &&
-              product.images.map((img, idx) => (
+    <div className="flex rounded overflow-hidden shadow bg-white">
+      <div className="w-1/3 p-4">
+        <div className="w-full relative bg-cool-gray-300 mb-3" style={{ paddingBottom: '100%' }}>
+          <img
+            src={prdImg ? imgHelper(prdImg, '500-square') : ''}
+            alt={prdImg && prdImg.id}
+            className="absolute top-0 left-0 w-full"
+          />
+        </div>
+        <div className="flex flex-wrap -mx-1">
+          {product
+            ? product.images.map((img, idx) => (
                 <div className="w-1/4 p-1" key={img.id}>
                   <div className="w-full relative" style={{ paddingBottom: '100%' }}>
                     <img
                       src={imgHelper(img, '100-square')}
                       alt={img.id}
-                      className="absolute top-0 left-0 w-full border-2 hover:border-sky-500"
+                      className="absolute top-0 left-0 w-full border hover:border-sky-500"
                       onMouseEnter={(e) => imageChanger(e, idx)}
                     />
                   </div>
                 </div>
-              ))}
-          </div>
-        </div>
-        <div className="flex flex-1">
-          <div className="flex-auto pt-5 pl-7 pr-8">
-            <p
-              className={`text-2xl line-clamp-2${product ? '' : ' pb-8 bg-gray-200 animate-pulse'}`}
-            >
-              {product && product.name}
-            </p>
-            <div className="flex flex-col mt-3 bg-gray-100 px-7 py-4">
-              <p
-                className={`text-3xl text-sky-600${
-                  product ? '' : ' pb-16 bg-gray-200 animate-pulse'
-                }`}
-              >
-                {product && `Rp${priceHelper(product && product.price)}`}
-              </p>
-            </div>
-            <div className="flex space-x-5 pb-5">
-              <div className="w-1/2 mt-4">
-                <p className={`font-bold${product ? '' : ' pb-4 bg-gray-200 animate-pulse'}`}>
-                  {product && 'Description'}
-                </p>
-                <div
-                  className={`w-full relative${product ? '' : ' bg-gray-200 animate-pulse'}`}
-                  style={{ paddingBottom: '100%' }}
-                >
-                  <p className="absolute top-0 left-0 w-ful h-full pb-5 overflow-auto">
-                    {product && product.description}
-                  </p>
+              ))
+            : [1, 2, 3, 4, 5, 6, 7, 8].map((el) => (
+                <div className="w-1/4 p-1" key={el}>
+                  <div
+                    className="w-full bg-cool-gray-200 animate-pulse"
+                    style={{ paddingBottom: '100%' }}
+                  ></div>
                 </div>
-              </div>
+              ))}
+        </div>
+      </div>
+      <div className="flex flex-1">
+        <div className="flex flex-col flex-1 pt-5 pl-7 pr-8">
+          <p
+            className={`text-2xl line-clamp-2${
+              product ? '' : ' pb-8 bg-cool-gray-200 animate-pulse'
+            }`}
+          >
+            {product && product.name}
+          </p>
+          <div className="flex flex-col mt-3 bg-cool-gray-100 px-7 py-4">
+            <p
+              className={`text-3xl text-sky-600${
+                product ? '' : ' pb-16 bg-cool-gray-200 animate-pulse'
+              }`}
+            >
+              {product && `Rp${priceHelper(product && product.price)}`}
+            </p>
+          </div>
+          <div className="flex flex-auto space-x-5 pb-5">
+            <div className="flex flex-col w-2/3 mt-4">
+              <p className={`font-bold${product ? '' : ' pb-4 bg-cool-gray-200 animate-pulse'}`}>
+                {product && 'Description'}
+              </p>
               <div
-                className={`w-1/2 flex flex-col space-y-2 mt-4${
-                  product ? '' : ' pb-10 bg-gray-200 animate-pulse'
+                className={`flex flex-1 w-full relative${
+                  product ? '' : ' bg-cool-gray-200 animate-pulse'
                 }`}
               >
-                {product && (
-                  <>
-                    <p className="text-sm text-center">{product && `Stock: ${product.stock}`}</p>
-                    <div className="flex w-full justify-center">
-                      <button
-                        className="w-12 text-2xl text-center border-2"
-                        onClick={() => changeQuantity('dec')}
-                      >
-                        -
-                      </button>
-                      <input
-                        type="text"
-                        className="w-12 text-center"
-                        value={quantity}
-                        onChange={changeQuantityText}
-                        onKeyDown={changeQuantityKeypress}
-                      />
-                      <button
-                        className="w-12 text-2xl text-center border-2"
-                        onClick={() => changeQuantity('inc')}
-                      >
-                        +
-                      </button>
-                    </div>
-
-                    <button className="h-12 px-3 bg-sky-600 hover:bg-sky-700 focus:bg-sky-800 text-white">
-                      <FontAwesomeIcon icon={faOpencart} className="mr-2" />
-                      Add to Cart
-                    </button>
-                    <button
-                      className="h-12 px-8 border-2 border-sky-600 hover:border-sky-700 focus:border-sky-800 text-sky-600 hover:text-sky-700 focus:text-sky-800"
-                      onClick={favoriteHandler}
-                    >
-                      <FontAwesomeIcon
-                        icon={isFavorite ? fasHeart : farHeart}
-                        className="mr-2 text-red-600"
-                      />
-                      Favorite
-                    </button>
-                  </>
-                )}
+                <p className="absolute top-0 left-0 w-ful h-full pb-5 overflow-auto">
+                  {product && product.description}
+                </p>
               </div>
+            </div>
+            <div
+              className={`w-1/3 flex flex-col space-y-2 mt-4${
+                product ? '' : ' pb-10 bg-cool-gray-200 animate-pulse'
+              }`}
+            >
+              {product && (
+                <>
+                  <p className="text-sm text-center">{product && `Stock: ${product.stock}`}</p>
+                  <div className="flex w-full justify-center">
+                    <button
+                      className="w-12 text-2xl text-center border border-cool-gray-300 active:bg-cool-gray-200"
+                      onClick={() => changeQuantity('dec')}
+                    >
+                      -
+                    </button>
+                    <input
+                      type="text"
+                      className="w-12 flex-1 text-center border-cool-gray-300"
+                      value={quantity}
+                      onChange={changeQuantityText}
+                      onKeyDown={changeQuantityKeypress}
+                    />
+                    <button
+                      className="w-12 text-2xl text-center border border-cool-gray-300 active:bg-cool-gray-200"
+                      onClick={() => changeQuantity('inc')}
+                    >
+                      +
+                    </button>
+                  </div>
+
+                  <button className="h-12 px-3 bg-sky-600 active:bg-sky-800 hover:bg-sky-700 text-white">
+                    <FontAwesomeIcon icon={faOpencart} className="mr-2" />
+                    Add to Cart
+                  </button>
+                  <button
+                    className="h-12 px-8 border border-sky-600 hover:bg-cool-gray-100 active:bg-cool-gray-200 text-sky-600"
+                    onClick={favoriteHandler}
+                  >
+                    <FontAwesomeIcon
+                      icon={isFavorite ? fasHeart : farHeart}
+                      className="mr-2 text-red-600"
+                    />
+                    Favorite
+                  </button>
+                </>
+              )}
             </div>
           </div>
         </div>
       </div>
-    </Layout>
+    </div>
   );
 };
 
-export default Products;
+export default ProductDetail;

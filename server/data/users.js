@@ -2,10 +2,10 @@ const bcrypt = require('bcrypt');
 
 const users = [
   {
-    name: 'Samara Arata',
+    name: 'Sulthon Abdul Malik',
     email: 'samara98@mailsac.com',
     username: 'samara98',
-    password: bcrypt.hashSync('pass1234', bcrypt.genSaltSync(12)),
+    password: bcrypt.hashSync('asdf1234', bcrypt.genSaltSync(12)),
     admin: true,
     avatar: 'img/avatar/default.webp',
     birthdate: '1998-12-29',
