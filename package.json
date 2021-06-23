@@ -2,7 +2,7 @@
   "name": "shoperia",
   "version": "1.0.0",
   "description": "Happy Shoping",
-  "author": "Sulthon Abdul Malik",
+  "author": "Sulthon Abdul Malik <sulthon.abdmalik@gmail.com>",
   "license": "MIT",
   "scripts": {
     "start": "yarn --cwd ./server start",

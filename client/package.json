@@ -2,7 +2,7 @@
   "name": "shoperia-client",
   "version": "1.0.0",
   "description": "Happy Shoping",
-  "author": "Sulthon Abdul Malik",
+  "author": "Sulthon Abdul Malik <sulthon.abdmalik@gmail.com>",
   "license": "MIT",
   "main": "src",
   "scripts": {
