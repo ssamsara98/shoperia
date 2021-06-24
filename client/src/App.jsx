@@ -12,7 +12,7 @@ const App = (props) => {
 
   useLayoutEffect(() => {
     props
-      .authFetchMe()
+      .raAuthFetchMe()
       .then(() => {
         setLoading(() => false);
       })
@@ -45,7 +45,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-  authFetchMe: authAction.authFetchMe,
+  raAuthFetchMe: authAction.authFetchMe,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

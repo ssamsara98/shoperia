@@ -151,13 +151,13 @@ const Navbar = () => {
                   <div className="flex space-x-4">
                     <Link
                       to="/login"
-                      className="px-4 py-2 rounded bg-white hover:bg-cool-gray-200 active:bg-cool-gray-300 text-sky-600 font-bold focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                      className="hidden sm:block px-4 py-2 rounded bg-white hover:bg-cool-gray-200 active:bg-cool-gray-300 text-sky-600 font-bold focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
                     >
                       Login
                     </Link>
                     <Link
                       to="/register"
-                      className="px-4 py-2 rounded border border-white hover:bg-sky-700 active:bg-sky-800 text-white font-bold focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                      className="hidden sm:block px-4 py-2 rounded border border-white hover:bg-sky-700 active:bg-sky-800 text-white font-bold focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
                     >
                       Register
                     </Link>
@@ -176,6 +176,19 @@ const Navbar = () => {
                   exact
                   className="text-white hover:bg-sky-700 block px-3 py-2 rounded-md text-base font-medium"
                   activeClassName="bg-sky-800 text-white block px-3 py-2 rounded-md text-base font-medium"
+                >
+                  {item.name}
+                </NavLink>
+              ))}
+              {[
+                { name: 'Login', href: '/login' },
+                { name: 'Register', href: '/register' },
+              ].map((item) => (
+                <NavLink
+                  key={item.name}
+                  to={item.href}
+                  exact
+                  className="bg-white hover:bg-cool-gray-200 active:bg-cool-gray-300 text-sky-600 block px-3 py-2 rounded-md text-base font-medium"
                 >
                   {item.name}
                 </NavLink>

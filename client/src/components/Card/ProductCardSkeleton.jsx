@@ -2,7 +2,7 @@ import React from 'react';
 
 const ProductCardSkeleton = ({ product }) => {
   return (
-    <div className="flex flex-inline w-1/5 pb-4 px-2">
+    <div className="flex flex-inline w-1/2 md:w-1/5 pb-4 px-2">
       <div className="rounded-lg bg-white shadow w-full overflow-hidden">
         <div
           className="h-auto relative bg-cool-gray-400 animate-pulse"
