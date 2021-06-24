@@ -6,6 +6,7 @@ import Main from './layouts/Main';
 import { authAction } from './store/actions';
 import NotFound from './views/404';
 import Login from './views/Login';
+import Register from './views/Register';
 
 const App = (props) => {
   const [loading, setLoading] = useState(true);
@@ -30,6 +31,7 @@ const App = (props) => {
     <Router>
       <Switch>
         <Route path="/login" component={Login} />
+        <Route path="/register" component={Register} />
         <Route path="/404" component={NotFound} />
         <Route path="/" component={Main} />
         <Route path="*">

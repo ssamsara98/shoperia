@@ -9,7 +9,7 @@ authRouter.post(
   '/register',
   body('email').isEmail().normalizeEmail(),
   body('username').notEmpty(),
-  body('password').isLength({ min: 6, max: 32 }),
+  body('password').isLength({ min: 8, max: 32 }),
   body('name').notEmpty(),
   AuthController.register,
 );

@@ -46,6 +46,23 @@ class AuthController {
     }
     const { name, email, username, password } = req.body;
 
+    // find users first
+    const users = await User.find({ $or: [{ email }, { username }] });
+
+    if (users.length !== 0) {
+      const fields = [];
+      users.map((user) => {
+        if (user.email === email) {
+          fields.push('Email');
+        }
+        if (user.username === username) {
+          fields.push('Username');
+        }
+      });
+      const message = `${fields.join(' and ')} ${fields.length > 1 ? 'have' : 'has'} been used`;
+      throw createHttpError(409, message);
+    }
+
     // create new user
     const newUser = new User({ name, email, username, password });
     await newUser.save();

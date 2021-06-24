@@ -3,6 +3,9 @@
 # Shoperia Sitemap
 
 - `/`
+- `/login`
+- `/register`
+<!-- - `/admin` # all admin functionality here -->
 - `/account` -> `/profile`
   - `/profile`
   - `/address`

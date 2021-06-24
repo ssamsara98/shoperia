@@ -102,6 +102,21 @@ const Navbar = () => {
                             static
                             className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
                           >
+                            {rsAuth.user?.admin && (
+                              <Menu.Item>
+                                {({ active }) => (
+                                  <Link
+                                    to={{ hash: '#' }}
+                                    className={classNames(
+                                      active ? 'bg-cool-gray-200' : '',
+                                      'block px-4 py-2 text-sm text-gray-700',
+                                    )}
+                                  >
+                                    Admin
+                                  </Link>
+                                )}
+                              </Menu.Item>
+                            )}
                             <Menu.Item>
                               {({ active }) => (
                                 <Link
@@ -180,19 +195,20 @@ const Navbar = () => {
                   {item.name}
                 </NavLink>
               ))}
-              {[
-                { name: 'Login', href: '/login' },
-                { name: 'Register', href: '/register' },
-              ].map((item) => (
-                <NavLink
-                  key={item.name}
-                  to={item.href}
-                  exact
-                  className="bg-white hover:bg-cool-gray-200 active:bg-cool-gray-300 text-sky-600 block px-3 py-2 rounded-md text-base font-medium"
-                >
-                  {item.name}
-                </NavLink>
-              ))}
+              {rsAuth.isLoggedIn ||
+                [
+                  { name: 'Login', href: '/login' },
+                  { name: 'Register', href: '/register' },
+                ].map((item) => (
+                  <NavLink
+                    key={item.name}
+                    to={item.href}
+                    exact
+                    className="bg-white hover:bg-cool-gray-200 active:bg-cool-gray-300 text-sky-600 block px-3 py-2 rounded-md text-base font-medium"
+                  >
+                    {item.name}
+                  </NavLink>
+                ))}
             </div>
           </Disclosure.Panel>
         </>
