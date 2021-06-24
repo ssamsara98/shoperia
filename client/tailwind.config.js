@@ -39,6 +39,7 @@ module.exports = {
       backgroundColor: ['active'],
       borderColor: ['active'],
       textColor: ['active'],
+      opacity: ['disabled'],
     },
   },
   plugins: [

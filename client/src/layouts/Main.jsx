@@ -2,8 +2,10 @@ import React, { Suspense } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import LoadingScreen from '~/components/Loading/LoadingScreen';
 import Navbar from '~/components/Navbar/MainNavbar';
+import ProtectedRoute from '~/components/Shared/ProtectedRoute';
 
 const Index = React.lazy(() => import('~/views/Index'));
+const Cart = React.lazy(() => import('~/views/Cart'));
 const Products = React.lazy(() => import('~/views/Products'));
 const ProductDetail = React.lazy(() => import('~/views/Products/ProductDetail'));
 
@@ -18,6 +20,7 @@ const Main = () => {
           <Switch>
             <Route path="/products/:product" component={ProductDetail} />
             <Route path="/products" component={Products} />
+            <ProtectedRoute path="/cart" component={Cart} />
             <Route path="/" exact component={Index} />
             <Route path="*">
               <Redirect to="/404" />

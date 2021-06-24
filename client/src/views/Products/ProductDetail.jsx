@@ -37,11 +37,12 @@ const ProductDetail = (props) => {
   const [product, setProduct] = useState(null);
   const [notFound, setNotFound] = useState(false);
   const [prdImg, setPrdImg] = useState(null);
+  const [prdImgSelected, setPrdImgSelected] = useState(null);
   const [isFavorite, setIsFavorite] = useState(false);
   const [quantity, setQuantity] = useState(1);
+  const [cartDisable, setCartDisable] = useState(false);
 
   const getProductId = useCallback(() => {
-    console.log('useCallback');
     const productName = props.match.params.product.split('-i.');
     return productName[productName.length - 1];
   }, [props]);
@@ -75,8 +76,6 @@ const ProductDetail = (props) => {
 
   useEffect(() => {
     const productId = getProductId();
-    console.log(productId);
-    console.log(rsProduct);
     setProduct(() => rsProduct.item[productId] || product);
     setPrdImg(() => (rsProduct.item[productId] && rsProduct.item[productId].images[0]) || prdImg);
     return () => {};
@@ -87,6 +86,14 @@ const ProductDetail = (props) => {
   const imageChanger = (e, idx) => {
     e.preventDefault();
     setPrdImg(() => product.images[idx]);
+  };
+  const imageChangerEnter = (e, idx) => {
+    e.preventDefault();
+    setPrdImgSelected(() => product.images[idx]);
+  };
+  const imageChangerLeave = (e, idx) => {
+    e.preventDefault();
+    setPrdImgSelected(() => null);
   };
 
   const checkQuantity = (val) => {
@@ -131,6 +138,21 @@ const ProductDetail = (props) => {
     setIsFavorite((val) => !val);
   };
 
+  const addToCart = async (e) => {
+    e.preventDefault();
+    setCartDisable(() => true);
+
+    try {
+      await serverApi.post('/api/v1/cart/add-cart-item', {
+        product_id: product.id,
+        quantity,
+      });
+      setCartDisable(() => false);
+    } catch (err) {
+      setCartDisable(() => false);
+    }
+  };
+
   if (notFound) return <Redirect to="/404" from={props.match.url} />;
 
   return (
@@ -138,8 +160,14 @@ const ProductDetail = (props) => {
       <div className="w-1/3 p-4">
         <div className="w-full relative bg-cool-gray-300 mb-3" style={{ paddingBottom: '100%' }}>
           <img
-            src={prdImg ? imgHelper(prdImg, '500-square') : ''}
-            alt={prdImg && prdImg.id}
+            src={
+              prdImgSelected
+                ? imgHelper(prdImgSelected, '500-square')
+                : prdImg
+                ? imgHelper(prdImg, '500-square')
+                : ''
+            }
+            alt={(prdImgSelected && prdImgSelected.id) || (prdImg && prdImg.id)}
             className="absolute top-0 left-0 w-full"
           />
         </div>
@@ -152,7 +180,9 @@ const ProductDetail = (props) => {
                       src={imgHelper(img, '100-square')}
                       alt={img.id}
                       className="absolute top-0 left-0 w-full border hover:border-sky-500"
-                      onMouseEnter={(e) => imageChanger(e, idx)}
+                      onClick={(e) => imageChanger(e, idx)}
+                      onMouseEnter={(e) => imageChangerEnter(e, idx)}
+                      onMouseLeave={imageChangerLeave}
                     />
                   </div>
                 </div>
@@ -169,13 +199,13 @@ const ProductDetail = (props) => {
       </div>
       <div className="flex flex-1">
         <div className="flex flex-col flex-1 pt-5 pl-7 pr-8">
-          <p
+          <h1
             className={`text-2xl line-clamp-2${
               product ? '' : ' pb-8 bg-cool-gray-200 animate-pulse'
             }`}
           >
             {product && product.name}
-          </p>
+          </h1>
           <div className="flex flex-col mt-3 bg-cool-gray-100 px-7 py-4">
             <p
               className={`text-3xl text-sky-600${
@@ -230,7 +260,11 @@ const ProductDetail = (props) => {
                     </button>
                   </div>
 
-                  <button className="h-12 px-3 bg-sky-600 active:bg-sky-800 hover:bg-sky-700 text-white">
+                  <button
+                    className="h-12 px-3 bg-sky-600 active:bg-sky-800 hover:bg-sky-700 text-white disabled:opacity-75"
+                    disabled={cartDisable}
+                    onClick={addToCart}
+                  >
                     <FontAwesomeIcon icon={faOpencart} className="mr-2" />
                     Add to Cart
                   </button>

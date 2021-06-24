@@ -105,7 +105,7 @@ const Navbar = () => {
                             <Menu.Item>
                               {({ active }) => (
                                 <Link
-                                  to="#"
+                                  to={{ hash: '#' }}
                                   className={classNames(
                                     active ? 'bg-cool-gray-200' : '',
                                     'block px-4 py-2 text-sm text-gray-700',
@@ -115,23 +115,23 @@ const Navbar = () => {
                                 </Link>
                               )}
                             </Menu.Item>
-                            {/* <Menu.Item>
+                            <Menu.Item>
                               {({ active }) => (
                                 <Link
-                                  to="#"
+                                  to="/cart"
                                   className={classNames(
                                     active ? 'bg-cool-gray-200' : '',
                                     'block px-4 py-2 text-sm text-gray-700',
                                   )}
                                 >
-                                  Settings
+                                  Cart
                                 </Link>
                               )}
-                            </Menu.Item> */}
+                            </Menu.Item>
                             <Menu.Item>
                               {({ active }) => (
                                 <Link
-                                  to="#"
+                                  to={{ hash: '#' }}
                                   className={classNames(
                                     active ? 'bg-cool-gray-200' : '',
                                     'block px-4 py-2 text-sm text-gray-700',
