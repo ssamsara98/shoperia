@@ -158,7 +158,7 @@ const ProductDetail = (props) => {
   return (
     <div className="flex rounded overflow-hidden shadow bg-white">
       <div className="w-1/3 p-4">
-        <div className="w-full relative bg-cool-gray-300 mb-3" style={{ paddingBottom: '100%' }}>
+        <div className="w-full relative bg-cool-gray-400 mb-3" style={{ paddingBottom: '100%' }}>
           <img
             src={
               prdImgSelected
@@ -190,7 +190,7 @@ const ProductDetail = (props) => {
             : [1, 2, 3, 4, 5, 6, 7, 8].map((el) => (
                 <div className="w-1/4 p-1" key={el}>
                   <div
-                    className="w-full bg-cool-gray-200 animate-pulse"
+                    className="w-full bg-cool-gray-400 animate-pulse"
                     style={{ paddingBottom: '100%' }}
                   ></div>
                 </div>
@@ -201,7 +201,7 @@ const ProductDetail = (props) => {
         <div className="flex flex-col flex-1 pt-5 pl-7 pr-8">
           <h1
             className={`text-2xl line-clamp-2${
-              product ? '' : ' pb-8 bg-cool-gray-200 animate-pulse'
+              product ? '' : ' pb-8 bg-cool-gray-400 animate-pulse'
             }`}
           >
             {product && product.name}
@@ -209,7 +209,7 @@ const ProductDetail = (props) => {
           <div className="flex flex-col mt-3 bg-cool-gray-100 px-7 py-4">
             <p
               className={`text-3xl text-sky-600${
-                product ? '' : ' pb-16 bg-cool-gray-200 animate-pulse'
+                product ? '' : ' pb-16 bg-cool-gray-400 animate-pulse'
               }`}
             >
               {product && `Rp${priceHelper(product && product.price)}`}
@@ -217,12 +217,12 @@ const ProductDetail = (props) => {
           </div>
           <div className="flex flex-auto space-x-5 pb-5">
             <div className="flex flex-col w-2/3 mt-4">
-              <p className={`font-bold${product ? '' : ' pb-4 bg-cool-gray-200 animate-pulse'}`}>
+              <p className={`font-bold${product ? '' : ' pb-4 bg-cool-gray-400 animate-pulse'}`}>
                 {product && 'Description'}
               </p>
               <div
                 className={`flex flex-1 w-full relative${
-                  product ? '' : ' bg-cool-gray-200 animate-pulse'
+                  product ? '' : ' bg-cool-gray-400 animate-pulse'
                 }`}
               >
                 <p className="absolute top-0 left-0 w-ful h-full pb-5 overflow-auto">
@@ -232,7 +232,7 @@ const ProductDetail = (props) => {
             </div>
             <div
               className={`w-1/3 flex flex-col space-y-2 mt-4${
-                product ? '' : ' pb-10 bg-cool-gray-200 animate-pulse'
+                product ? '' : ' pb-10 bg-cool-gray-400 animate-pulse'
               }`}
             >
               {product && (
