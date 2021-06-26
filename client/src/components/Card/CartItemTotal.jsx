@@ -1,7 +1,9 @@
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import priceHelper from '~/utils/price-helper';
 
-const CartItemTotal = ({ items = [{}] }) => {
+const CartItemTotal = ({ items = [{}], loading = false }) => {
   const calculatePrice = (items) => {
     const tmp = items
       .filter((item) => item.quantity <= item.product.stock)
@@ -28,8 +30,11 @@ const CartItemTotal = ({ items = [{}] }) => {
         <p className="text-xl">Rp{priceHelper(calculatePrice(items))}</p>
       </div>
       <div className="py-2">
-        <button className="w-full px-3 py-5 rounded bg-sky-600 hover:bg-sky-700 active:bg-sky-800 text-white">
-          Checkout
+        <button
+          className="w-full px-3 py-5 rounded bg-sky-600 hover:bg-sky-700 active:bg-sky-800 disabled:bg-sky-600 text-white disabled:opacity-75"
+          disabled={loading}
+        >
+          {loading ? <FontAwesomeIcon icon={faSpinner} spin /> : 'Checkout'}
         </button>
       </div>
     </div>
