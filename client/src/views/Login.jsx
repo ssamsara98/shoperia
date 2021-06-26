@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 import { authAction } from '~/store/actions';
 import ShoperiaLogo from '~/assets/shoperia.svg';
 
-const Login = () => {
+const Login = (props) => {
   const dispatch = useDispatch();
   const { authFetchLogin } = bindActionCreators(authAction, dispatch);
   const rsAuth = useSelector((state) => state.auth);
@@ -25,7 +25,14 @@ const Login = () => {
   };
 
   if (rsAuth.isLoggedIn) {
-    return <Redirect to="/" />;
+    return (
+      <Redirect
+        to={{
+          pathname: props.location.state?.pathname || '/',
+          search: props.location.state?.search || '',
+        }}
+      />
+    );
   }
 
   return (

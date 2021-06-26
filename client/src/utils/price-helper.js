@@ -1,4 +1,4 @@
-const priceHelper = (nominal) => {
+const priceHelper = (nominal = 0) => {
   if (nominal > 999) {
     const modulus = nominal % 1000;
     let val = '000';

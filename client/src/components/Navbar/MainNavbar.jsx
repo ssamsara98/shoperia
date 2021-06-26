@@ -3,7 +3,7 @@ import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import React from 'react';
 import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { authAction } from '~/store/actions';
 
@@ -16,7 +16,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-const Navbar = () => {
+const Navbar = withRouter((props) => {
   const dispatch = useDispatch();
   const { authFetchLogout } = bindActionCreators(authAction, dispatch);
   const rsAuth = useSelector((state) => state.auth);
@@ -165,13 +165,13 @@ const Navbar = () => {
                 ) : (
                   <div className="flex space-x-4">
                     <Link
-                      to="/login"
+                      to={{ pathname: '/login', state: props.location }}
                       className="hidden sm:block px-4 py-2 rounded bg-white hover:bg-cool-gray-200 active:bg-cool-gray-300 text-sky-600 font-bold focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
                     >
                       Login
                     </Link>
                     <Link
-                      to="/register"
+                      to={{ pathname: '/register', state: props.location }}
                       className="hidden sm:block px-4 py-2 rounded border border-white hover:bg-sky-700 active:bg-sky-800 text-white font-bold focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
                     >
                       Register
@@ -202,7 +202,7 @@ const Navbar = () => {
                 ].map((item) => (
                   <NavLink
                     key={item.name}
-                    to={item.href}
+                    to={{ pathname: item.href, state: props.location }}
                     exact
                     className="bg-white hover:bg-cool-gray-200 active:bg-cool-gray-300 text-sky-600 block px-3 py-2 rounded-md text-base font-medium"
                   >
@@ -215,6 +215,6 @@ const Navbar = () => {
       )}
     </Disclosure>
   );
-};
+});
 
 export default Navbar;

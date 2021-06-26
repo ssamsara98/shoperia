@@ -8,7 +8,11 @@ const ProtectedRoute = ({ rsAuth, component: Component, ...rest }) => {
     <Route
       {...rest}
       render={(props) => {
-        return rsAuth.isLoggedIn ? <Component {...props} /> : <Redirect to="/login" />;
+        return rsAuth.isLoggedIn ? (
+          <Component {...props} />
+        ) : (
+          <Redirect to={{ pathname: '/login', state: props.location }} />
+        );
       }}
     />
   );

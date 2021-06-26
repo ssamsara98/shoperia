@@ -1,16 +1,22 @@
 import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useLayoutEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import serverApi from '~/api/server-api';
-import { authAction } from '~/store/actions';
+import { cartAction } from '~/store/actions';
 import imgHelper from '~/utils/img-helper';
 import priceHelper from '~/utils/price-helper';
 
 const CartItemCard = ({ item }) => {
+  const [notEnough, setNotEnough] = useState(false);
+
+  useEffect(() => {
+    setNotEnough(() => item.quantity > item.product.stock);
+    return () => {};
+  }, []);
+
   return (
-    <div className="flex space-x-5 py-3 px-5 bg-white">
+    <div className="flex space-x-5 py-3 px-5 rounded bg-white">
       <div className="w-1/5">
         <div
           className="relative rounded overflow-hidden bg-cool-gray-200"
@@ -29,21 +35,28 @@ const CartItemCard = ({ item }) => {
         </p>
         <p className="line-clamp-1 font-bold">Rp{priceHelper(item?.product.price)}</p>
       </div>
-      <div className="w-1/5 flex justify-evenly items-center">
+      <div className="w-1/5 flex flex-col justify-center items-center space-y-2">
         <div className="flex">
-          <button className="h-10 w-10 text-center border border-cool-gray-300 active:bg-cool-gray-200">
+          <button
+            className={`h-10 w-10 text-center border border-cool-gray-300 active:bg-cool-gray-200 disabled:opacity-75 bg-cool-gray-100`}
+            disabled={notEnough}
+          >
             -
           </button>
           <input
             type="text"
             className="h-10 w-full flex-1 text-center border-cool-gray-300"
             defaultValue={item.quantity}
-            disabled
+            disabled={notEnough}
           />
-          <button className="h-10 w-10 text-center border border-cool-gray-300 active:bg-cool-gray-200">
+          <button
+            className={`h-10 w-10 text-center border border-cool-gray-300 active:bg-cool-gray-200 disabled:opacity-75 bg-cool-gray-100`}
+            disabled={notEnough}
+          >
             +
           </button>
         </div>
+        {notEnough && <p className="text-center text-xs text-red-600">Stock is not enough</p>}
       </div>
       <div className="w-1/5 flex justify-center items-center">
         <button
@@ -61,7 +74,7 @@ const CartItemCard = ({ item }) => {
 
 const CartItemCardSkeleton = () => {
   return (
-    <div className="flex space-x-5 py-3 px-5 bg-white">
+    <div className="flex space-x-5 py-3 px-5 rounded bg-white">
       <div className="w-1/5">
         <div
           className="relative rounded overflow-hidden bg-cool-gray-300 animate-pulse"
@@ -82,37 +95,68 @@ const CartItemCardSkeleton = () => {
   );
 };
 
+const CartItemTotal = ({ items = [{}] }) => {
+  const calculatePrice = (items) => {
+    const tmp = items
+      .filter((item) => item.quantity <= item.product.stock)
+      .map((item) => item.quantity * item.product.price);
+    return tmp.length > 0 ? tmp.reduce((a, b) => a + b) : 0;
+  };
+
+  const calculateGoods = (items) => {
+    const tmp = items
+      .filter((item) => item.quantity <= item.product.stock)
+      .map((item) => item.quantity);
+
+    return `${tmp.length > 0 ? tmp.reduce((a, b) => a + b) : 0} with ${tmp.length} different items`;
+  };
+
+  return (
+    <div className="flex flex-col space-y-2 w-full px-5 py-3 bg-white rounded">
+      <div className="w-full">
+        <strong className="font-bold">Total Goods</strong>
+        <p>{calculateGoods(items)}</p>
+      </div>
+      <div className="w-full text-xl">
+        <strong className="font-bold">Total Price</strong>
+        <p className="text-xl">
+          Rp
+          {priceHelper(calculatePrice(items))}
+        </p>
+      </div>
+      <div className="py-2">
+        <button className="w-full px-3 py-5 rounded bg-sky-600 hover:bg-sky-700 active:bg-sky-800 text-white">
+          Checkout
+        </button>
+      </div>
+    </div>
+  );
+};
+
 const Cart = () => {
   const dispatch = useDispatch();
-  const { authFetchLogout } = bindActionCreators(authAction, dispatch);
-  const [cart, setCart] = useState([]);
+  const { cartFetchItems } = bindActionCreators(cartAction, dispatch);
+  const rsCart = useSelector((state) => state.cart);
 
   useLayoutEffect(() => {
-    async function fetchCart() {
-      try {
-        const cart = await serverApi.get('/api/v1/cart/get-cart');
-        setCart(() => cart.data.data);
-      } catch (err) {
-        authFetchLogout();
-      }
-    }
-    fetchCart();
+    cartFetchItems();
     return () => {};
   }, []);
 
   return (
     <div className="flex w-full space-x-8">
       <div className="w-2/3">
-        <h1 className="text-3xl pb-5">Shopping Cart</h1>
+        <h1 className="flex items-center text-3xl mb-5 h-10">Shopping Cart</h1>
         <div className="flex flex-col space-y-4 w-full">
           {/* cart item card */}
-          {cart.length === 0
+          {rsCart.items.length === 0
             ? [...new Array(5).keys()].map((key) => <CartItemCardSkeleton key={key} />)
-            : cart.map((item) => <CartItemCard item={item} key={item.id} />)}
+            : rsCart.items.map((item) => <CartItemCard item={item} key={item.id} />)}
         </div>
       </div>
       <div className="w-1/3">
-        <h2 className="text-2xl">Sub-Total</h2>
+        <h2 className="flex items-center text-2xl mb-5 h-10">Sub-Total</h2>
+        <CartItemTotal items={rsCart.items} />
       </div>
     </div>
   );
