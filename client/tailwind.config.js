@@ -36,10 +36,10 @@ module.exports = {
   },
   variants: {
     extend: {
-      backgroundColor: ['active'],
-      borderColor: ['active'],
-      textColor: ['active'],
-      opacity: ['disabled'],
+      backgroundColor: ['active', 'disabled'],
+      borderColor: ['active', 'disabled'],
+      textColor: ['active', 'disabled'],
+      opacity: ['active', 'disabled'],
     },
   },
   plugins: [
