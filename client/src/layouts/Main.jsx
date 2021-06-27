@@ -1,5 +1,6 @@
 import React, { Suspense } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
+import Footer from '~/components/Footer/Footer';
 import LoadingScreen from '~/components/Loading/LoadingScreen';
 import Navbar from '~/components/Navbar/MainNavbar';
 import ProtectedRoute from '~/components/Shared/ProtectedRoute';
@@ -28,6 +29,9 @@ const Main = () => {
           </Switch>
         </main>
       </Suspense>
+      <footer className="mt-auto flex justify-center py-2">
+        <Footer />
+      </footer>
     </>
   );
 };
