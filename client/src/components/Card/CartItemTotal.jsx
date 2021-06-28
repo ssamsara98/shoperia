@@ -32,7 +32,7 @@ const CartItemTotal = ({ items = [{}], loading = false }) => {
       <div className="py-2">
         <button
           className="w-full px-3 py-5 rounded bg-sky-600 hover:bg-sky-700 active:bg-sky-800 disabled:bg-sky-600 text-white disabled:opacity-75"
-          disabled={loading}
+          disabled={items.length === 0 || loading}
         >
           {loading ? <FontAwesomeIcon icon={faSpinner} spin /> : 'Checkout'}
         </button>

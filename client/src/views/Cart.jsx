@@ -22,7 +22,7 @@ const Cart = () => {
         <h1 className="flex items-center text-3xl mb-5 h-10">Shopping Cart</h1>
         <div className="flex flex-col space-y-4 w-full">
           {/* cart item card */}
-          {rsCart.items.length === 0
+          {rsCart.items.length === 0 && rsCart.loading
             ? [...new Array(5).keys()].map((key) => <CartItemCardSkeleton key={key} />)
             : rsCart.items.map((item) => <CartItemCard item={item} key={item.id} />)}
         </div>
