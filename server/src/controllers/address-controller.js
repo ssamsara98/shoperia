@@ -13,11 +13,16 @@ class AddressController {
     }
     const { title, name, phone, detail } = req.body;
 
+    const addressList = await Address.find({ user: req.user.id });
+
+    if (addressList.length > 10) throw createHttpError(422, 'You have to much address');
+
     const newAddress = new Address({
       user: req.user.id,
       title,
       name,
       phone,
+      primary: addressList.length === 0,
       detail: {
         province: detail.province,
         city: detail.city,
@@ -85,6 +90,8 @@ class AddressController {
       _id: mongoose.Types.ObjectId(address_id),
       user: req.user.id,
     });
+
+    if (!address) throw createHttpError(404);
 
     const result = {
       data: {
@@ -158,6 +165,11 @@ class AddressController {
     }
     const { address_id } = req.params;
 
+    await Address.updateMany(
+      { user: req.user.id, primary: true },
+      { primary: false },
+      { new: true },
+    );
     const updatedAddress = await Address.findOneAndUpdate(
       { _id: mongoose.Types.ObjectId(address_id), user: req.user.id },
       { primary: true },
