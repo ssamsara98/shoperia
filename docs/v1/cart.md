@@ -2,7 +2,7 @@
 
 ### [&laquo; API](../API.md)
 
-# Product
+# Cart
 
 - _`POST`_ [Add Cart Item](#add-cart-item)
 - _`GET`_ [Get Cart](#get-cart)

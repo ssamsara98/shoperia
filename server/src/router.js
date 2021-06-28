@@ -4,6 +4,7 @@ const createHttpError = require('http-errors');
 const addressRouter = require('./routes/address-router');
 const authRouter = require('./routes/auth-router');
 const cartRouter = require('./routes/cart-router');
+const orderRouter = require('./routes/order-router');
 const productRouter = require('./routes/product-router');
 const uploadRouter = require('./routes/upload-router');
 const userRouter = require('./routes/user-router');
@@ -17,6 +18,7 @@ routerApi.use('/v1/address', addressRouter);
 routerApi.use('/v1/upload', uploadRouter);
 routerApi.use('/v1/product', productRouter);
 routerApi.use('/v1/cart', cartRouter);
+routerApi.use('/v1/order', orderRouter);
 
 // catch 404 and forward to error handler
 routerApi.use(function (req, res, next) {
