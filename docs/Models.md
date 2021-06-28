@@ -105,12 +105,16 @@
   ],
   "shipment": {
     "address": "mongo_id -> address",
-    "country": "string",
-    "province": "string",
-    "city": "string",
-    "district": "string",
-    "address": "string",
-    "postal_code": "number"
+    "consignee": {
+      "name": "string",
+      "phone": "string",
+      "country": "string",
+      "province": "string",
+      "city": "string",
+      "district": "string",
+      "address": "string",
+      "postal_code": "number"
+    }
   },
   "amount": {
     "total": "number",

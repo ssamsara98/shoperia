@@ -12,11 +12,7 @@ orderRouter.post('/place-order', body('address_id').isMongoId(), OrderController
 
 orderRouter.get('/get-order-list', OrderController.getOrderList);
 
-orderRouter.get(
-  '/get-order-list/:order_id',
-  param('order_id').isMongoId(),
-  OrderController.getOrder,
-);
+orderRouter.get('/get-order/:order_id', param('order_id').isMongoId(), OrderController.getOrder);
 
 orderRouter.patch(
   '/cancel-order/:order_id',
