@@ -84,7 +84,7 @@ const Navbar = withRouter((props) => {
                             <img
                               className="h-8 w-8 rounded-full"
                               src={`https://detteksie-mybucket.s3.amazonaws.com/${rsAuth.user.avatar}`}
-                              alt=""
+                              alt="Avatar"
                             />
                           </Menu.Button>
                         </div>
@@ -120,7 +120,7 @@ const Navbar = withRouter((props) => {
                             <Menu.Item>
                               {({ active }) => (
                                 <Link
-                                  to={{ hash: '#' }}
+                                  to="/account/profile"
                                   className={classNames(
                                     active ? 'bg-cool-gray-200' : '',
                                     'block px-4 py-2 text-sm text-gray-700',

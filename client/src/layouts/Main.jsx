@@ -9,6 +9,7 @@ const Index = React.lazy(() => import('~/views/Index'));
 const Cart = React.lazy(() => import('~/views/Cart'));
 const Products = React.lazy(() => import('~/views/Products'));
 const ProductDetail = React.lazy(() => import('~/views/Products/ProductDetail'));
+const Account = React.lazy(() => import('./Account'));
 
 const Main = () => {
   return (
@@ -22,6 +23,7 @@ const Main = () => {
             <Route path="/products/:product" component={ProductDetail} />
             <Route path="/products" component={Products} />
             <ProtectedRoute path="/cart" component={Cart} />
+            <ProtectedRoute path="/account" component={Account} />
             <Route path="/" exact component={Index} />
             <Route path="*">
               <Redirect to="/404" />
