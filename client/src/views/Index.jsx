@@ -43,8 +43,8 @@ const Index = () => {
           prevArrow={<SampleArrow newStyle={{ left: '0' }} />}
           nextArrow={<SampleArrow newStyle={{ right: '0' }} />}
         >
-          {banners.map((banner) => (
-            <div>
+          {banners.map((banner, idx) => (
+            <div key={idx}>
               <div
                 style={{
                   paddingBottom: '25%',
