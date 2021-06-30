@@ -10,7 +10,7 @@ const Account = () => {
       <div className="flex flex-col w-1/6">
         <AccountSidebar />
       </div>
-      <div className="flex flex-col w-5/6 px-8 pb-5 bg-white">
+      <div className="flex flex-col w-5/6 px-8 pb-5 rounded bg-white">
         <Switch>
           <Route path="/account/profile" component={Profile} />
           <Route path="/account/address" component={Address} />

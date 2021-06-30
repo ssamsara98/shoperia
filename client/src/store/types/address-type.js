@@ -1,0 +1,3 @@
+export const ADDRESS_START = 'ADDRESS_START';
+export const ADDRESS_SUCCESS = 'ADDRESS_SUCCESS';
+export const ADDRESS_FAIL = 'ADDRESS_FAIL';

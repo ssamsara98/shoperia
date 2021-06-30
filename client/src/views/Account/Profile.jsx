@@ -13,82 +13,80 @@ const Profile = () => {
       <hr className="border border-black" />
       <div className="flex pt-8">
         <div className="w-full pr-12">
-          <form>
-            <div className="mb-8">
-              <div className="flex items-center mb-5">
-                <div className="w-1/5 text-right overflow-hidden">
-                  <label htmlFor="username">Username</label>
-                </div>
-                <div className="w-4/5 pl-5">
-                  <span>{rsAuth.user.username}</span>
-                </div>
+          <form className="mb-8">
+            <div className="flex items-center mb-5">
+              <div className="w-1/5 text-right overflow-hidden">
+                <label htmlFor="username">Username</label>
               </div>
-              <div className="flex items-center mb-5">
-                <div className="w-1/5 text-right overflow-hidden">
-                  <label htmlFor="name">Name</label>
-                </div>
-                <div className="w-4/5 pl-5">
-                  <input
-                    type="text"
-                    id="name"
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                    defaultValue={rsAuth.user.name}
-                  />
-                </div>
+              <div className="w-4/5 pl-5">
+                <span>{rsAuth.user.username}</span>
               </div>
-              <div className="flex items-center mb-5">
-                <div className="w-1/5 text-right overflow-hidden">
-                  <label htmlFor="email">Email</label>
-                </div>
-                <div className="w-4/5 pl-5">
-                  <input
-                    type="email"
-                    id="email"
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                    defaultValue={rsAuth.user.email}
-                  />
-                </div>
+            </div>
+            <div className="flex items-center mb-5">
+              <div className="w-1/5 text-right overflow-hidden">
+                <label htmlFor="name">Name</label>
               </div>
-              <div className="flex items-center mb-5">
-                <div className="w-1/5 text-right overflow-hidden">
-                  <label htmlFor="sex_type">Sex Type</label>
-                </div>
-                <div className="w-4/5 pl-5">
-                  <select
-                    defaultValue={rsAuth.user.sex_type}
-                    id="sex_type"
-                    className="block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                  >
-                    <option value="Other">Other</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                  </select>
-                </div>
+              <div className="w-4/5 pl-5">
+                <input
+                  type="text"
+                  id="name"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                  defaultValue={rsAuth.user.name}
+                />
               </div>
-              <div className="flex items-center mb-5">
-                <div className="w-1/5 text-right overflow-hidden">
-                  <label htmlFor="birthdate">Birthdate</label>
-                </div>
-                <div className="w-4/5 pl-5">
-                  <input
-                    type="date"
-                    id="birthdate"
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                    defaultValue={new Date(rsAuth.user.birthdate || '').toISOString().split('T')[0]}
-                  />
-                </div>
+            </div>
+            <div className="flex items-center mb-5">
+              <div className="w-1/5 text-right overflow-hidden">
+                <label htmlFor="email">Email</label>
               </div>
-              <div
-                className="flex items-center mb-5"
-                style={{ paddingLeft: 'calc(20% + 1.25rem)' }}
-              >
-                <button
-                  type="button"
-                  className="px-3 py-2 rounded bg-sky-600 hover:bg-sky-700 active:bg-sky-800 text-white"
+              <div className="w-4/5 pl-5">
+                <input
+                  type="email"
+                  id="email"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                  defaultValue={rsAuth.user.email}
+                />
+              </div>
+            </div>
+            <div className="flex items-center mb-5">
+              <div className="w-1/5 text-right overflow-hidden">
+                <label htmlFor="sex_type">Sex Type</label>
+              </div>
+              <div className="w-4/5 pl-5">
+                <select
+                  defaultValue={rsAuth.user.sex_type}
+                  id="sex_type"
+                  className="block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 >
-                  Submit
-                </button>
+                  <option value="Other">Other</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
               </div>
+            </div>
+            <div className="flex items-center mb-5">
+              <div className="w-1/5 text-right overflow-hidden">
+                <label htmlFor="birthdate">Birthdate</label>
+              </div>
+              <div className="w-4/5 pl-5">
+                <input
+                  type="date"
+                  id="birthdate"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                  defaultValue={
+                    rsAuth.user.birthdate &&
+                    new Date(rsAuth.user.birthdate || '').toISOString().split('T')[0]
+                  }
+                />
+              </div>
+            </div>
+            <div className="flex items-center mb-5" style={{ paddingLeft: 'calc(20% + 1.25rem)' }}>
+              <button
+                type="button"
+                className="px-3 py-2 rounded bg-sky-600 hover:bg-sky-700 active:bg-sky-800 text-white"
+              >
+                Submit
+              </button>
             </div>
           </form>
         </div>
