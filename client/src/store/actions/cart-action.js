@@ -53,7 +53,7 @@ export const cartFetchItemUpdate = (product_id, quantity) => async (dispatch) =>
     dispatch(cartItemUpdate(item.data.data));
   } catch (err) {
     if (axios.isAxiosError(err)) {
-      dispatch(cartFail(err.response.data));
+      dispatch(cartFail(err.response.data.error));
       if (err.response.status === 401) dispatch(authFetchLogout());
     }
   }
@@ -68,7 +68,7 @@ export const cartFetchItemDelete = (product_id) => async (dispatch) => {
     dispatch(cartItemDelete(product_id));
   } catch (err) {
     if (axios.isAxiosError(err)) {
-      dispatch(cartFail(err.response.data));
+      dispatch(cartFail(err.response.data.error));
       if (err.response.status === 401) dispatch(authFetchLogout());
     }
   }

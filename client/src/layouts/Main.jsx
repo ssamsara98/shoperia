@@ -18,7 +18,10 @@ const Main = () => {
         <Navbar />
       </header>
       <Suspense fallback={<LoadingScreen />}>
-        <main className="max-w-screen-xl mx-auto py-6 sm:px-6 lg:px-8">
+        <main
+          className="max-w-screen-xl mx-auto py-6 sm:px-6 lg:px-8"
+          style={{ minHeight: 'calc(100vh - 120px)' }}
+        >
           <Switch>
             <Route path="/products/:product" component={ProductDetail} />
             <Route path="/products" component={Products} />

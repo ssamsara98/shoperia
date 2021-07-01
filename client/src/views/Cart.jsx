@@ -29,7 +29,7 @@ const Cart = () => {
       </div>
       <div className="w-1/3">
         <h2 className="flex items-center text-2xl mb-5 h-10">Sub-Total</h2>
-        <CartItemTotal items={rsCart.items} loading={rsCart.loading} />
+        <CartItemTotal />
       </div>
     </div>
   );
