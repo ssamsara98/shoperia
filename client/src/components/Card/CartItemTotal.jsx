@@ -8,7 +8,19 @@ import priceHelper from '~/utils/price-helper';
 const CartItemTotal = () => {
   const { items, loading } = useSelector((state) => state.cart);
   const [isCheckout, setIsCheckout] = useState(false);
-  const [form, setForm] = useState({ province: '', city: '', courier: '', cost: 0 });
+  const [form, setForm] = useState({
+    name: '',
+    phone: '',
+    province: '',
+    province_id: null,
+    city: '',
+    city_id: null,
+    district: '',
+    postal_code: '',
+    address: '',
+    courier: '',
+    cost: 0,
+  });
   const [provinces, setProvinces] = useState([]);
   const [cities, setCities] = useState([]);
   const [costs, setCost] = useState([]);
@@ -27,9 +39,9 @@ const CartItemTotal = () => {
   useEffect(() => {
     async function fetchProvince() {
       try {
-        if (form.province) {
+        if (form.province_id) {
           const { data } = await serverApi.get('/api/raja-ongkir/city', {
-            params: { province: form.province },
+            params: { province: form.province_id },
           });
           setCities(() => data.rajaongkir.results);
         }
@@ -37,26 +49,38 @@ const CartItemTotal = () => {
     }
     fetchProvince();
     return () => {};
-  }, [form.province]);
+  }, [form.province_id]);
 
   useEffect(() => {
     async function fetchProvince() {
       try {
-        if (form.city) {
+        if (form.city_id && form.courier) {
           const { data } = await serverApi.post('/api/raja-ongkir/cost', {
             origin: 431,
-            destination: form.city,
+            destination: form.city_id,
             courier: form.courier,
             weight: 10000,
           });
-          console.log(data.rajaongkir.results[0].costs);
           setCost(() => data.rajaongkir.results[0].costs);
         }
       } catch (err) {}
     }
     fetchProvince();
     return () => {};
-  }, [form.city, form.courier]);
+  }, [form.city_id, form.courier]);
+
+  useEffect(() => {
+    const t = setTimeout(() => {
+      const truth = Object.keys(form)
+        .map((key) => !!form[key])
+        .reduce((a, b) => a && b);
+      if (truth) setIsCheckout(true);
+      else setIsCheckout(false);
+    }, 500);
+    return () => {
+      clearTimeout(t);
+    };
+  }, [form]);
 
   const calculatePrice = (items) => {
     const tmp = items
@@ -73,22 +97,48 @@ const CartItemTotal = () => {
     return `${tmp.length > 0 ? tmp.reduce((a, b) => a + b) : 0} with ${tmp.length} different items`;
   };
 
-  const handleSelect = (e) => {
-    if (e.target.name === 'province')
-      return setForm((prev) => ({
-        ...prev,
-        city: '',
-        courier: '',
-        cost: 0,
-        [e.target.name]: e.target.value,
-      }));
-    if (e.target.name === 'courier')
-      return setForm((prev) => ({
-        ...prev,
-        cost: 0,
-        [e.target.name]: e.target.value,
-      }));
+  const handleNamed = (e) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+  const handleProvince = (e) => {
+    const province = provinces[e.target.value];
+    setForm((prev) => ({
+      ...prev,
+      province: province.province,
+      province_id: province.province_id,
+      city: '',
+      city_id: null,
+      courier: '',
+      cost: 0,
+    }));
+  };
+  const handleCity = (e) => {
+    const city = cities[e.target.value];
+    setForm((prev) => ({
+      ...prev,
+      city: `${city.type} ${city.city_name}`,
+      city_id: city.city_id,
+      postal_code: city.postal_code,
+      cost: 0,
+    }));
+  };
+  const handleCourier = (e) => {
+    setForm((prev) => ({
+      ...prev,
+      courier: e.target.value,
+      cost: 0,
+    }));
+  };
+  const handleCost = (e) => {
+    setForm((prev) => ({
+      ...prev,
+      cost: e.target.value,
+    }));
+  };
+
+  const handleCheckout = (e) => {
+    e.preventDefault();
+    console.log(form);
   };
 
   return (
@@ -115,7 +165,10 @@ const CartItemTotal = () => {
             <input
               type="text"
               id="name"
+              name="name"
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+              value={form.name}
+              onChange={handleNamed}
             />
           </div>
           <div className="w-full">
@@ -123,10 +176,14 @@ const CartItemTotal = () => {
             <input
               type="text"
               id="phone"
+              name="phone"
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+              value={form.phone}
+              onChange={handleNamed}
             />
           </div>
         </div>
+        {/* province */}
         <div>
           <label htmlFor="province">Province</label>
           <select
@@ -134,18 +191,19 @@ const CartItemTotal = () => {
             id="province"
             className="block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
             defaultValue={form.province}
-            onChange={handleSelect}
+            onChange={handleProvince}
           >
             <option disabled value="">
               -- Choose Province --
             </option>
-            {provinces.map((province) => (
-              <option value={province.province_id} key={province.province_id}>
+            {provinces.map((province, idx) => (
+              <option value={idx} key={province.province_id}>
                 {province.province}
               </option>
             ))}
           </select>
         </div>
+        {/* city */}
         <div>
           <label htmlFor="city">City</label>
           <select
@@ -153,68 +211,70 @@ const CartItemTotal = () => {
             id="city"
             className="block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 disabled:bg-cool-gray-300"
             defaultValue={form.city}
-            onChange={handleSelect}
+            onChange={handleCity}
             disabled={!form.province}
           >
             <option value="">-- Choose City --</option>
-            {cities.map((city) => (
-              <option value={city.city_id} key={city.city_id}>
+            {cities.map((city, idx) => (
+              <option value={idx} key={city.city_id}>
                 {city.city_name} ({city.type})
               </option>
             ))}
           </select>
         </div>
+        {/* courier */}
         {form.province && form.city && (
           <div>
             <p>Courier</p>
             <div className="flex justify-between">
-              <label class="inline-flex items-center">
+              <label className="inline-flex items-center">
                 <input
                   type="radio"
                   name="courier"
                   checked={form.courier === 'jne'}
                   value="jne"
-                  onChange={handleSelect}
+                  onChange={handleCourier}
                 />
-                <span class="ml-2">JNE</span>
+                <span className="ml-2">JNE</span>
               </label>
-              <label class="inline-flex items-center">
+              <label className="inline-flex items-center">
                 <input
                   type="radio"
                   name="courier"
                   checked={form.courier === 'tiki'}
                   value="tiki"
-                  onChange={handleSelect}
+                  onChange={handleCourier}
                 />
-                <span class="ml-2">Tiki</span>
+                <span className="ml-2">Tiki</span>
               </label>
-              <label class="inline-flex items-center">
+              <label className="inline-flex items-center">
                 <input
                   type="radio"
                   name="courier"
                   checked={form.courier === 'pos'}
                   value="pos"
-                  onChange={handleSelect}
+                  onChange={handleCourier}
                 />
-                <span class="ml-2">Pos Indonesia</span>
+                <span className="ml-2">Pos Indonesia</span>
               </label>
             </div>
           </div>
         )}
+        {/* costs */}
         {form.province && form.city && form.courier && !!costs.length && (
           <div>
             <div className="flex flex-col justify-between">
               <p>Services</p>
               {costs.map((cost) => (
-                <label class="inline-flex items-center" key={cost.service}>
+                <label className="inline-flex items-center" key={cost.service}>
                   <input
                     type="radio"
                     name="cost"
                     checked={form.cost === `${cost.cost[0].value}`}
                     value={cost.cost[0].value}
-                    onChange={handleSelect}
+                    onChange={handleCost}
                   />
-                  <span class="ml-2">
+                  <span className="ml-2">
                     {cost.service} - {cost.cost[0].value}
                   </span>
                 </label>
@@ -222,20 +282,49 @@ const CartItemTotal = () => {
             </div>
           </div>
         )}
+        {/* district */}
+        <div className="flex space-x-4">
+          <div className="w-full">
+            <label htmlFor="district">District</label>
+            <input
+              type="text"
+              id="district"
+              name="district"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+              value={form.district}
+              onChange={handleNamed}
+            />
+          </div>
+          <div className="w-full">
+            <label htmlFor="postal_code">Postal Code</label>
+            <input
+              type="text"
+              id="postal_code"
+              name="postal_code"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+              value={form.postal_code}
+              onChange={handleNamed}
+            />
+          </div>
+        </div>
+        {/* address */}
         <div>
-          <label htmlFor="address">City</label>
+          <label htmlFor="address">Address</label>
           <textarea
             name="address"
             id="address"
             className="mt-1 block w-full h-24"
             placeholder="Input address here"
+            value={form.address}
+            onChange={handleNamed}
           ></textarea>
         </div>
       </div>
       <div className="py-2">
         <button
-          className="w-full px-3 py-5 rounded bg-sky-600 hover:bg-sky-700 active:bg-sky-800 disabled:bg-sky-600 text-white disabled:opacity-75"
-          disabled={items.length === 0 || loading}
+          className="w-full px-3 py-5 rounded bg-sky-600 hover:bg-sky-700 active:bg-sky-800 disabled:bg-cool-gray-500 text-white disabled:opacity-75"
+          disabled={items.length === 0 || loading || !isCheckout}
+          onClick={handleCheckout}
         >
           {loading ? <FontAwesomeIcon icon={faSpinner} spin /> : 'Checkout'}
         </button>

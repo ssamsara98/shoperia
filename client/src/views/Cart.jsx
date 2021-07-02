@@ -28,7 +28,7 @@ const Cart = () => {
         </div>
       </div>
       <div className="w-1/3">
-        <h2 className="flex items-center text-2xl mb-5 h-10">Sub-Total</h2>
+        <h2 className="flex items-center text-2xl mb-5 h-10">Totals</h2>
         <CartItemTotal />
       </div>
     </div>
