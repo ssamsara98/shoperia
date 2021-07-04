@@ -27,6 +27,7 @@ productRouter.post(
       .optional()
       .matches(/(New|Used)/),
     body('description').optional().isString(),
+    body('weight').isNumeric(),
     body('image_ids').isArray({ min: 0, max: 8 }),
     body('image_ids.*').isMongoId(),
   ],

@@ -30,6 +30,10 @@ const productSchema = new mongoose.Schema(
       required: true,
       default: 'New',
     },
+    weight: {
+      type: Number,
+      required: true,
+    },
   },
   {
     timestamps: {

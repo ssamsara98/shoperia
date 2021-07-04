@@ -84,15 +84,12 @@ const ProductDetail = (props) => {
   // functions
 
   const imageChanger = (e, idx) => {
-    e.preventDefault();
     setPrdImg(() => product.images[idx]);
   };
   const imageChangerEnter = (e, idx) => {
-    e.preventDefault();
     setPrdImgSelected(() => product.images[idx]);
   };
   const imageChangerLeave = (e, idx) => {
-    e.preventDefault();
     setPrdImgSelected(() => null);
   };
 
@@ -217,6 +214,18 @@ const ProductDetail = (props) => {
           </div>
           <div className="flex flex-auto space-x-5 pb-5">
             <div className="flex flex-col w-2/3 mt-4">
+              <p className={`font-bold${product ? '' : ' pb-4 bg-cool-gray-400 animate-pulse'}`}>
+                {product && 'Condition'}
+              </p>
+              <p className={`${product ? '' : ' pb-4 bg-cool-gray-400 animate-pulse'}`}>
+                {product && product.condition}
+              </p>
+              <p className={`font-bold${product ? '' : ' pb-4 bg-cool-gray-400 animate-pulse'}`}>
+                {product && 'Weight'}
+              </p>
+              <p className={`${product ? '' : ' pb-4 bg-cool-gray-400 animate-pulse'}`}>
+                {product && `${product.weight} gr`}
+              </p>
               <p className={`font-bold${product ? '' : ' pb-4 bg-cool-gray-400 animate-pulse'}`}>
                 {product && 'Description'}
               </p>

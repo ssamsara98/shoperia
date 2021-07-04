@@ -10,7 +10,7 @@ class ProductController {
     if (!errors.isEmpty()) {
       throw createHttpError(422, { errors: errors.array() });
     }
-    const { name, price, stock, description, condition, image_ids } = req.body;
+    const { name, price, stock, description, condition, weight, image_ids } = req.body;
 
     const newProduct = new Product({
       name,
@@ -18,6 +18,7 @@ class ProductController {
       stock,
       description,
       condition,
+      weight,
       images: image_ids,
     });
     await (
@@ -72,7 +73,7 @@ class ProductController {
       throw createHttpError(422, { errors: errors.array() });
     }
     const { product_id } = req.params;
-    const { name, price, stock, description, condition, image_ids } = req.body;
+    const { name, price, stock, description, condition, weight, image_ids } = req.body;
 
     const updatedProduct = await Product.findByIdAndUpdate(
       product_id,
@@ -82,6 +83,7 @@ class ProductController {
         stock,
         description,
         condition,
+        weight,
         images: image_ids,
       },
       { new: true },

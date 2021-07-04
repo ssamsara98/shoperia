@@ -56,7 +56,7 @@ class CartController {
     const cart = await Cart.find({ user: req.user.id })
       .populate({
         path: 'product',
-        select: 'name price stock',
+        select: 'name price stock weight',
         populate: {
           path: 'images',
           select: 'filepath filename type',

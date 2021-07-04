@@ -7,7 +7,9 @@ import priceHelper from '~/utils/price-helper';
 
 const CartItemTotal = () => {
   const { items, loading } = useSelector((state) => state.cart);
+  const rsAuth = useSelector((state) => state.auth);
   const [isCheckout, setIsCheckout] = useState(false);
+  const [weight, setWeight] = useState(0);
   const [form, setForm] = useState({
     name: '',
     phone: '',
@@ -26,6 +28,7 @@ const CartItemTotal = () => {
   const [costs, setCost] = useState([]);
 
   useEffect(() => {
+    setForm((prev) => ({ ...prev, name: rsAuth.user.name }));
     async function fetchProvince() {
       try {
         const { data } = await serverApi.get('/api/raja-ongkir/province');
@@ -35,6 +38,21 @@ const CartItemTotal = () => {
     fetchProvince();
     return () => {};
   }, []);
+
+  useEffect(() => {
+    const tmp = items
+      .filter((item) => item.quantity <= item.product.stock)
+      .map((item) => item.quantity * item.product.weight);
+    const weight = tmp.length > 0 ? tmp.reduce((a, b) => a + b) / 1000 : 0;
+    setWeight(() => weight);
+    setCost([]);
+    setForm((prev) => ({
+      ...prev,
+      courier: '',
+      cost: 0,
+    }));
+    return () => {};
+  }, [items]);
 
   useEffect(() => {
     async function fetchProvince() {
@@ -54,12 +72,13 @@ const CartItemTotal = () => {
   useEffect(() => {
     async function fetchProvince() {
       try {
-        if (form.city_id && form.courier) {
+        if (weight > 30) setCost(() => []);
+        if (form.city_id && form.courier && weight <= 30) {
           const { data } = await serverApi.post('/api/raja-ongkir/cost', {
             origin: 431,
             destination: form.city_id,
             courier: form.courier,
-            weight: 10000,
+            weight: weight * 1000,
           });
           setCost(() => data.rajaongkir.results[0].costs);
         }
@@ -148,6 +167,10 @@ const CartItemTotal = () => {
           <strong className="font-bold">Total Goods</strong>
           <p>{calculateGoods(items)}</p>
         </div>
+        <div className="w-full">
+          <strong className="font-bold">Total Weight</strong>
+          <p className={weight > 30 ? 'text-rose-600' : ''}>{weight} Kg</p>
+        </div>
         <div className="w-full text-xl">
           <strong className="font-bold">Total Price</strong>
           <p className="text-sm">Goods</p>
@@ -234,6 +257,8 @@ const CartItemTotal = () => {
                   checked={form.courier === 'jne'}
                   value="jne"
                   onChange={handleCourier}
+                  disabled={weight > 30}
+                  className="disabled:bg-cool-gray-300"
                 />
                 <span className="ml-2">JNE</span>
               </label>
@@ -244,6 +269,8 @@ const CartItemTotal = () => {
                   checked={form.courier === 'tiki'}
                   value="tiki"
                   onChange={handleCourier}
+                  disabled={weight > 30}
+                  className="disabled:bg-cool-gray-300"
                 />
                 <span className="ml-2">Tiki</span>
               </label>
@@ -254,6 +281,8 @@ const CartItemTotal = () => {
                   checked={form.courier === 'pos'}
                   value="pos"
                   onChange={handleCourier}
+                  disabled={weight > 30}
+                  className="disabled:bg-cool-gray-300"
                 />
                 <span className="ml-2">Pos Indonesia</span>
               </label>

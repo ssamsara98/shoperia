@@ -5,6 +5,7 @@ const products = [
     stock: 50,
     condition: 'New',
     description: 'Garansi Resmi Apple Indonesia 1 Tahun',
+    weight: 2000,
   },
   {
     name: 'Apple Macbook Air M1 256 GB/13"/8GB - Garansi Resmi iBox - Silver',
@@ -12,6 +13,7 @@ const products = [
     stock: 50,
     condition: 'New',
     description: 'Garansi Resmi Apple Indonesia 1 Tahun',
+    weight: 2000,
   },
   {
     name: 'Apple Macbook Air M1 256 GB/13"/8GB - Garansi Resmi iBox - Silver',
@@ -19,6 +21,7 @@ const products = [
     stock: 50,
     condition: 'New',
     description: 'Garansi Resmi Apple Indonesia 1 Tahun',
+    weight: 2000,
   },
   {
     name: 'Apple Macbook Air M1 256 GB/13"/8GB - Garansi Resmi iBox - Silver',
@@ -26,6 +29,7 @@ const products = [
     stock: 50,
     condition: 'New',
     description: 'Garansi Resmi Apple Indonesia 1 Tahun',
+    weight: 2000,
   },
   {
     name: 'Apple Macbook Air M1 256 GB/13"/8GB - Garansi Resmi iBox - Silver',
@@ -33,6 +37,7 @@ const products = [
     stock: 50,
     condition: 'New',
     description: 'Garansi Resmi Apple Indonesia 1 Tahun',
+    weight: 2000,
   },
   {
     name: 'Apple Macbook Air M1 256 GB/13"/8GB - Garansi Resmi iBox - Silver',
@@ -40,6 +45,7 @@ const products = [
     stock: 50,
     condition: 'New',
     description: 'Garansi Resmi Apple Indonesia 1 Tahun',
+    weight: 2000,
   },
   {
     name: 'Apple Macbook Air M1 256 GB/13"/8GB - Garansi Resmi iBox - Silver',
@@ -47,6 +53,7 @@ const products = [
     stock: 50,
     condition: 'New',
     description: 'Garansi Resmi Apple Indonesia 1 Tahun',
+    weight: 2000,
   },
   {
     name: 'Apple Macbook Air M1 256 GB/13"/8GB - Garansi Resmi iBox - Silver',
@@ -54,6 +61,7 @@ const products = [
     stock: 50,
     condition: 'New',
     description: 'Garansi Resmi Apple Indonesia 1 Tahun',
+    weight: 2000,
   },
   {
     name: 'Apple Macbook Air M1 256 GB/13"/8GB - Garansi Resmi iBox - Silver',
@@ -61,6 +69,7 @@ const products = [
     stock: 50,
     condition: 'New',
     description: 'Garansi Resmi Apple Indonesia 1 Tahun',
+    weight: 2000,
   },
   {
     name: 'Apple Macbook Air M1 256 GB/13"/8GB - Garansi Resmi iBox - Silver',
@@ -68,6 +77,7 @@ const products = [
     stock: 50,
     condition: 'New',
     description: 'Garansi Resmi Apple Indonesia 1 Tahun',
+    weight: 2000,
   },
 ];
 
