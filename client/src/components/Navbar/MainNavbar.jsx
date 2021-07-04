@@ -113,7 +113,7 @@ const Navbar = withRouter((props) => {
                                 <Menu.Item>
                                   {({ active }) => (
                                     <Link
-                                      to={{ hash: '#' }}
+                                      to="/admin"
                                       className={classNames(
                                         active ? 'bg-cool-gray-200' : '',
                                         'block px-4 py-2 text-sm text-gray-700',

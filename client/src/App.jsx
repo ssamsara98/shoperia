@@ -2,6 +2,7 @@ import React, { useLayoutEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import LoadingScreen from './components/Loading/LoadingScreen';
+import Admin from './layouts/Admin';
 import Main from './layouts/Main';
 import { authAction } from './store/actions';
 import NotFound from './views/404';
@@ -32,6 +33,7 @@ const App = (props) => {
       <Switch>
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
+        <Route path="/admin" component={Admin} />
         <Route path="/404" component={NotFound} />
         <Route path="/" component={Main} />
         <Route path="*">
