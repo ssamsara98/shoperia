@@ -21,6 +21,7 @@ const CartItemTotal = () => {
     postal_code: '',
     address: '',
     courier: '',
+    service: '',
     cost: 0,
   });
   const [provinces, setProvinces] = useState([]);
@@ -49,6 +50,7 @@ const CartItemTotal = () => {
     setForm((prev) => ({
       ...prev,
       courier: '',
+      service: '',
       cost: 0,
     }));
     return () => {};
@@ -128,6 +130,7 @@ const CartItemTotal = () => {
       city: '',
       city_id: null,
       courier: '',
+      service: '',
       cost: 0,
     }));
   };
@@ -149,15 +152,32 @@ const CartItemTotal = () => {
     }));
   };
   const handleCost = (e) => {
+    const cost = costs[e.target.value];
     setForm((prev) => ({
       ...prev,
-      cost: e.target.value,
+      service: cost.service,
+      cost: cost.cost[0].value,
     }));
   };
 
   const handleCheckout = (e) => {
     e.preventDefault();
+    const data = {
+      consignee: {
+        name: form.name,
+        phone: form.phone,
+        province: form.province,
+        city: form.city,
+        district: form.district,
+        address: form.address,
+        postal_code: form.postal_code,
+      },
+      courier: form.courier,
+      service: form.service,
+      shipping_cost: parseInt(form.cost),
+    };
     console.log(form);
+    console.log(data);
   };
 
   return (
@@ -294,13 +314,13 @@ const CartItemTotal = () => {
           <div>
             <div className="flex flex-col justify-between">
               <p>Services</p>
-              {costs.map((cost) => (
+              {costs.map((cost, idx) => (
                 <label className="inline-flex items-center" key={cost.service}>
                   <input
                     type="radio"
                     name="cost"
-                    checked={form.cost === `${cost.cost[0].value}`}
-                    value={cost.cost[0].value}
+                    checked={form.cost === cost.cost[0].value}
+                    value={idx}
                     onChange={handleCost}
                   />
                   <span className="ml-2">

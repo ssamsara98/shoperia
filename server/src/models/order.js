@@ -44,11 +44,11 @@ const orderSchema = new mongoose.Schema(
       },
     ],
     shipment: {
-      address: {
-        type: mongoose.Types.ObjectId,
-        ref: 'address',
-        required: true,
-      },
+      // address: {
+      //   type: mongoose.Types.ObjectId,
+      //   ref: 'address',
+      //   required: true,
+      // },
       consignee: {
         name: {
           type: String,
@@ -60,7 +60,7 @@ const orderSchema = new mongoose.Schema(
         },
         country: {
           type: String,
-          defaultValue: 'Indonesia',
+          default: 'Indonesia',
           required: true,
         },
         province: {
@@ -82,6 +82,20 @@ const orderSchema = new mongoose.Schema(
         postal_code: {
           type: Number,
           required: true,
+        },
+      },
+      courier: {
+        carrier: {
+          type: String,
+          required: true,
+        },
+        service: {
+          type: String,
+          required: true,
+        },
+        receipt: {
+          type: String,
+          default: '',
         },
       },
     },

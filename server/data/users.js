@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 
 const users = [
   {
+    _id: '60e28430bfcb96376c9ce2f0',
     name: 'Sulthon Abdul Malik',
     email: 'samara98@mailsac.com',
     username: 'samara98',

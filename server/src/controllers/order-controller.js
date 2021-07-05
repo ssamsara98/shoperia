@@ -3,7 +3,7 @@ const { validationResult } = require('express-validator');
 const createHttpError = require('http-errors');
 const mongoose = require('mongoose');
 
-const Address = require('../models/address');
+// const Address = require('../models/address');
 const Cart = require('../models/cart');
 const Order = require('../models/order');
 const Product = require('../models/product');
@@ -14,7 +14,7 @@ class OrderController {
     if (!errors.isEmpty()) {
       throw createHttpError(422, { errors: errors.array() });
     }
-    const { address_id } = req.body;
+    const { consignee, courier: carrier, service, shipping_cost } = req.body;
 
     const cart = await Cart.find({ user: req.user.id })
       .populate({
@@ -23,10 +23,10 @@ class OrderController {
       })
       .exec();
 
-    const address = await Address.findById(address_id);
+    // const address = await Address.findById(address_id);
 
-    if (!cart.length) createHttpError(422, 'Your cart is empty');
-    if (!address) createHttpError(422, 'Your address is not valid');
+    if (!cart.length) throw createHttpError(422, 'Your cart is empty');
+    // if (!address) throw createHttpError(422, 'Your address is not valid');
 
     let quantityFail = false;
     let itemsPrice = 0;
@@ -47,57 +47,59 @@ class OrderController {
 
     if (quantityFail) throw createHttpError(422);
 
-    // const session = await mongoose.startSession();
-    try {
-      // session.startTransaction();
-
-      const newOrder = {
-        buyer: req.user.id,
-        items: orderItems,
-        shipment: {
-          address: address.id,
-          consignee: {
-            name: address.name,
-            phone: address.phone,
-            country: address.detail.country,
-            province: address.detail.province,
-            city: address.detail.city,
-            district: address.detail.district,
-            address: address.detail.address,
-            postal_code: address.detail.postal_code,
-          },
+    const newOrder = {
+      buyer: req.user.id,
+      items: orderItems,
+      shipment: {
+        // address: address.id,
+        consignee: {
+          name: consignee.name,
+          phone: consignee.phone,
+          province: consignee.province,
+          city: consignee.city,
+          district: consignee.district,
+          address: consignee.address,
+          postal_code: consignee.postal_code,
         },
-        amount: {
-          total: itemsPrice,
-          items: itemsPrice,
-          shipping: 0,
+        courier: {
+          carrier,
+          service,
+          receipt: '',
         },
-        payment_type: 'stripe',
-      };
-      const order = new Order(newOrder);
-      await order.save();
+      },
+      amount: {
+        total: itemsPrice + (shipping_cost < 0 ? 0 : shipping_cost),
+        items: itemsPrice,
+        shipping: shipping_cost < 0 ? 0 : shipping_cost,
+      },
+      payment_type: 'stripe',
+    };
+    const order = new Order(newOrder);
+    await order.save();
 
-      order.items.forEach(async (item) => {
-        await Product.findByIdAndUpdate(item.product, { $inc: { stock: -item.quantity } });
-      });
+    order.items.forEach(async (item) => {
+      await Product.findByIdAndUpdate(item.product, { $inc: { stock: -item.quantity } });
+    });
 
-      await Cart.deleteMany({ user: req.user.id });
+    await Cart.deleteMany({ user: req.user.id });
 
-      // await session.commitTransaction();
-
-      res.status(201);
-      const result = {
-        data: order,
-        meta: {
-          status: res.statusCode,
-        },
-      };
-      return res.json(result);
-    } catch (err) {
-      // await session.abortTransaction();
-    } finally {
-      // session.endSession();
-    }
+    res.status(201);
+    const result = {
+      data: order,
+      meta: {
+        status: res.statusCode,
+      },
+    };
+    return res.json(result);
+    // // const session = await mongoose.startSession();
+    // try {
+    //   // session.startTransaction();
+    //   // await session.commitTransaction();
+    // } catch (err) {
+    //   // await session.abortTransaction();
+    // } finally {
+    //   // session.endSession();
+    // }
   });
 
   static getOrderList = expressAsyncHandler(async (req, res) => {

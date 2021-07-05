@@ -11,6 +11,13 @@ const ProductCard = ({ product }) => {
         <Link to={`/products/${slugify(product.name)}-i.${product.id}`} className="w-full">
           <div className="h-auto relative bg-cool-gray-400" style={{ paddingBottom: '100%' }}>
             <img src={imgHelper(product.images[0])} alt="product img" className="w-full absolute" />
+            {product.stock <= 0 && (
+              <img
+                src={require('~/assets/sold-out/sold-out_200.png').default}
+                alt="product sold-out"
+                className="w-full absolute"
+              />
+            )}
           </div>
           <div className="relative p-2 flex flex-col" title={product.name}>
             <div className="mb-1 overflow-hidden line-clamp-2">{product.name}</div>

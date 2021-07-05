@@ -8,7 +8,22 @@ const orderRouter = express.Router();
 
 orderRouter.use(authMw);
 
-orderRouter.post('/place-order', body('address_id').isMongoId(), OrderController.placeOrder);
+orderRouter.post(
+  '/place-order',
+  [
+    body('consignee').isObject(),
+    body('consignee.name').isString(),
+    body('consignee.phone').isString(),
+    body('consignee.province').isString(),
+    body('consignee.city').isString(),
+    body('consignee.district').isString(),
+    body('consignee.address').isString(),
+    body('consignee.postal_code').isNumeric(),
+    body('courier').isString(),
+    body('shipping_cost').isNumeric(),
+  ],
+  OrderController.placeOrder,
+);
 
 orderRouter.get('/get-order-list', OrderController.getOrderList);
 

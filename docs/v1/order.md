@@ -20,7 +20,18 @@
 - **Data Params**
   ```json
   {
-    "address_id": "string"
+    "consignee": {
+      "name": "string",
+      "phone": "string",
+      "province": "string",
+      "city": "string",
+      "district": "string",
+      "address": "string",
+      "postal_code": "number"
+    },
+    "courier": "string",
+    "service": "string",
+    "shipping_cost": "number"
   }
   ```
 - **Success Response**
@@ -43,7 +54,6 @@
         }
       ],
       "shipment": {
-        "address": "mongo_id",
         "consignee": {
           "name": "string",
           "phone": "string",
@@ -53,6 +63,11 @@
           "district": "string",
           "address": "string",
           "postal_code": "number"
+        },
+        "courier": {
+          "carrier": "string",
+          "service": "string",
+          "receipt": "stirng"
         }
       },
       "amount": {

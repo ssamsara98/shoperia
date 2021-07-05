@@ -34,6 +34,7 @@ const ProductDetail = (props) => {
   const dispatch = useDispatch();
   const { productSetItem } = bindActionCreators(productAction, dispatch);
   const rsProduct = useSelector((state) => state.product);
+  const rsAuth = useSelector((state) => state.auth);
   const [product, setProduct] = useState(null);
   const [notFound, setNotFound] = useState(false);
   const [prdImg, setPrdImg] = useState(null);
@@ -139,6 +140,7 @@ const ProductDetail = (props) => {
     e.preventDefault();
     setCartDisable(() => true);
 
+    if (!rsAuth.isLoggedIn) return props.history.push('/login', props.location);
     try {
       await serverApi.post('/api/v1/cart/add-cart-item', {
         product_id: product.id,
@@ -167,6 +169,13 @@ const ProductDetail = (props) => {
             alt={(prdImgSelected && prdImgSelected.id) || (prdImg && prdImg.id)}
             className="absolute top-0 left-0 w-full"
           />
+          {product?.stock <= 0 && (
+            <img
+              src={require('~/assets/sold-out/sold-out_500.png').default}
+              alt="product sold-out"
+              className="absolute top-0 left-0 w-full"
+            />
+          )}
         </div>
         <div className="flex flex-wrap -mx-1">
           {product
@@ -249,8 +258,9 @@ const ProductDetail = (props) => {
                   <p className="text-sm text-center">{product && `Stock: ${product.stock}`}</p>
                   <div className="flex w-full justify-center">
                     <button
-                      className="w-12 text-2xl text-center border border-cool-gray-300 active:bg-cool-gray-200"
+                      className="w-12 text-2xl text-center border border-cool-gray-300 active:bg-cool-gray-200 disabled:bg-cool-gray-300"
                       onClick={() => changeQuantity('dec')}
+                      disabled={product?.stock <= 0}
                     >
                       -
                     </button>
@@ -258,20 +268,22 @@ const ProductDetail = (props) => {
                       type="text"
                       className="w-12 flex-1 text-center border-cool-gray-300"
                       value={quantity}
+                      disabled={product?.stock <= 0}
                       onChange={changeQuantityText}
                       onKeyDown={changeQuantityKeypress}
                     />
                     <button
-                      className="w-12 text-2xl text-center border border-cool-gray-300 active:bg-cool-gray-200"
+                      className="w-12 text-2xl text-center border border-cool-gray-300 active:bg-cool-gray-200 disabled:bg-cool-gray-300"
                       onClick={() => changeQuantity('inc')}
+                      disabled={product?.stock <= 0}
                     >
                       +
                     </button>
                   </div>
 
                   <button
-                    className="h-12 px-3 bg-sky-600 active:bg-sky-800 hover:bg-sky-700 text-white disabled:opacity-75"
-                    disabled={cartDisable}
+                    className="h-12 px-3 bg-sky-600 active:bg-sky-800 hover:bg-sky-700 text-white disabled:opacity-75 disabled:bg-sky-600"
+                    disabled={cartDisable || product?.stock <= 0}
                     onClick={addToCart}
                   >
                     <FontAwesomeIcon icon={faOpencart} className="mr-2" />

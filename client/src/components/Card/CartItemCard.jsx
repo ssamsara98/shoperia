@@ -95,10 +95,17 @@ const CartItemCard = ({ item }) => {
           style={{ paddingBottom: '100%' }}
         >
           <img
-            src={imgHelper(item?.product.images[0], '200-square')}
+            src={imgHelper(item?.product.images[0], '100-square')}
             alt="Img"
             className="absolute left-0 top-0 w-full"
           />
+          {item?.product.stock <= 0 && (
+            <img
+              src={require('~/assets/sold-out/sold-out_100.png').default}
+              alt="product sold-out"
+              className="absolute left-0 top-0 w-full"
+            />
+          )}
         </div>
       </div>
       <div className="w-2/5">
@@ -116,6 +123,7 @@ const CartItemCard = ({ item }) => {
         <div className="flex">
           <button
             className="h-10 w-10 text-center border border-cool-gray-300 active:bg-cool-gray-200 disabled:opacity-75 bg-cool-gray-100 disabled:bg-cool-gray-100"
+            disabled={item?.product.stock <= 0}
             onClick={() => changeQuantity('dec')}
           >
             -
@@ -130,6 +138,7 @@ const CartItemCard = ({ item }) => {
           />
           <button
             className="h-10 w-10 text-center border border-cool-gray-300 active:bg-cool-gray-200 disabled:opacity-75 bg-cool-gray-100 disabled:bg-cool-gray-100"
+            disabled={item?.product.stock <= 0}
             onClick={() => changeQuantity('inc')}
           >
             +

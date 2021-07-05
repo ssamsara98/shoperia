@@ -104,7 +104,6 @@
     }
   ],
   "shipment": {
-    "address": "mongo_id -> address",
     "consignee": {
       "name": "string",
       "phone": "string",
@@ -114,6 +113,11 @@
       "district": "string",
       "address": "string",
       "postal_code": "number"
+    },
+    "courier": {
+      "carrier": "string",
+      "service": "string",
+      "receipt": "string"
     }
   },
   "amount": {
