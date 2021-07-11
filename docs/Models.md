@@ -3,7 +3,7 @@
 ## User
 
 ```js
-const User = {
+const user = {
   _id: "mongo_id",
   created_at: "date",
   updated_at: "date",
@@ -21,7 +21,7 @@ const User = {
 ## Product
 
 ```js
-const Product = {
+const product = {
   _id: "mongo_id",
   created_at: "date",
   updated_at: "date",
@@ -37,7 +37,7 @@ const Product = {
 ## Product Image
 
 ```js
-const ProductImage = {
+const product_image = {
   _id: "mongo_id",
   created_at: "date",
   updated_at: "date",
@@ -51,7 +51,7 @@ const ProductImage = {
 ## Cart
 
 ```js
-const Cart = {
+const cart = {
   _id: "mongo_id",
   created_at: "date",
   updated_at: "date",
@@ -64,7 +64,7 @@ const Cart = {
 ## Address
 
 ```js
-const Address = {
+const address = {
   _id: "mongo_id",
   created_at: "date",
   updated_at: "date",
@@ -87,7 +87,7 @@ const Address = {
 ## Order
 
 ```js
-const Order = {
+const order = {
   _id: "mongo_id",
   created_at: "date",
   updated_at: "date",

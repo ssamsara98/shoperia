@@ -2,6 +2,7 @@ import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import AccountSidebar from '~/components/Sidebar/AccountSidebar';
 import Address from '~/views/Account/Address';
+import Orders from '~/views/Account/Orders';
 import Profile from '~/views/Account/Profile';
 
 const Account = () => {
@@ -14,8 +15,8 @@ const Account = () => {
         <Switch>
           <Route path="/account/profile" component={Profile} />
           <Route path="/account/address" component={Address} />
-          <Route path="/account/orders" render={() => <></>} />
-          <Route path="/account/*">
+          <Route path="/account/orders" component={Orders} />
+          <Route path="/account">
             <Redirect to="/account/profile" />
           </Route>
         </Switch>

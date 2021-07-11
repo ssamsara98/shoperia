@@ -1,21 +1,14 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Sidebar from '~/components/Sidebar/AdminSidebar';
-
-const Dashboard = () => {
-  return (
-    <div>
-      <h1>Dashboard</h1>
-    </div>
-  );
-};
+import Dashboard from '~/views/Admin/Dashboard';
 
 const Admin = () => {
   return (
     <>
       <Sidebar />
       <div className="relative md:ml-64 bg-blue-gray-100">
-        <div className="px-4 md:px-10 mx-auto w-full py-6 sm:px-6 lg:px-8">
+        <div className="w-full px-4 sm:px-6 md:px-10 lg:px-8 py-6 mx-auto">
           <Switch>
             <Route path="/admin/dashboard" exact component={Dashboard} />
             <Route path="/admin">

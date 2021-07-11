@@ -160,24 +160,31 @@ const CartItemTotal = () => {
     }));
   };
 
-  const handleCheckout = (e) => {
+  const handleCheckout = async (e) => {
     e.preventDefault();
-    const data = {
-      consignee: {
-        name: form.name,
-        phone: form.phone,
-        province: form.province,
-        city: form.city,
-        district: form.district,
-        address: form.address,
-        postal_code: form.postal_code,
-      },
-      courier: form.courier,
-      service: form.service,
-      shipping_cost: parseInt(form.cost),
-    };
-    console.log(form);
-    console.log(data);
+    setIsCheckout(false);
+    try {
+      const data = {
+        consignee: {
+          name: form.name,
+          phone: form.phone,
+          province: form.province,
+          city: form.city,
+          district: form.district,
+          address: form.address,
+          postal_code: form.postal_code,
+        },
+        courier: form.courier,
+        service: form.service,
+        shipping_cost: parseInt(form.cost),
+      };
+      await serverApi.post('/api/v1/order/place-order', data);
+      window.location.href = '/account/orders';
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsCheckout(false);
+    }
   };
 
   return (
@@ -209,9 +216,10 @@ const CartItemTotal = () => {
               type="text"
               id="name"
               name="name"
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 disabled:bg-cool-gray-300"
               value={form.name}
               onChange={handleNamed}
+              disabled={!items.length}
             />
           </div>
           <div className="w-full">
@@ -220,9 +228,10 @@ const CartItemTotal = () => {
               type="text"
               id="phone"
               name="phone"
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 disabled:bg-cool-gray-300"
               value={form.phone}
               onChange={handleNamed}
+              disabled={!items.length}
             />
           </div>
         </div>
@@ -232,9 +241,10 @@ const CartItemTotal = () => {
           <select
             name="province"
             id="province"
-            className="block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+            className="block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 disabled:bg-cool-gray-300"
             defaultValue={form.province}
             onChange={handleProvince}
+            disabled={!items.length}
           >
             <option disabled value="">
               -- Choose Province --
@@ -339,9 +349,10 @@ const CartItemTotal = () => {
               type="text"
               id="district"
               name="district"
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 disabled:bg-cool-gray-300"
               value={form.district}
               onChange={handleNamed}
+              disabled={!items.length}
             />
           </div>
           <div className="w-full">
@@ -350,9 +361,10 @@ const CartItemTotal = () => {
               type="text"
               id="postal_code"
               name="postal_code"
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 disabled:bg-cool-gray-300"
               value={form.postal_code}
               onChange={handleNamed}
+              disabled={!items.length}
             />
           </div>
         </div>
@@ -362,10 +374,11 @@ const CartItemTotal = () => {
           <textarea
             name="address"
             id="address"
-            className="mt-1 block w-full h-24"
+            className="mt-1 block w-full h-24 disabled:bg-cool-gray-300"
             placeholder="Input address here"
             value={form.address}
             onChange={handleNamed}
+            disabled={!items.length}
           ></textarea>
         </div>
       </div>

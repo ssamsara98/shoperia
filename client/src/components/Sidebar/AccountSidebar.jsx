@@ -32,7 +32,7 @@ const AccountSidebar = () => {
           </div>
           Address
         </NavLink>
-        <NavLink to="/account/Orders" exact activeClassName="text-sky-600">
+        <NavLink to="/account/orders" exact activeClassName="text-sky-600">
           <div className="w-4 h-4 mr-4 inline-block relative text-center">
             <FontAwesomeIcon icon={faReceipt} />
           </div>

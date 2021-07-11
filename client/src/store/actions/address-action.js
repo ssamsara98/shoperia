@@ -13,7 +13,7 @@ export const addressSuccess = (payload) => ({
 });
 
 export const addressFail = (payload) => ({
-  type: addressType.ADDRESS_SUCCESS,
+  type: addressType.ADDRESS_FAIL,
   payload,
 });
 
