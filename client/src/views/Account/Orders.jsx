@@ -1,21 +1,52 @@
-import React, { useLayoutEffect } from 'react';
+import { loadStripe } from '@stripe/stripe-js';
+import React, { useLayoutEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import serverApi from '~/api/server-api';
 import { orderAction } from '~/store/actions';
 import imgHelper from '~/utils/img-helper';
 import priceHelper from '~/utils/price-helper';
 
-const Orders = () => {
+const Orders = (props) => {
   const dispatch = useDispatch();
   const { orderFetchList } = bindActionCreators(orderAction, dispatch);
   const order = useSelector((state) => state.order);
+  const [payLoading, setPayLoading] = useState(false);
 
   useLayoutEffect(() => {
-    orderFetchList();
+    const query = new URLSearchParams(props.location.search);
+    (async () => {
+      if (JSON.parse(query.get('success'))) {
+        try {
+          await serverApi.patch(`/api/v1/order/pay-order/${query.get('order_id')}`);
+        } catch (err) {
+          console.error(err);
+        } finally {
+          window.location.href = '/';
+        }
+      }
+      orderFetchList();
+    })();
+
     return () => {};
   }, []);
 
-  if (order.loading) return <div>Loading...</div>;
+  const handlePayment = async (order_id) => {
+    setPayLoading(true);
+    try {
+      console.log(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
+      const stripe = await loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
+      const {
+        data: { data: session },
+      } = await serverApi.post(`/api/v1/order/create-stripe-checkout-session/${order_id}`);
+      console.log(session);
+      stripe.redirectToCheckout({ sessionId: session.id });
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setPayLoading(false);
+    }
+  };
 
   return (
     <>
@@ -79,9 +110,20 @@ const Orders = () => {
             <div className="flex py-4 border-b-2">
               <div className="flex-1"></div>
               <div className="flex-1 flex justify-end">
-                <button className="w-1/3 px-3 py-2 bg-sky-600 hover:bg-sky-700 active:bg-sky-800 disabled:bg-sky-600 disabled:opacity-75 text-white rounded">
-                  Pay Now
-                </button>
+                {orderUnit.status === 'pending' && (
+                  <button
+                    className="w-1/3 px-3 py-2 bg-sky-600 hover:bg-sky-700 active:bg-sky-800 disabled:bg-cool-gray-500 disabled:opacity-75 text-white rounded"
+                    onClick={() => handlePayment(orderUnit._id)}
+                    disabled={payLoading}
+                  >
+                    Pay Now
+                  </button>
+                )}
+                {orderUnit.status === 'paid' && (
+                  <button className="w-1/3 px-3 py-2 bg-cool-gray-400 text-white rounded">
+                    Paid
+                  </button>
+                )}
               </div>
             </div>
           </div>

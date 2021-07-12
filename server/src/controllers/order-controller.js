@@ -2,11 +2,15 @@ const expressAsyncHandler = require('express-async-handler');
 const { validationResult } = require('express-validator');
 const createHttpError = require('http-errors');
 const mongoose = require('mongoose');
+const Stripe = require('stripe');
 
 // const Address = require('../models/address');
 const Cart = require('../models/cart');
 const Order = require('../models/order');
 const Product = require('../models/product');
+const imgHelper = require('../utils/img-helper');
+
+const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
 class OrderController {
   static placeOrder = expressAsyncHandler(async (req, res) => {
@@ -104,6 +108,7 @@ class OrderController {
 
   static getOrderList = expressAsyncHandler(async (req, res) => {
     const orderList = await Order.find({ buyer: req.user.id })
+      .sort({ created_at: 'desc' })
       .populate({
         path: 'buyer',
         select: 'avatar birthdate sex_type name username',
@@ -120,7 +125,6 @@ class OrderController {
         path: 'shipment.address',
         select: '-__v -created_at -updated_at',
       })
-
       .exec();
 
     const result = {
@@ -191,6 +195,96 @@ class OrderController {
       },
     };
 
+    return res.json(result);
+  });
+
+  static payOrder = expressAsyncHandler(async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      throw createHttpError(422, { errors: errors.array() });
+    }
+    const { order_id } = req.params;
+
+    const order = await Order.findOneAndUpdate(
+      { _id: mongoose.Types.ObjectId(order_id), buyer: req.user.id },
+      { status: 'paid' },
+      { new: true },
+    );
+
+    if (!order) throw createHttpError(204);
+
+    const result = {
+      data: order,
+      meta: {
+        status: res.statusCode,
+      },
+    };
+
+    return res.json(result);
+  });
+
+  static createStripeSession = expressAsyncHandler(async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      throw createHttpError(422, { errors: errors.array() });
+    }
+    const { order_id } = req.params;
+
+    const order = await Order.findOne({
+      _id: mongoose.Types.ObjectId(order_id),
+      buyer: req.user.id,
+      status: 'pending',
+      payment_type: 'stripe',
+    }).populate({
+      path: 'items.images',
+      select: 'filepath filename type',
+    });
+
+    if (!order) throw createHttpError(404, 'Order not found');
+
+    const line_items = [
+      ...order.items.map((item) => ({
+        price_data: {
+          currency: 'idr',
+          product_data: {
+            name: item.name,
+            images: [imgHelper(item.images[0])],
+          },
+          unit_amount: Math.ceil(item.price * 100),
+        },
+        quantity: item.quantity,
+      })),
+      {
+        price_data: {
+          currency: 'idr',
+          product_data: {
+            name: 'Shipping Cost',
+          },
+          unit_amount: Math.ceil(order.amount.shipping * 100),
+        },
+        quantity: 1,
+      },
+    ];
+
+    // create checkout session
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      success_url: `${req.protocol}://${req.get(
+        'host',
+      )}/account/orders?success=true&order_id=${order_id}`,
+      cancel_url: `${req.protocol}://${req.get('host')}/account/orders?canceled=true`,
+      customer_email: req.user.email,
+      client_reference_id: order_id,
+      mode: 'payment',
+      line_items,
+    });
+
+    const result = {
+      data: session,
+      meta: { status: res.statusCode },
+    };
+
+    // return res.redirect(303, session.url);
     return res.json(result);
   });
 }

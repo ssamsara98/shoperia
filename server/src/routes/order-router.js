@@ -35,4 +35,12 @@ orderRouter.patch(
   OrderController.cancelOrder,
 );
 
+orderRouter.patch('/pay-order/:order_id', param('order_id').isMongoId(), OrderController.payOrder);
+
+orderRouter.post(
+  '/create-stripe-checkout-session/:order_id',
+  param('order_id').isMongoId(),
+  OrderController.createStripeSession,
+);
+
 module.exports = orderRouter;
