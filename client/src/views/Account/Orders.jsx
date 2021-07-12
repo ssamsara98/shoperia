@@ -26,7 +26,7 @@ const Orders = () => {
       <div className="flex flex-col pt-8">
         {/* boxes */}
         {order.list.map((orderUnit) => (
-          <div className="flex flex-col my-3 px-5 pb-3 shadow">
+          <div className="flex flex-col my-3 px-5 pb-3 shadow" key={orderUnit._id}>
             {/* status */}
             <div className="flex items-center py-4 justify-between border-b-2">
               <p className="text-lg text-sky-600 uppercase">{orderUnit.status}</p>
@@ -37,7 +37,7 @@ const Orders = () => {
             {/* items */}
             <div className="mt-5 border-b-2">
               {orderUnit.items.map((item) => (
-                <div className="flex mb-2">
+                <div className="flex mb-2" key={item._id}>
                   <div className="flex flex-1 space-x-5">
                     {/* image */}
                     <div className="w-1/6">
