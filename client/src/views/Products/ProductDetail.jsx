@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { bindActionCreators } from 'redux';
 import serverApi from '~/api/server-api';
 import { productAction } from '~/store/actions';
@@ -146,6 +148,7 @@ const ProductDetail = (props) => {
         product_id: product.id,
         quantity,
       });
+      toast.dark('Product added');
       setCartDisable(() => false);
     } catch (err) {
       setCartDisable(() => false);
@@ -299,6 +302,7 @@ const ProductDetail = (props) => {
                     />
                     Favorite
                   </button>
+                  <ToastContainer />
                 </>
               )}
             </div>
