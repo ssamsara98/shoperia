@@ -148,7 +148,7 @@ const ProductDetail = (props) => {
         product_id: product.id,
         quantity,
       });
-      toast.dark('Product added');
+      toast.dark('Product added', { autoClose: 2000 });
       setCartDisable(() => false);
     } catch (err) {
       setCartDisable(() => false);

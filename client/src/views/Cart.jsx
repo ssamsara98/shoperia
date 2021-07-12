@@ -25,7 +25,9 @@ const Cart = () => {
           {rsCart.loading && !rsCart.items.length ? (
             [...new Array(5).keys()].map((key) => <CartItemCardSkeleton key={key} />)
           ) : !!rsCart.items.length ? (
-            rsCart.items.map((item) => <CartItemCard item={item} key={item.id} />)
+            rsCart.items.map((item) => (
+              <CartItemCard item={item} key={`${item.id}-${item.quantity}`} />
+            ))
           ) : (
             <p>Your cart is empty</p>
           )}
