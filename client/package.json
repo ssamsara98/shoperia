@@ -10,7 +10,7 @@
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject",
-    "prettier:file": "npm run prettier:file:client --prefix .."
+    "prettify": "npm run prettify:client --prefix .."
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.35",

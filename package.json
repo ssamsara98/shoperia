@@ -17,9 +17,9 @@
     "install": "yarn --cwd ./server install",
     "build": "yarn --cwd ./client build",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false yarn --cwd ./client install && yarn build",
-    "prettier:file:server": "prettier -w \"server/{public,src}/**/*.{md,html,css,scss,json,js,jsx,ts,tsx,vue}\"",
-    "prettier:file:client": "prettier -w \"client/{public,src}/**/*.{md,html,css,scss,json,js,jsx,ts,tsx,vue}\"",
-    "prettier:file": "prettier -w \"{server,client}/{public,src}/**/*.{md,html,css,scss,json,js,jsx,ts,tsx,vue}\""
+    "prettify:server": "prettier -w \"server/{public,src}/**/*.{md,html,css,scss,json,js,jsx,ts,tsx,vue}\"",
+    "prettify:client": "prettier -w \"client/{public,src}/**/*.{md,html,css,scss,json,js,jsx,ts,tsx,vue}\"",
+    "prettify": "prettier -w \"{server,client}/{public,src}/**/*.{md,html,css,scss,json,js,jsx,ts,tsx,vue}\""
   },
   "dependencies": {},
   "devDependencies": {
@@ -42,10 +42,5 @@
   },
   "lint-staged": {
     "*.{md,html,css,scss,json,js,jsx,ts,tsx,vue}": "prettier -w"
-  },
-  "engines": {
-    "node": "^14.x",
-    "npm": "^6.x",
-    "yarn": "^1.x"
   }
 }

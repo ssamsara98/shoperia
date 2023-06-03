@@ -17,19 +17,19 @@
 - **Method** `GET`
 - **URL** `/api/v1/product/get-product-list`
 - **Query Params** `None`
-- **Data Params** `None`
+- **Body Params** `None`
 - **Success Response**
   ```json
   {
     "data": [
       {
-        "_id": "mongo_id",
-        "id": "mongo_id",
+        "_id": "mongoId",
+        "id": "mongoId",
         "name": "string",
         "images": [
           {
-            "_id": "mongo_id",
-            "id": "mongo_id",
+            "_id": "mongoId",
+            "id": "mongoId",
             "filename": "string",
             "filepath": "string",
             "type": "string"
@@ -39,8 +39,8 @@
         "stock": "number",
         "condition": "string",
         "description": "string?",
-        "created_at": "string",
-        "updated_at": "string"
+        "createdAt": "string",
+        "updatedAt": "string"
       }
     ],
     "meta": {
@@ -54,20 +54,20 @@
 ## Get Product
 
 - **Method** `GET`
-- **URL** `/api/v1/product/get-product/:product_id`
+- **URL** `/api/v1/product/get-product/:productId`
 - **Query Params** `None`
-- **Data Params** `None`
+- **Body Params** `None`
 - **Success Response**
   ```json
   {
     "data": {
-      "_id": "mongo_id",
-      "id": "mongo_id",
+      "_id": "mongoId",
+      "id": "mongoId",
       "name": "string",
       "images": [
         {
-          "_id": "mongo_id",
-          "id": "mongo_id",
+          "_id": "mongoId",
+          "id": "mongoId",
           "filename": "string",
           "filepath": "string",
           "type": "string"
@@ -77,8 +77,8 @@
       "stock": "number",
       "condition": "string",
       "description": "string?",
-      "created_at": "string",
-      "updated_at": "string"
+      "createdAt": "string",
+      "updatedAt": "string"
     },
     "meta": {
       "status": 200
@@ -94,7 +94,7 @@
 - **Method** `POST`
 - **URL** `/api/v1/product/add-product`
 - **Query Params** `None`
-- **Data Params**
+- **Body Params**
   ```json
   {
     "name": "string",
@@ -102,20 +102,20 @@
     "stock": "number",
     "condition": "string",
     "description": "string?",
-    "image_ids": ["mongo_id"]
+    "imageIds": ["mongoId"]
   }
   ```
 - **Success Response**
   ```json
   {
     "data": {
-      "_id": "mongo_id",
-      "id": "mongo_id",
+      "_id": "mongoId",
+      "id": "mongoId",
       "name": "string",
       "images": [
         {
-          "_id": "mongo_id",
-          "id": "mongo_id",
+          "_id": "mongoId",
+          "id": "mongoId",
           "filename": "string",
           "filepath": "string",
           "type": "string"
@@ -125,8 +125,8 @@
       "stock": "number",
       "condition": "string",
       "description": "string?",
-      "created_at": "string",
-      "updated_at": "string"
+      "createdAt": "string",
+      "updatedAt": "string"
     },
     "meta": {
       "status": 201
@@ -140,9 +140,9 @@
 
 - **Auth** `Yes` `Admin`
 - **Method** `PATCH`
-- **URL** `/api/v1/product/update-product/:product_id`
+- **URL** `/api/v1/product/update-product/:productId`
 - **Query Params** `None`
-- **Data Params**
+- **Body Params**
   ```json
   {
     "name": "string",
@@ -150,20 +150,20 @@
     "stock": "number",
     "condition": "string",
     "description": "string?",
-    "image_ids": ["mongo_id"]
+    "imageIds": ["mongoId"]
   }
   ```
 - **Success Response**
   ```json
   {
     "data": {
-      "_id": "mongo_id",
-      "id": "mongo_id",
+      "_id": "mongoId",
+      "id": "mongoId",
       "name": "string",
       "images": [
         {
-          "_id": "mongo_id",
-          "id": "mongo_id",
+          "_id": "mongoId",
+          "id": "mongoId",
           "filename": "string",
           "filepath": "string",
           "type": "string"
@@ -173,8 +173,8 @@
       "stock": "number",
       "condition": "string",
       "description": "string?",
-      "created_at": "string",
-      "updated_at": "string"
+      "createdAt": "string",
+      "updatedAt": "string"
     },
     "meta": {
       "status": 200
@@ -188,9 +188,9 @@
 
 - **Auth** `Yes` `Admin`
 - **Method** `DELETE`
-- **URL** `/api/v1/product/delete-product/:product_id`
+- **URL** `/api/v1/product/delete-product/:productId`
 - **Query Params** `None`
-- **Data Params** `None`
+- **Body Params** `None`
 - **Success Response** `204 (No Content)`
 
 ---

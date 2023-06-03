@@ -43,9 +43,9 @@
 
   **Optional:**
 
-  `photo_id=[alphanumeric]`
+  `photoId=[alphanumeric]`
 
-- **Data Params**
+- **Body Params**
 
   <_If making a post request, what should the body payload look like? URL Params rules apply here too._>
 
@@ -113,7 +113,7 @@
 - **Header**
   ```json
   {
-    "Authorization": "Bearer <access_token>"
+    "Authorization": "Bearer <accessToken>"
   }
   ```
 - **Error Response**

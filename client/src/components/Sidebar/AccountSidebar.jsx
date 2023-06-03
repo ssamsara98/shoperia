@@ -13,7 +13,7 @@ const AccountSidebar = () => {
         <div className="h-12 w-12 bg-white rounded-full">
           <img
             className="w-full"
-            src={`https://detteksie-mybucket.s3.amazonaws.com/${rsAuth.user.avatar}`}
+            src={`https://${process.env.REACT_APP_AWS_BUCKET}.s3.amazonaws.com/${rsAuth.user.avatar}`}
             alt="Avatar"
           />
         </div>

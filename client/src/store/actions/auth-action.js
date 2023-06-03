@@ -36,13 +36,13 @@ export const authLogout = () => {
 // async
 
 export const authFetchLogin =
-  (user_session, password, remember_me = false) =>
+  (userSession, password, rememberMe = false) =>
   async (dispatch) => {
-    // const loginForm = { user_session, password };
+    // const loginForm = { userSession, password };
     try {
       dispatch(authStart());
 
-      const loginResp = await serverApi.post('/api/v1/auth/login', { user_session, password });
+      const loginResp = await serverApi.post('/api/v1/auth/login', { userSession, password });
 
       const user = loginResp.data.data.user;
       dispatch(authSuccess(user));

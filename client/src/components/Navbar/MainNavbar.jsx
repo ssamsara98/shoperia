@@ -90,7 +90,7 @@ const Navbar = withRouter((props) => {
                               <span className="sr-only">Open user menu</span>
                               <img
                                 className="h-8 w-8 rounded-full"
-                                src={`https://detteksie-mybucket.s3.amazonaws.com/${rsAuth.user.avatar}`}
+                                src={`https://${process.env.REACT_APP_AWS_BUCKET}.s3.amazonaws.com/${rsAuth.user.avatar}`}
                                 alt="Avatar"
                               />
                             </Menu.Button>

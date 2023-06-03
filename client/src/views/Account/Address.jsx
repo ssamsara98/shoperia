@@ -93,8 +93,8 @@ const AddressCard = ({ address = { detail: {} } }) => {
           <div className="w-4/5 pl-5">{address.name}</div>
         </div>
         <div className="flex">
-          <div className="w-1/5 text-right text-sm overflow-hidden">Phone</div>
-          <div className="w-4/5 pl-5">{address.phone}</div>
+          <div className="w-1/5 text-right text-sm overflow-hidden">Telephone</div>
+          <div className="w-4/5 pl-5">{address.telephone}</div>
         </div>
         <div className="flex">
           <div className="w-1/5 text-right text-sm overflow-hidden">Address</div>
@@ -105,7 +105,7 @@ const AddressCard = ({ address = { detail: {} } }) => {
             <br />
             {address.detail.province}
             <br />
-            {address.detail.country} {address.detail.postal_code}
+            {address.detail.country} {address.detail.postalCode}
           </div>
         </div>
       </div>

@@ -3,17 +3,17 @@
 ## User
 
 ```js
-const user = {
-  _id: "mongo_id",
-  created_at: "date",
-  updated_at: "date",
+const User = {
+  _id: "mongoId",
+  createdAt: "date",
+  updatedAt: "date",
   name: "string",
   email: "string",
   username: "string",
   password: "string",
   admin: "boolean",
   avatar: "string",
-  sex_type: "enum string",
+  sexType: "enum string",
   birthdate: "date",
 };
 ```
@@ -22,11 +22,11 @@ const user = {
 
 ```js
 const product = {
-  _id: "mongo_id",
-  created_at: "date",
-  updated_at: "date",
+  _id: "mongoId",
+  createdAt: "date",
+  updatedAt: "date",
   name: "string",
-  images: ["mongo_id -> product_image"],
+  images: ["mongoId -> productImage"],
   price: "number",
   stock: "number",
   description: "string",
@@ -37,10 +37,10 @@ const product = {
 ## Product Image
 
 ```js
-const product_image = {
-  _id: "mongo_id",
-  created_at: "date",
-  updated_at: "date",
+const productImage = {
+  _id: "mongoId",
+  createdAt: "date",
+  updatedAt: "date",
   uuidv4: "string",
   filepath: "string",
   filename: "string",
@@ -52,9 +52,9 @@ const product_image = {
 
 ```js
 const cart = {
-  _id: "mongo_id",
-  created_at: "date",
-  updated_at: "date",
+  _id: "mongoId",
+  createdAt: "date",
+  updatedAt: "date",
   user: "string",
   product: "string",
   quantity: "string",
@@ -65,10 +65,10 @@ const cart = {
 
 ```js
 const address = {
-  _id: "mongo_id",
-  created_at: "date",
-  updated_at: "date",
-  user: "mongo_id -> user",
+  _id: "mongoId",
+  createdAt: "date",
+  updatedAt: "date",
+  user: "mongoId -> user",
   title: "string",
   name: "string",
   phone: "string",
@@ -79,7 +79,7 @@ const address = {
     city: "string",
     district: "string",
     address: "string",
-    postal_code: "string",
+    postalCode: "string",
   },
 };
 ```
@@ -88,19 +88,19 @@ const address = {
 
 ```js
 const order = {
-  _id: "mongo_id",
-  created_at: "date",
-  updated_at: "date",
+  _id: "mongoId",
+  createdAt: "date",
+  updatedAt: "date",
   state: "string",
-  buyer: "mongo_id -> user",
+  buyer: "mongoId -> user",
   items: [
     {
-      product: "mongo_id -> product",
+      product: "mongoId -> product",
       name: "string",
       quantity: "number",
       price: "number",
-      total_price: "number",
-      images: ["mongo_id -> product_image"],
+      totalPrice: "number",
+      images: ["mongoId -> productImage"],
     },
   ],
   shipment: {
@@ -112,7 +112,7 @@ const order = {
       city: "string",
       district: "string",
       address: "string",
-      postal_code: "number",
+      postalCode: "number",
     },
     courier: {
       carrier: "string",
@@ -125,6 +125,6 @@ const order = {
     items: "number",
     shipping: "number",
   },
-  payment_type: "string",
+  paymentType: "string",
 };
 ```

@@ -42,11 +42,11 @@ export const cartFetchItems = () => async (dispatch) => {
   }
 };
 
-export const cartFetchItemUpdate = (product_id, quantity) => async (dispatch) => {
+export const cartFetchItemUpdate = (productId, quantity) => async (dispatch) => {
   try {
     dispatch(cartStart());
     const item = await serverApi.post('/api/v1/cart/add-cart-item', {
-      product_id,
+      productId,
       quantity,
       modified: true,
     });
@@ -59,13 +59,13 @@ export const cartFetchItemUpdate = (product_id, quantity) => async (dispatch) =>
   }
 };
 
-export const cartFetchItemDelete = (product_id) => async (dispatch) => {
+export const cartFetchItemDelete = (productId) => async (dispatch) => {
   try {
     dispatch(cartStart());
     await serverApi.delete('/api/v1/cart/delete-cart-item', {
-      data: { product_id },
+      data: { productId },
     });
-    dispatch(cartItemDelete(product_id));
+    dispatch(cartItemDelete(productId));
   } catch (err) {
     if (axios.isAxiosError(err)) {
       dispatch(cartFail(err.response.data.error));

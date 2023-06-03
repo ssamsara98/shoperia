@@ -50,12 +50,12 @@ const Profile = () => {
             </div>
             <div className="flex items-center mb-5">
               <div className="w-1/5 text-right overflow-hidden">
-                <label htmlFor="sex_type">Sex Type</label>
+                <label htmlFor="sexType">Sex Type</label>
               </div>
               <div className="w-4/5 pl-5">
                 <select
-                  defaultValue={rsAuth.user.sex_type}
-                  id="sex_type"
+                  defaultValue={rsAuth.user.sexType}
+                  id="sexType"
                   className="block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 >
                   <option value="Other">Other</option>
@@ -95,7 +95,7 @@ const Profile = () => {
             <div className="h-24 w-24 my-5 bg-cool-gray-300 rounded-full">
               <img
                 className="w-full"
-                src={`https://detteksie-mybucket.s3.amazonaws.com/${rsAuth.user.avatar}`}
+                src={`https://${process.env.REACT_APP_AWS_BUCKET}.s3.amazonaws.com/${rsAuth.user.avatar}`}
                 alt="Avatar"
               />
             </div>

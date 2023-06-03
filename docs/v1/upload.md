@@ -15,7 +15,7 @@
 - **Method** `POST`
 - **URL** `/api/v1/upload/image/product`
 - **Query Params** `None`
-- **Data Params** `multipart/form-data`
+- **Body Params** `multipart/form-data`
   ```
   image=File
   ```
@@ -23,8 +23,8 @@
   ```json
   {
     "data": {
-      "upload_id": "string",
-      "image_url": "string"
+      "uploadId": "string",
+      "imageUrl": "string"
     },
     "metadata": {
       "status": 201
@@ -40,7 +40,7 @@
 - **Method** `POST`
 - **URL** `/api/v1/upload/image/avatar`
 - **Query Params** `None`
-- **Data Params** `multipart/form-data`
+- **Body Params** `multipart/form-data`
   ```
   image=File
   ```

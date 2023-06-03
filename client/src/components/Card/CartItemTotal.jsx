@@ -12,7 +12,7 @@ const CartItemTotal = () => {
   const [weight, setWeight] = useState(0);
   const [form, setForm] = useState({
     name: '',
-    phone: '',
+    telephone: '',
     province: '',
     province_id: null,
     city: '',
@@ -152,6 +152,8 @@ const CartItemTotal = () => {
     }));
   };
   const handleCost = (e) => {
+    console.log(e);
+    console.log(e.target.value);
     const cost = costs[e.target.value];
     setForm((prev) => ({
       ...prev,
@@ -167,16 +169,16 @@ const CartItemTotal = () => {
       const data = {
         consignee: {
           name: form.name,
-          phone: form.phone,
+          telephone: form.telephone,
           province: form.province,
           city: form.city,
           district: form.district,
           address: form.address,
-          postal_code: form.postal_code,
+          postalCode: form.postal_code,
         },
         courier: form.courier,
         service: form.service,
-        shipping_cost: parseInt(form.cost),
+        shippingCost: parseInt(form.cost),
       };
       await serverApi.post('/api/v1/order/place-order', data);
       window.location.href = '/account/orders';
@@ -223,13 +225,13 @@ const CartItemTotal = () => {
             />
           </div>
           <div className="w-full">
-            <label htmlFor="phone">Phone</label>
+            <label htmlFor="telephone">Telephone</label>
             <input
               type="text"
-              id="phone"
-              name="phone"
+              id="telephone"
+              name="telephone"
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 disabled:bg-cool-gray-300"
-              value={form.phone}
+              value={form.telephone}
               onChange={handleNamed}
               disabled={!items.length}
             />
@@ -329,7 +331,7 @@ const CartItemTotal = () => {
                   <input
                     type="radio"
                     name="cost"
-                    checked={form.cost === cost.cost[0].value}
+                    checked={form.cost === cost.cost[0].value && form.service === cost.service}
                     value={idx}
                     onChange={handleCost}
                   />

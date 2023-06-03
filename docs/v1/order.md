@@ -17,7 +17,7 @@
 - **Method** `POST`
 - **URL** `/api/v1/order/place-order`
 - **Query Params** `None`
-- **Data Params**
+- **Body Params**
   ```json
   {
     "consignee": {
@@ -27,11 +27,11 @@
       "city": "string",
       "district": "string",
       "address": "string",
-      "postal_code": "number"
+      "postalCode": "number"
     },
     "courier": "string",
     "service": "string",
-    "shipping_cost": "number"
+    "shippingCost": "number"
   }
   ```
 - **Success Response**
@@ -41,16 +41,16 @@
       "_id": "string",
       "id": "string",
       "status": "string",
-      "buyer": "mongo_id",
+      "buyer": "mongoId",
       "items": [
         {
-          "_id": "mongo_id",
-          "product": "mongo_id",
-          "images": ["mongo_id"],
+          "_id": "mongoId",
+          "product": "mongoId",
+          "images": ["mongoId"],
           "name": "string",
           "quantity": "number",
           "price": "number",
-          "total_price": "number"
+          "totalPrice": "number"
         }
       ],
       "shipment": {
@@ -62,7 +62,7 @@
           "city": "string",
           "district": "string",
           "address": "string",
-          "postal_code": "number"
+          "postalCode": "number"
         },
         "courier": {
           "carrier": "string",
@@ -75,9 +75,9 @@
         "items": "number",
         "shipping": "number"
       },
-      "payment_type": "string",
-      "created_at": "string",
-      "updated_at": "string"
+      "paymentType": "string",
+      "createdAt": "string",
+      "updatedAt": "string"
     },
     "meta": {
       "status": 201
@@ -93,7 +93,7 @@
 - **Method** `POST`
 - **URL** `/api/v1/order/get-order-list`
 - **Query Params** `None`
-- **Data Params** `None`
+- **Body Params** `None`
 - **Success Response**
   ```json
   {
@@ -109,7 +109,7 @@
           "name": "string",
           "username": "string",
           "birthdate": "date",
-          "sex_type": "string"
+          "sexType": "string"
         },
         "shipment": {
           "consignee": {
@@ -120,11 +120,11 @@
             "city": "string",
             "district": "string",
             "address": "string",
-            "postal_code": "number"
+            "postalCode": "number"
           },
           "address": {
-            "_id": "mongo_id",
-            "id": "mongo_id",
+            "_id": "mongoId",
+            "id": "mongoId",
             "user": "string",
             "phone": "string",
             "primary": "boolean",
@@ -136,7 +136,7 @@
               "city": "string",
               "district": "string",
               "address": "string",
-              "postal_code": "number"
+              "postalCode": "number"
             }
           }
         },
@@ -147,10 +147,10 @@
         },
         "items": [
           {
-            "_id": "mongo_id",
-            "_id": "mongo_id",
+            "_id": "mongoId",
+            "_id": "mongoId",
             "product": {
-              "_id": "mongo_id",
+              "_id": "mongoId",
               "id": "string",
               "name": "string",
               "price": "number",
@@ -158,8 +158,8 @@
             },
             "images": [
               {
-                "_id": "mongo_id",
-                "id": "mongo_id",
+                "_id": "mongoId",
+                "id": "mongoId",
                 "type": "string",
                 "filepath": "string",
                 "filename": "string"
@@ -168,12 +168,12 @@
             "name": "string",
             "quantity": "number",
             "price": "number",
-            "total_price": "number"
+            "totalPrice": "number"
           }
         ],
-        "payment_type": "stripe",
-        "created_at": "date",
-        "updated_at": "date"
+        "paymentType": "stripe",
+        "createdAt": "date",
+        "updatedAt": "date"
       }
     ],
     "meta": {
@@ -188,9 +188,9 @@
 
 - **Auth** `Yes`
 - **Method** `POST`
-- **URL** `/api/v1/order/get-order/:order_id`
+- **URL** `/api/v1/order/get-order/:orderId`
 - **Query Params** `None`
-- **Data Params** `None`
+- **Body Params** `None`
 - **Success Response**
   ```json
   {
@@ -205,7 +205,7 @@
         "name": "string",
         "username": "string",
         "birthdate": "date",
-        "sex_type": "string"
+        "sexType": "string"
       },
       "shipment": {
         "consignee": {
@@ -216,11 +216,11 @@
           "city": "string",
           "district": "string",
           "address": "string",
-          "postal_code": "number"
+          "postalCode": "number"
         },
         "address": {
-          "_id": "mongo_id",
-          "id": "mongo_id",
+          "_id": "mongoId",
+          "id": "mongoId",
           "user": "string",
           "phone": "string",
           "primary": "boolean",
@@ -232,7 +232,7 @@
             "city": "string",
             "district": "string",
             "address": "string",
-            "postal_code": "number"
+            "postalCode": "number"
           }
         }
       },
@@ -243,10 +243,10 @@
       },
       "items": [
         {
-          "_id": "mongo_id",
-          "_id": "mongo_id",
+          "_id": "mongoId",
+          "_id": "mongoId",
           "product": {
-            "_id": "mongo_id",
+            "_id": "mongoId",
             "id": "string",
             "name": "string",
             "price": "number",
@@ -254,8 +254,8 @@
           },
           "images": [
             {
-              "_id": "mongo_id",
-              "id": "mongo_id",
+              "_id": "mongoId",
+              "id": "mongoId",
               "type": "string",
               "filepath": "string",
               "filename": "string"
@@ -264,12 +264,12 @@
           "name": "string",
           "quantity": "number",
           "price": "number",
-          "total_price": "number"
+          "totalPrice": "number"
         }
       ],
-      "payment_type": "stripe",
-      "created_at": "date",
-      "updated_at": "date"
+      "paymentType": "stripe",
+      "createdAt": "date",
+      "updatedAt": "date"
     },
     "meta": {
       "status": 200
@@ -283,9 +283,9 @@
 
 - **Auth** `Yes`
 - **Method** `POST`
-- **URL** `/api/v1/order/cancel-order/:order_id`
+- **URL** `/api/v1/order/cancel-order/:orderId`
 - **Query Params** `None`
-- **Data Params** `None`
+- **Body Params** `None`
 - **Success Response**
   ```json
   {
@@ -293,20 +293,20 @@
       "_id": "string",
       "id": "string",
       "status": "string",
-      "buyer": "mongo_id",
+      "buyer": "mongoId",
       "items": [
         {
-          "_id": "mongo_id",
-          "product": "mongo_id",
-          "images": ["mongo_id"],
+          "_id": "mongoId",
+          "product": "mongoId",
+          "images": ["mongoId"],
           "name": "string",
           "quantity": "number",
           "price": "number",
-          "total_price": "number"
+          "totalPrice": "number"
         }
       ],
       "shipment": {
-        "address": "mongo_id",
+        "address": "mongoId",
         "consignee": {
           "name": "string",
           "phone": "string",
@@ -315,7 +315,7 @@
           "city": "string",
           "district": "string",
           "address": "string",
-          "postal_code": "number"
+          "postalCode": "number"
         }
       },
       "amount": {
@@ -323,9 +323,9 @@
         "items": "number",
         "shipping": "number"
       },
-      "payment_type": "string",
-      "created_at": "string",
-      "updated_at": "string"
+      "paymentType": "string",
+      "createdAt": "string",
+      "updatedAt": "string"
     },
     "meta": {
       "status": 200

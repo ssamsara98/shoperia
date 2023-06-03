@@ -16,10 +16,10 @@
 - **Method** `POST`
 - **URL** `/api/v1/cart/add-cart-item`
 - **Query Params** `None`
-- **Data Params**
+- **Body Params**
   ```json
   {
-    "product_id": "mongo_id",
+    "productId": "mongoId",
     "quantity": "number",
     "modified": "boolean?"
   }
@@ -28,13 +28,13 @@
   ```json
   {
     "data": {
-      "_id": "mongo_id",
-      "id": "mongo_id",
-      "user": "mongo_id",
-      "product": "mongo_id",
+      "_id": "mongoId",
+      "id": "mongoId",
+      "user": "mongoId",
+      "product": "mongoId",
       "quantity": "number",
-      "created_at": "date",
-      "updated_at": "date"
+      "createdAt": "date",
+      "updatedAt": "date"
     },
     "meta": {
       "status": "201 | 200 | 204"
@@ -50,10 +50,10 @@
 - **Method** `GET`
 - **URL** `/api/v1/cart/get-cart`
 - **Query Params** `None`
-- **Data Params**
+- **Body Params**
   ```json
   {
-    "product_id": "mongo_id"
+    "productId": "mongoId"
   }
   ```
 - **Success Response**
@@ -61,8 +61,8 @@
   {
     "data": [
       {
-        "_id": "mongo_id",
-        "id": "mongo_id",
+        "_id": "mongoId",
+        "id": "mongoId",
         "quantity": "number",
         "product": {
           "_id": "number",
@@ -72,16 +72,16 @@
           "stock": "number",
           "images": [
             {
-              "_id": "mongo_id",
-              "id": "mongo_id",
+              "_id": "mongoId",
+              "id": "mongoId",
               "type": "string",
               "filename": "string",
               "filepath": "string"
             }
           ]
         },
-        "created_at": "date",
-        "updated_at": "date"
+        "createdAt": "date",
+        "updatedAt": "date"
       }
     ],
     "meta": {
@@ -98,10 +98,10 @@
 - **Method** `DELETE`
 - **URL** `/api/v1/cart/delete-cart-item`
 - **Query Params** `None`
-- **Data Params**
+- **Body Params**
   ```json
   {
-    "product_id": "mongo_id"
+    "productId": "mongoId"
   }
   ```
 - **Success Response** `204 (No Content)`

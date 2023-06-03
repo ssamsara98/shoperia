@@ -15,7 +15,7 @@
 - **Method** `POST`
 - **URL** `/api/v1/auth/register`
 - **Query Params** `None`
-- **Data Params**
+- **Body Params**
   ```json
   {
     "name": "string",
@@ -30,18 +30,18 @@
     "data": {
       "token": "string",
       "user": {
-        "_id": "mongo_id",
-        "id": "mongo_id",
+        "_id": "mongoId",
+        "id": "mongoId",
         "name": "string",
         "email": "string",
         "username": "string",
         "admin": "boolean",
         "avatar": "string",
         "birthdate": "date",
-        "sex_type": "string",
+        "sexType": "string",
         "password": "string",
-        "created_at": "date",
-        "updated_at": "date",
+        "createdAt": "date",
+        "updatedAt": "date",
         "__v": 0
       }
     },
@@ -58,10 +58,10 @@
 - **Method** `POST`
 - **URL** `/api/v1/auth/login`
 - **Query Params** `None`
-- **Data Params**
+- **Body Params**
   ```json
   {
-    "user_session": "string",
+    "userSession": "string",
     "password": "string"
   }
   ```
@@ -71,17 +71,17 @@
     "data": {
       "token": "string",
       "user": {
-        "_id": "mongo_id",
-        "id": "mongo_id",
+        "_id": "mongoId",
+        "id": "mongoId",
         "name": "string",
         "email": "string",
         "username": "string",
         "birthdate": "date",
-        "sex_type": "string",
+        "sexType": "string",
         "avatar": "string",
         "password": "string",
-        "created_at": "date",
-        "updated_at": "date",
+        "createdAt": "date",
+        "updatedAt": "date",
         "__v": 0
       }
     },
@@ -98,5 +98,5 @@
 - **Method** `POST`
 - **URL** `/api/v1/auth/login`
 - **Query Params** `None`
-- **Data Params** `None`
+- **Body Params** `None`
 - **Success Response** `204 (No Content)`

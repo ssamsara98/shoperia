@@ -39,7 +39,7 @@ const Register = () => {
         }
         setIsLoginError(() => true);
       });
-    // authFetchLogin(data.user_session, data.password, data.remember_me)
+    // authFetchLogin(data.userSession, data.password, data.rememberMe)
     //   .then(() => {
     //     setIsLoginError(() => false);
     //   })
@@ -133,13 +133,13 @@ const Register = () => {
               />
             </div>
             <div>
-              <label htmlFor="sex_type" className="sr-only">
+              <label htmlFor="sexType" className="sr-only">
                 Sex Type
               </label>
               <select
-                {...register('sex_type')}
-                name="sex_type"
-                id="sex_type"
+                {...register('sexType')}
+                name="sexType"
+                id="sexType"
                 defaultValue="Other"
                 className={`appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-sky-600 focus:border-sky-600 focus:z-10 sm:text-sm`}
               >

@@ -4,12 +4,13 @@ const imgHelper = (
     filename: '',
     type: 'shoperia',
   },
-  size = '200-square',
+  size = '300-square',
 ) => {
   if (data.type === 'tokopedia') {
     return `https://images.tokopedia.net/img/cache/${size}/${data.filepath}/${data.filename}`;
   }
-  return `https://detteksie-mybucket.s3.amazonaws.com/timg/${size}/${data.filepath}/${data.filename}.webp`;
+  const result = `https://${process.env.REACT_APP_AWS_BUCKET}.s3.amazonaws.com/timg/${size}/${data.filepath}/${data.filename}.webp`;
+  return result;
 };
 
 export default imgHelper;

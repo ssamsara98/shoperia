@@ -14,22 +14,22 @@
 - **Method** `GET`
 - **URL** `/api/v1/user/me`
 - **Query Params** `None`
-- **Data Params** `None`
+- **Body Params** `None`
 - **Success Response**
   ```json
   {
     "data": {
-      "_id": "mongo_id",
-      "id": "mongo_id",
+      "_id": "mongoId",
+      "id": "mongoId",
       "name": "string",
       "email": "string",
       "username": "string",
       "admin": "boolean",
       "avatar": "string",
       "birthdate": "date",
-      "sex_type": "date",
-      "created_at": "string",
-      "updated_at": "string"
+      "sexType": "date",
+      "createdAt": "string",
+      "updatedAt": "string"
     },
     "meta": {
       "status": 200

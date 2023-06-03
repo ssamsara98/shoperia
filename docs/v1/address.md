@@ -19,18 +19,18 @@
 - **Method** `POST`
 - **URL** `/api/v1/address/create-address`
 - **Query Params** `None`
-- **Data Params** `None`
+- **Body Params** `None`
   ```json
   {
     "title": "string",
     "name": "string",
-    "phone": "string mobilephone id-ID",
+    "telephone": "string mobilephone id-ID",
     "detail": {
       "province": "string",
       "city": "string",
       "district": "string",
       "address": "string",
-      "postal_code": "number"
+      "postalCode": "number"
     }
   }
   ```
@@ -41,7 +41,7 @@
       "id": "string",
       "title": "string",
       "name": "string",
-      "phone": "string mobilephone id-ID",
+      "telephone": "string mobilephone id-ID",
       "primary": "boolean",
       "detail": {
         "country": "string",
@@ -49,7 +49,7 @@
         "city": "string",
         "district": "string",
         "address": "string",
-        "postal_code": "number"
+        "postalCode": "number"
       }
     },
     "meta": {
@@ -66,7 +66,7 @@
 - **Method** `GET`
 - **URL** `/api/v1/address/get-address-list`
 - **Query Params** `None`
-- **Data Params** `None`
+- **Body Params** `None`
 - **Success Response**
   ```json
   {
@@ -75,7 +75,7 @@
         "id": "string",
         "title": "string",
         "name": "string",
-        "phone": "string mobilephone id-ID",
+        "telephone": "string mobilephone id-ID",
         "primary": "boolean",
         "detail": {
           "country": "string",
@@ -83,7 +83,7 @@
           "city": "string",
           "district": "string",
           "address": "string",
-          "postal_code": "number"
+          "postalCode": "number"
         }
       }
     ],
@@ -99,9 +99,9 @@
 
 - **Auth** `Yes`
 - **Method** `GET`
-- **URL** `/api/v1/address/get-address/:address_id`
+- **URL** `/api/v1/address/get-address/:addressId`
 - **Query Params** `None`
-- **Data Params** `None`
+- **Body Params** `None`
 - **Success Response**
   ```json
   {
@@ -109,7 +109,7 @@
       "id": "string",
       "title": "string",
       "name": "string",
-      "phone": "string mobilephone id-ID",
+      "telephone": "string mobilephone id-ID",
       "primary": "boolean",
       "detail": {
         "country": "string",
@@ -117,7 +117,7 @@
         "city": "string",
         "district": "string",
         "address": "string",
-        "postal_code": "number"
+        "postalCode": "number"
       }
     },
     "meta": {
@@ -132,20 +132,20 @@
 
 - **Auth** `Yes`
 - **Method** `PATCH`
-- **URL** `/api/v1/address/update-address/:address_id`
+- **URL** `/api/v1/address/update-address/:addressId`
 - **Query Params** `None`
-- **Data Params** `None`
+- **Body Params** `None`
   ```json
   {
     "title": "string",
     "name": "string",
-    "phone": "string mobilephone id-ID",
+    "telephone": "string mobilephone id-ID",
     "detail": {
       "province": "string",
       "city": "string",
       "district": "string",
       "address": "string",
-      "postal_code": "number"
+      "postalCode": "number"
     }
   }
   ```
@@ -156,7 +156,7 @@
       "id": "string",
       "title": "string",
       "name": "string",
-      "phone": "string mobilephone id-ID",
+      "telephone": "string mobilephone id-ID",
       "primary": "boolean",
       "detail": {
         "country": "string",
@@ -164,7 +164,7 @@
         "city": "string",
         "district": "string",
         "address": "string",
-        "postal_code": "number"
+        "postalCode": "number"
       }
     },
     "meta": {
@@ -179,9 +179,9 @@
 
 - **Auth** `Yes`
 - **Method** `PATCH`
-- **URL** `/api/v1/address/update-address/:address_id/primary`
+- **URL** `/api/v1/address/update-address/:addressId/primary`
 - **Query Params** `None`
-- **Data Params** `None`
+- **Body Params** `None`
 - **Success Response**
   ```json
   {
@@ -189,7 +189,7 @@
       "id": "string",
       "title": "string",
       "name": "string",
-      "phone": "string mobilephone id-ID",
+      "telephone": "string mobilephone id-ID",
       "primary": "boolean",
       "detail": {
         "country": "string",
@@ -197,7 +197,7 @@
         "city": "string",
         "district": "string",
         "address": "string",
-        "postal_code": "number"
+        "postalCode": "number"
       }
     },
     "meta": {
@@ -212,9 +212,9 @@
 
 - **Auth** `Yes`
 - **Method** `DELETE`
-- **URL** `/api/v1/address/delete-address/:address_id`
+- **URL** `/api/v1/address/delete-address/:addressId`
 - **Query Params** `None`
-- **Data Params** `None`
+- **Body Params** `None`
 - **Success Response** `204 (No Content)`
 
 ---

@@ -8,17 +8,17 @@
 <!-- - `/admin` # all admin functionality here
   - `/products`
     - `add`
-    - `/:product_id` -> # mongo_id
+    - `/:productId` -> # mongoId
       - `/edit`
   - `/users`
-    - `/:user_id` -> # mongo_id
+    - `/:userId` -> # mongoId
   - `/banners`
   - `/orders`
-    - `/order_id` -> # mongo_id -->
+    - `/orderId` -> # mongoId -->
 - `/account` -> `/profile`
   - `/profile`
   - `/address`
 - `/users/:username`
 - `/products`
-  - `/<product_name>-i<product_id>`
+  - `/<productName>-i<productId>`
 - `/cart`

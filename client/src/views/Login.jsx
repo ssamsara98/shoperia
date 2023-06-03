@@ -15,8 +15,9 @@ const Login = (props) => {
   const [isLoginError, setIsLoginError] = useState(false);
 
   const loginHandler = (data) => {
-    authFetchLogin(data.user_session, data.password, data.remember_me)
+    authFetchLogin(data.userSession, data.password, data.rememberMe)
       .then(() => {
+        console.log('logedin');
         setIsLoginError(() => false);
       })
       .catch(() => {
@@ -55,18 +56,18 @@ const Login = (props) => {
           <input type="hidden" name="remember" defaultValue="true" />
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
-              <label htmlFor="user_session" className="sr-only">
+              <label htmlFor="userSession" className="sr-only">
                 Email/Username
               </label>
               <input
-                {...register('user_session')}
-                id="user_session"
-                name="user_session"
+                {...register('userSession')}
+                id="userSession"
+                name="userSession"
                 type="username"
                 autoComplete="email-username"
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-sky-600 focus:border-sky-600 focus:z-10 sm:text-sm"
-                placeholder="Email/Username: samara98@mailsac.com/samara98"
+                placeholder="Email/Username: ssamsara98@mailsac.com/ssamsara98"
               />
             </div>
             <div>
@@ -89,12 +90,12 @@ const Login = (props) => {
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               {/* <input
-                id="remember_me"
-                name="remember_me"
+                id="rememberMe"
+                name="rememberMe"
                 type="checkbox"
                 className="h-4 w-4 text-indigo-500 focus:ring-sky-600 border-gray-300 rounded"
               />
-              <label htmlFor="remember_me" className="ml-2 block text-sm text-gray-900">
+              <label htmlFor="rememberMe" className="ml-2 block text-sm text-gray-900">
                 Remember me
               </label> */}
             </div>

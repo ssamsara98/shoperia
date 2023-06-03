@@ -28,8 +28,8 @@ import priceHelper from '~/utils/price-helper';
 //   stock: 50,
 //   condition: 'New',
 //   description: 'Garansi Resmi Apple Indonesia 1 Tahun',
-//   created_at: '2021-06-20T09:09:50.027Z',
-//   updated_at: '2021-06-20T09:09:50.027Z',
+//   createdAt: '2021-06-20T09:09:50.027Z',
+//   updatedAt: '2021-06-20T09:09:50.027Z',
 // };
 
 const ProductDetail = (props) => {
@@ -145,7 +145,7 @@ const ProductDetail = (props) => {
     if (!rsAuth.isLoggedIn) return props.history.push('/login', props.location);
     try {
       await serverApi.post('/api/v1/cart/add-cart-item', {
-        product_id: product.id,
+        productId: product.id,
         quantity,
       });
       toast.dark('Product added', { autoClose: 2000 });

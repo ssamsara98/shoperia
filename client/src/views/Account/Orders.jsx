@@ -18,7 +18,7 @@ const Orders = (props) => {
     (async () => {
       if (JSON.parse(query.get('success'))) {
         try {
-          await serverApi.patch(`/api/v1/order/pay-order/${query.get('order_id')}`);
+          await serverApi.patch(`/api/v1/order/pay-order/${query.get('orderId')}`);
         } catch (err) {
           console.error(err);
         } finally {
@@ -31,14 +31,14 @@ const Orders = (props) => {
     return () => {};
   }, []);
 
-  const handlePayment = async (order_id) => {
+  const handlePayment = async (orderId) => {
     setPayLoading(true);
     try {
       console.log(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
       const stripe = await loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
       const {
         data: { data: session },
-      } = await serverApi.post(`/api/v1/order/create-stripe-checkout-session/${order_id}`);
+      } = await serverApi.post(`/api/v1/order/create-stripe-checkout-session/${orderId}`);
       console.log(session);
       stripe.redirectToCheckout({ sessionId: session.id });
     } catch (err) {
@@ -57,7 +57,7 @@ const Orders = (props) => {
       <div className="flex flex-col pt-8">
         {/* boxes */}
         {order.list.map((orderUnit) => (
-          <div className="flex flex-col my-3 px-5 pb-3 shadow" key={orderUnit._id}>
+          <div className="flex flex-col my-3 px-5 pb-3 shadow" key={orderUnit.id}>
             {/* status */}
             <div className="flex items-center py-4 justify-between border-b-2">
               <p className="text-lg text-sky-600 uppercase">{orderUnit.status}</p>
@@ -68,7 +68,7 @@ const Orders = (props) => {
             {/* items */}
             <div className="mt-5 border-b-2">
               {orderUnit.items.map((item) => (
-                <div className="flex mb-2" key={item._id}>
+                <div className="flex mb-2" key={item.id}>
                   <div className="flex flex-1 space-x-5">
                     {/* image */}
                     <div className="w-1/6">
@@ -94,7 +94,7 @@ const Orders = (props) => {
                   </div>
                   {/* total item price */}
                   <div className="flex items-center justify-center">
-                    <p>Rp{priceHelper(item.total_price)}</p>
+                    <p>Rp{priceHelper(item.totalPrice)}</p>
                   </div>
                 </div>
               ))}
@@ -113,7 +113,7 @@ const Orders = (props) => {
                 {orderUnit.status === 'pending' && (
                   <button
                     className="w-1/3 px-3 py-2 bg-sky-600 hover:bg-sky-700 active:bg-sky-800 disabled:bg-cool-gray-500 disabled:opacity-75 text-white rounded"
-                    onClick={() => handlePayment(orderUnit._id)}
+                    onClick={() => handlePayment(orderUnit.id)}
                     disabled={payLoading}
                   >
                     Pay Now
