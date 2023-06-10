@@ -15,7 +15,7 @@
     "prodemon": "yarn --cwd ./server prodemon",
     "seed": "yarn --cwd ./server seed",
     "install": "yarn --cwd ./server install",
-    "build": "yarn --cwd ./client build",
+    "build": "yarn --cwd ./server build && yarn --cwd ./client build",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false yarn --cwd ./client install && yarn build",
     "prettify:server": "prettier -w \"server/{public,src}/**/*.{md,html,css,scss,json,js,jsx,ts,tsx,vue}\"",
     "prettify:client": "prettier -w \"client/{public,src}/**/*.{md,html,css,scss,json,js,jsx,ts,tsx,vue}\"",
